@@ -6,14 +6,8 @@
   "config_munge": {
     "files": {}
   },
-  "installed_plugins": {
-    "cordova-plugin-crosswalk-webview": {
-      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
-    }
-  },
+  "installed_plugins": {},
   "dependent_plugins": {},
   "modules": [],
-  "plugin_metadata": {
-    "cordova-plugin-crosswalk-webview": "2.4.0"
-  }
+  "plugin_metadata": {}
 }
