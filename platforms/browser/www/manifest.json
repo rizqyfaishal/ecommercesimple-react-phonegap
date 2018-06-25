@@ -1,0 +1,12 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "ecommercesimple",
+  "short_name": "ecommercesimple",
+  "version": "com.phonegap.ecommercesimple",
+  "description": "Ecommercesimple sample application using React, Webpack and Hot Reloading.",
+  "author": "Jed Watson and the PhoneGap Team",
+  "icons": [],
+  "orientation": "any",
+  "start_url": "index.html"
+}
