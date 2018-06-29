@@ -26,6 +26,10 @@ const GradientButton = styled.button`
   	background-position: right center;
   }
 
+  &:focus {
+  	outline: none;
+  }
+
   border: none;
 `;
 

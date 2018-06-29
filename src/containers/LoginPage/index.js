@@ -11,55 +11,45 @@ import CustomInputText from '../../components/CustomInputText';
 import CustomLabel from '../../components/CustomLabel';
 import CustomNumberInput from '../../components/CustomNumberInput';
 
-
+import {
+	onLoginTap
+} from './actions';
 
 const LoginPageContainer = styled.div`
-	display: grid;
-	grid-template-rows: 60px 1fr;
-	grid-template-columns: 1fr;
-	grid-template-areas: "navigator-bar"
-		"login-form";
-
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
 	& > div:nth-child(1) {
-		grid-area: navigator-bar;
-
+		height: 50px;
 	}
 
-
 	& > div.login-form {
-		justify-items: center;
-		align-items: center;
-		grid-area: login-form;
-		display: grid;
-		grid-template-areas: "username-field"
-			"password-field"
-			"login-button"
-			"additional";
-		grid-template-columns: 1fr;
-		grid-template-rows: 2fr 2fr 2fr 1fr;
-		padding: 1rem;
-		
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: stretch;
+
+		& > div {
+			margin: 0.5rem 0;
+		}
+
 		& > div:nth-child(3) {
-			justify-self: stretch;
-			display: grid;
-			justify-items: stretch;
-			& > span {
+			& > button {
+				width: 100%;
 				display: block;
+				margin: 0;
 			}
 		}
 
 		& > div:nth-child(4) {
-			display: grid;
-			grid-area: additional;
-			grid-template-columns: 1fr 1fr;
-			grid-template-rows: 1fr;
-			justify-items: stretch;
+			display: flex;
+			flex-direction: row;
+			justify-content: stretch;
+			align-items: center;
 			width: 100%;
 
 			& > div:nth-child(1) {
-				justify-self: start;
-				display: grid;
-				justify-items: start;
+				width: 50%;
 				& > span {
 					display: block;
 					color: #8fd3f4;
@@ -67,33 +57,24 @@ const LoginPageContainer = styled.div`
 			}
 
 			& > div:nth-child(2) {
+				width: 50%;
 				justify-self: end;
-				display: grid;
-				justify-items: end;
 				& > span {
+					text-align: right;	
 					display: block;
 					color: red;
 				}
 			}
 
 		}
+
 		& > div.username-field, & > div.password-field {
+			display: flex;
+			flex-direction: column;
 			width: 100%;
-			padding: 0 1rem;
-			justify-items: start;
-			align-items: center;
-			display: grid;
-			grid-template-rows: 1fr 3fr;
-			grid-template-areas: "label" "input";
-
-			& > label {
-				grid-area: label;
-			}
-
-			& > input {
-				grid-area: input;
-				justify-self: stretch;
-			}
+			justify-items: center;
+			align-items: stretch;
+		
 		}
 
 	}
@@ -106,6 +87,15 @@ class LoginPage extends Component {
 		this.onBackTapped = this.onBackTapped.bind(this);
 		this.onRegisterHereTapped = this.onRegisterHereTapped.bind(this);
 		this.onForgotPasswordTapped = this.onForgotPasswordTapped.bind(this);
+		this.onLoginTapped = this.onLoginTapped.bind(this);
+	}
+
+	onLoginTapped() {
+		const { dispatch } = this.props;
+		const username = this.usernameField.value;
+		const password = this.passwordField.value;
+
+		dispatch(onLoginTap(username, password));
 	}
 
 	onBackTapped(event) {
@@ -135,14 +125,16 @@ class LoginPage extends Component {
 					<div className="login-form">
 						<div className="username-field">
 							<CustomLabel>Username or email</CustomLabel>
-							<CustomInputText placeholder="Username"/>
+							<CustomInputText placeholder="Username" 
+								innerRef={username => { this.usernameField = username; }}/>
 						</div>
 						<div className="password-field">
 							<CustomLabel>Password</CustomLabel>
-							<CustomInputText placeholder="Password" type="password"/>
+							<CustomInputText placeholder="Password" type="password" 
+								innerRef={password => { this.passwordField = password; }}/>
 						</div>
 						<div>
-							<GradientButton color1="#84fab0" color2="#8fd3f4">
+							<GradientButton color1="#84fab0" color2="#8fd3f4" onClick={this.onLoginTapped}>
 								Login
 							</GradientButton>
 						</div>

@@ -10,10 +10,12 @@ import App from './containers/App';
 
 import './global-styles';
 
+
 const initialState = {};
 const history = createHistory();
 const store = configureStore(initialState, history);
 
+console.log(ConnectedRouter)
 ReactDOM.render((<Provider store={store}>
       <ConnectedRouter history={history}>
           <App />

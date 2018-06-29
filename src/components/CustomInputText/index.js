@@ -7,6 +7,10 @@ const CustomInputText = styled.input`
 	padding: 0.7rem;
 	color: #3b3d42;
 	background-color: #fff;
+	&:focus {
+		outline: none;
+		border-color: #8fd3f4;
+	}
 `;
 
 export default CustomInputText;

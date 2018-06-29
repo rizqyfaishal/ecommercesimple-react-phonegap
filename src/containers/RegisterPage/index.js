@@ -11,48 +11,39 @@ import CustomLabel from '../../components/CustomLabel';
 
 
 const RegisterPageContainer = styled.div`
-	display: grid;
-	grid-template-rows: 70px 1fr 60px;
-	grid-template-columns: 1fr;
-	grid-template-areas: "navigator-bar"
-		"register-form"
-		"additional";
-
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 0 1rem;
 	& > div:nth-child(1) {
-		grid-area: navigator-bar;
+		height: 60px;
 	}
 
 	& > div:nth-child(3) {
-		align-items: start;
-		justify-self: center;
+		display: flex;
+		width: 100%;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 		& > span {
 			width: 100%;
 			display: block;
 			color: #8fd3f4;
+			text-align: center;
 		}
 	}
 	& > div:nth-child(2) {
-		grid-area: register-form;
-		padding: 0 1rem;
-		display: grid;
-		grid-template-rows: repeat(6, 1fr) 0.5fr;
-		grid-template-columns: 1fr;
-		grid-template-areas: 
-			"username-field"
-			"email-field"
-			"firstname-field"
-			"lastname-field"
-			"password-field"
-			"password-confirm-field"
-			"button-field";
-
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: stretch;
+		width: 100%;
 		& > div:not(:nth-child(7)) {
+			margin: 0.5rem 0;
+			display: flex;
+			flex-direction: column;
 			width: 100%;
-			justify-items: start;
-			align-items: center;
-			display: grid;
-			grid-template-rows: 1fr 3fr;
-			grid-template-areas: "label" "input";
 
 			& > label {
 				grid-area: label;
@@ -64,37 +55,13 @@ const RegisterPageContainer = styled.div`
 			}
 		}
 
-		& > div:nth-child(1) {
-			grid-area: username-field;
-		}
-
-		& > div:nth-child(2) {
-			grid-area: email-field;
-		}
-
-		& > div:nth-child(3) {
-			grid-area: firstname-field;
-		}
-
-		& > div:nth-child(4) {
-			grid-area: lastname-field;
-		}
-
-		& > div:nth-child(5) {
-			grid-area: password-field;
-		}
-
-		& > div:nth-child(6) {
-			grid-area: password-confirm-field;
-		}
 
 		& > div:nth-child(7) {
-			grid-area: button-field;
 			justify-self: stretch;
-			display: grid;
-			justify-items: stretch;
 			& > button {
+				width: 100%;
 				display: block;
+				margin: 1rem 0;
 			}
 		}
 

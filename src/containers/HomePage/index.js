@@ -10,23 +10,17 @@ import GradientButton from '../../components/GradientButton';
 
 
 const HomePageContainer = styled.div`
-	display: grid;
-	grid-template-rows: 5fr 1.5fr 1.5fr;
-	grid-template-columns: 1fr;
+	display: flex;
+	flex-direction: column;
 	justify-items: center;
 	align-items: center;
-	grid-template-areas: "title"
-		"start-button"
-		"to-login";
 	& > div:nth-child(1) {
-		height: 62.5vh;
-		grid-area: title;
-		justify-self: start;
+		height: calc(100vh - 220px);
 		position: relative;
 		& > div.circle1 {
 			position: absolute;
 			top: -70vw;
-			left: -5vw;
+			left: -55vw;
 			z-index: 1;
 			width: 120vw;
 			height: 120vw;
@@ -42,7 +36,7 @@ const HomePageContainer = styled.div`
 			z-index: 2;
 			position: absolute;
 			top: -4vw;
-			left: -30vw;
+			left: -85vw;
 			width: 90vw;
 			height: 90vw;
 			border-radius: 50%;
@@ -56,7 +50,7 @@ const HomePageContainer = styled.div`
 			z-index: 3;
 			position: absolute;
 			top: -70vw;
-			left: -5vw;
+			left: -52vw;
 			z-index: 1;
 			width: 110vw;
 			height: 110vw;
@@ -72,7 +66,7 @@ const HomePageContainer = styled.div`
 			z-index: 4;
 			position: absolute;
 			top: -4vw;
-			left: 30vw;
+			left: -14vw;
 			width: 90vw;
 			height: 90vw;
 			border-radius: 50%;
@@ -87,7 +81,7 @@ const HomePageContainer = styled.div`
 			z-index: 5;
 			position: absolute;
 			top: 30vw;
-			left: 10vw;
+			left: calc((100% - 288px) / 2);
 			width: 80vw;
 			height: 80vw;
 			max-width: 700
@@ -130,6 +124,9 @@ const HomePageContainer = styled.div`
 
 	& > div:nth-child(3) {
 		z-index: 100;
+		& > p {
+			margin: 0;
+		}
 		& > span {
 			display: block;
 			text-decoration: underline;
@@ -140,6 +137,7 @@ const HomePageContainer = styled.div`
 	}
 
 	& > div:nth-child(2) {
+		padding: 4rem 0;
 		z-index: 100;
 	}
 `

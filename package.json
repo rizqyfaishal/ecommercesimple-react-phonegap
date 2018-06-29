@@ -9,22 +9,26 @@
         "babel-preset-react": "^6.3.13",
         "classnames": "^2.2.3",
         "cordova-android": "^7.0.0",
+        "cordova-plugin-crosswalk-webview": "^2.4.0",
+        "create-react-class": "^15.6.3",
         "history": "^4.7.2",
         "immutable": "^3.8.2",
-        "react": "^15.3.0",
+        "prop-types": "^15.6.2",
+        "react": "^16.4.1",
         "react-addons-css-transition-group": "^15.3.0",
-        "react-dom": "^15.3.0",
+        "react-dom": "^16.4.1",
         "react-image-magnify": "^2.7.0",
         "react-images-upload": "^1.1.99",
         "react-redux": "^5.0.7",
         "react-router": "^4.3.1",
         "react-router-dom": "^4.3.1",
-        "react-router-redux": "^5.0.0-alpha.9",
+        "react-router-redux": "^4.0.8",
         "react-select": "^1.2.1",
-        "react-tappable": "^0.8.3",
+        "react-tappable": "^1.0.4",
         "redux": "^4.0.0",
         "redux-immutable": "^4.0.0",
         "redux-thunk": "^2.3.0",
+        "request": "^2.87.0",
         "styled-components": "^3.3.2",
         "sweetalert": "^2.1.0",
         "sweetalert-react": "^0.4.11",
@@ -59,6 +63,14 @@
         "platforms": [
             "android"
         ],
-        "plugins": {}
+        "plugins": {
+            "cordova-plugin-crosswalk-webview": {
+                "XWALK_VERSION": "23+",
+                "XWALK_LITEVERSION": "xwalk_core_library_canary:17+",
+                "XWALK_COMMANDLINE": "--disable-pull-to-refresh-effect",
+                "XWALK_MODE": "embedded",
+                "XWALK_MULTIPLEAPK": "true"
+            }
+        }
     }
 }

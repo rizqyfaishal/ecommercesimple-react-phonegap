@@ -11,13 +11,13 @@ const NavigatorBarWrapper = styled.div`
 	left: 0;
 	background-color: white;
 	padding: 0 1rem;
-	display: grid;
-	grid-template-rows: 60px;
-	grid-template-columns: 1fr 8fr;
-	grid-template-areas: "left-icon title-bar";
-	justify-items: left;
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
 	align-items: center;
-
+	border-bottom: 1px solid #ddd;
+	height: 50px;
+	z-index: 100;
 	& > div.left-icon {
 		grid-area: left-icon;
 		align-self: center;
