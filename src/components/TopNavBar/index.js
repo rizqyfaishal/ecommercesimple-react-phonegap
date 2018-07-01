@@ -8,14 +8,10 @@ const TopNavBarWrapper = styled.div`
 	top: 0;
 	left: 0;
 	width: 100%;
-	display: grid;
-	grid-template-rows: 1fr 3fr;
-	grid-template-columns: 3fr 4fr 3fr;
-	justify-items: center;
+	display: flex;
+	justify-content: center;
 	align-items: center;
-	grid-template-areas:
-		"profile-nav logo-screen switch-offer"
-		"profile-nav toggle-screen switch-offer";
+	
 
 	& > div:nth-child(1) {
 		grid-area: logo-screen;

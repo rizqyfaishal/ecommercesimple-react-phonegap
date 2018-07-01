@@ -9,6 +9,7 @@ const CustomTextArea = styled.textarea`
 	background-color: #fff;
 	display: block;
 	min-height: 6rem;
+	font: 400 13.3333px Arial;
 `;
 
 export default CustomTextArea;

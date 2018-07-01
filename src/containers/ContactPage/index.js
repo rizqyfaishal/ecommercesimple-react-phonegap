@@ -23,47 +23,50 @@ const usernames = [
 		]
 
 const ContactPageWrapper = styled.div`
-	display: grid;
-	grid-auto-flow: row;
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: 52px 1fr;
-	grid-template-areas: "title-bar" "contact-content";
+	display: flex;
+	flex-direction: column;
 
 	& > div:first-child {
-		grid-area: title-bar;
+		height: 50px;
 	}
 
 	& > div:last-child {
-		grid-area: contact-content;
 		padding: 1rem;
-		display: grid;
-		grid-auto-flow: row;
-		justify-items: strecth;
+		display: flex;
+		flex-direction: column;
+		justify-content: strecth;
 		align-items: center;
 
 		& > div:nth-child(1) {
+			width: 100%;
 			position: relative;
-			display: grid;
-			justify-items: strecth;
+			display: flex;
+			justify-content: stretch;
 			align-items: center;
+
 			& > input {
+				width: 100%;
 				padding-left: 2rem;
 			}
 			& > img {
 				position: absolute;
 				left: 10px;
+				top: 10px;
 			}
 		}
 
 		& > div:nth-child(2) {
+			width: 100%;
 			margin-top: 1rem;
 		}
 		& > div:last-child {
+			width: 100%;
 			margin-top: 1.5rem;
-			display: grid;
-			justify-items: center;
-			align-items: center;
+			display: flex;
+			justify-content: center;
+			& > button {
+				margin: 0 auto;
+			}
 		}
 	}
 `;
@@ -112,7 +115,9 @@ class ContactPage extends Component {
 	render() {
 		const { value } = this.state;
 		return <ContactPageWrapper>
-			<TitleBar title="Contacts" />
+			<div>
+				<TitleBar title="Contacts" />
+			</div>
 			<div>
 				<div>
 					<CustomInputText placeholder="Search contact" />

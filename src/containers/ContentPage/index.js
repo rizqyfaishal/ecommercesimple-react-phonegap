@@ -5,9 +5,7 @@ import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import { fromObject } from 'immutable';
 
-
 import BottomNavBar from '../../components/BottomNavBar';
-
 
 import DealPage from '../DealPage';
 import AccountPage from '../AccountPage';
@@ -45,19 +43,14 @@ const changePage = (urlPage, type) =>
 	}
 
 const ContentPageWrapper = styled.div`
-	display: grid;
-	justify-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	align-items: center;
-	grid-template-rows: 1fr 60px;
-	grid-template-columns: 1fr;
 	width: 100%;
-	grid-template-areas:
-		"content"
-		"bottom-nav-bar";
 
 	& > div:nth-child(1) {
-		grid-area: content;
-		justify-items: stretch;
+		justify-self: stretch;
 		width: 100%;		
 	}
 
@@ -66,7 +59,6 @@ const ContentPageWrapper = styled.div`
 		z-index: 20;
 		bottom: 0;
 		width: 100%;
-		grid-area: bottom-nav-bar;
 		justify-self: stretch;
 	}
 `;

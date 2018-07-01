@@ -6,41 +6,44 @@ import TitleBar from '../../components/TitleBar';
 import GradientButton from '../../components/GradientButton';
 
 const AccountPageWrapper = styled.div`
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: 52px 1fr;
-	grid-template-areas: "title-bar" "account-content";
+	display: flex;
+	flex-direction: column;
 
 	& > div:nth-child(1) {
-		grid-area: title-bar;
+		height: 50px;
 	}
 
 	& > div:nth-child(2) {
-		grid-area: account-content;
-		display: grid;
+		display: flex;
+		flex-direction: column;
 		padding: 0 1rem;
-
-		grid-template-columns: 1fr;
-		grid-auto-flow: row;
-		justify-items: stretch;
+		justify-content: stretch;
 
 		& > div:not(:last-child) {
 			padding: 0.5rem 0;
-			display: grid;
-			align-items: center;
-
-			grid-template-columns: 3fr 1fr;
-			grid-template-rows: 60px 1fr;
-			grid-template-areas: "subtitle subtitle" "info button";
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			justify-content: stretch;
 
 			& > div:nth-child(1) {
-				grid-area: subtitle;
+				height: 50px;
 			}
 
-			& > div:last-child {
-				justify-self: end;
+			& > div:not(:first-child) {
+				display: flex;
+				flex-direction: row;
+				justify-content: start;
+				align-items: center;
+
+				& > div:first-child {
+					width: 70%;
+				}
+				& > div:last-child {
+					width: 30%;
+				}
 			}
-			grid-auto-flow: row;
+
 
 			& h5, & h4 {
 				margin: 0.2rem 0;
@@ -48,6 +51,8 @@ const AccountPageWrapper = styled.div`
 
 			& a {
 				text-decoration: none;
+				display: block;
+				text-align: right;
 			}
 
 			border-bottom: 1px solid #ccc;
@@ -57,15 +62,15 @@ const AccountPageWrapper = styled.div`
 
 		& > div:last-child {
 			margin-top: 2rem;
-			justify-self: stretch;
-			align-self: center;
-			display: grid;
-			justify-items: stretch;
+			display: flex;
+			justify-content: stretch;
 			align-items: center;
 			& > button {
+				width: 100%;
 				margin: 0;
 				display: block;
 			}
+
 		}
 	}
 `;
@@ -88,19 +93,23 @@ class AccountPage extends Component {
 		}
 		return (
 				<AccountPageWrapper>
-					<TitleBar title="Profile" />
+					<div>
+						<TitleBar title="Profile" />
+					</div>
 					<div>
 						<div>
 							<div>
 								<h3>ACCOUNT INFO</h3>
 							</div>
 							<div>
-								<h4>{account.firstName} {account.lastName}</h4>
-								<h5>username: {account.username}</h5>
-								<h5>email : {account.email}</h5>
-							</div>
-							<div>
-								<a href="#">EDIT</a>
+								<div>
+									<h4>{account.firstName} {account.lastName}</h4>
+									<h5>username: {account.username}</h5>
+									<h5>email : {account.email}</h5>
+								</div>
+								<div>
+									<a href="#">EDIT</a>
+								</div>
 							</div>
 						</div>
 						<div>
@@ -108,10 +117,12 @@ class AccountPage extends Component {
 								<h3>ADDRESS</h3>
 							</div>
 							<div>
-								<h5>{account.address}</h5>
-							</div>
-							<div>
-								<a href="#">EDIT</a>
+								<div>
+									<h5>{account.address}</h5>
+								</div>
+								<div>
+									<a href="#">EDIT</a>
+								</div>
 							</div>
 						</div>
 						<div>
@@ -119,10 +130,12 @@ class AccountPage extends Component {
 								<h3>PAYMENT METHOD</h3>
 							</div>
 							<div>
-								<h5>{account.paymentMethod}</h5>
-							</div>
-							<div>
-								<a href="#">EDIT</a>
+								<div>
+									<h5>{account.paymentMethod}</h5>
+								</div>
+								<div>
+									<a href="#">EDIT</a>
+								</div>
 							</div>
 						</div>
 						<div>

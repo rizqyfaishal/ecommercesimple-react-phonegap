@@ -2,12 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 const TitleBarWrapper = styled.div`
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: 50px;
+	display: flex;
+	height: 50px;
 	border-bottom: 1px solid #ccc;
 	color: #000;
-	justify-items: center;
+	justify-content: center;
 	align-items: center;
 	text-transform: uppercase;
 	position: fixed;

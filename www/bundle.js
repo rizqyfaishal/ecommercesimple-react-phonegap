@@ -45822,7 +45822,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _templateObject = _taggedTemplateLiteral(['\n\tdisplay: grid;\n\tgrid-template-rows: 60px 1fr;\n\tgrid-template-columns: 1fr;\n\tgrid-template-areas: "navigator-bar"\n\t\t"additional-form";\n\n\t& > div:nth-child(1) {\n\t\tgrid-area: navigator-bar;\n\n\t}\n\n\t& > div.additional-form {\n\t\tjustify-items: center;\n\t\talign-items: center;\n\t\tgrid-area: additional-form;\n\t\tdisplay: grid;\n\t\tgrid-template-areas: \n\t\t\t"address-field"\n\t\t\t"payment-method-field"\n\t\t\t"save-button";\n\t\tgrid-template-columns: 1fr;\n\t\tgrid-template-rows: 1fr 1fr 0.5fr;\n\t\tpadding: 0 1rem;\n\t\t\n\t\t& > div:nth-child(3) {\n\t\t\tjustify-self: stretch;\n\t\t\tdisplay: grid;\n\t\t\tjustify-items: stretch;\n\t\t\t& > span {\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t}\n\n\t\t& > div.address-field, & > div.payment-method-field {\n\t\t\twidth: 100%;\n\t\t\tpadding: 0 1rem;\n\t\t\tjustify-items: start;\n\t\t\talign-items: center;\n\t\t\tdisplay: grid;\n\t\t\tgrid-template-rows: 1fr 3fr;\n\t\t\tgrid-template-areas: "label" "input";\n\n\t\t\t& > label {\n\t\t\t\tgrid-area: label;\n\t\t\t}\n\n\t\t\t& > textarea {\n\t\t\t\tgrid-area: input;\n\t\t\t\tjustify-self: stretch;\n\t\t\t}\n\t\t}\n\n\t}\n'], ['\n\tdisplay: grid;\n\tgrid-template-rows: 60px 1fr;\n\tgrid-template-columns: 1fr;\n\tgrid-template-areas: "navigator-bar"\n\t\t"additional-form";\n\n\t& > div:nth-child(1) {\n\t\tgrid-area: navigator-bar;\n\n\t}\n\n\t& > div.additional-form {\n\t\tjustify-items: center;\n\t\talign-items: center;\n\t\tgrid-area: additional-form;\n\t\tdisplay: grid;\n\t\tgrid-template-areas: \n\t\t\t"address-field"\n\t\t\t"payment-method-field"\n\t\t\t"save-button";\n\t\tgrid-template-columns: 1fr;\n\t\tgrid-template-rows: 1fr 1fr 0.5fr;\n\t\tpadding: 0 1rem;\n\t\t\n\t\t& > div:nth-child(3) {\n\t\t\tjustify-self: stretch;\n\t\t\tdisplay: grid;\n\t\t\tjustify-items: stretch;\n\t\t\t& > span {\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t}\n\n\t\t& > div.address-field, & > div.payment-method-field {\n\t\t\twidth: 100%;\n\t\t\tpadding: 0 1rem;\n\t\t\tjustify-items: start;\n\t\t\talign-items: center;\n\t\t\tdisplay: grid;\n\t\t\tgrid-template-rows: 1fr 3fr;\n\t\t\tgrid-template-areas: "label" "input";\n\n\t\t\t& > label {\n\t\t\t\tgrid-area: label;\n\t\t\t}\n\n\t\t\t& > textarea {\n\t\t\t\tgrid-area: input;\n\t\t\t\tjustify-self: stretch;\n\t\t\t}\n\t\t}\n\n\t}\n']);
+	var _templateObject = _taggedTemplateLiteral(['\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: stretch;\n\talign-items: center;\n\tpadding: 0 1rem;\n\n\t& > div:nth-child(1) {\n\t\theight: 50px;\n\t}\n\n\t& > div.additional-form {\n\t\tjustify-content: stretch;\n\t\talign-items: center;\t\n\t\twidth: 100%;\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\t\n\t\t& > div:nth-child(3) {\n\t\t\twidth: 100%;\n\t\t\t& > button {\n\t\t\t\twidth: 100%;\n\t\t\t\tmargin: 0.5rem 0;\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t}\n\n\t\t& > div.address-field, & > div.payment-method-field {\n\t\t\tmargin: 1rem 0;\n\t\t\twidth: 100%;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: column;\n\t\t\tjustify-content: stretch;\n\t\t\tpadding: 0 1rem;\n\t\t\t\n\t\t}\n\n\t}\n'], ['\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: stretch;\n\talign-items: center;\n\tpadding: 0 1rem;\n\n\t& > div:nth-child(1) {\n\t\theight: 50px;\n\t}\n\n\t& > div.additional-form {\n\t\tjustify-content: stretch;\n\t\talign-items: center;\t\n\t\twidth: 100%;\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\t\n\t\t& > div:nth-child(3) {\n\t\t\twidth: 100%;\n\t\t\t& > button {\n\t\t\t\twidth: 100%;\n\t\t\t\tmargin: 0.5rem 0;\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t}\n\n\t\t& > div.address-field, & > div.payment-method-field {\n\t\t\tmargin: 1rem 0;\n\t\t\twidth: 100%;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: column;\n\t\t\tjustify-content: stretch;\n\t\t\tpadding: 0 1rem;\n\t\t\t\n\t\t}\n\n\t}\n']);
 
 	var _react = __webpack_require__(1);
 
@@ -45982,7 +45982,7 @@
 		value: true
 	});
 
-	var _templateObject = _taggedTemplateLiteral(['\n\tborder-radius: 7px;\n\tborder: 1px solid #ddd;\n\tpadding: 0.7rem;\n\tcolor: #3b3d42;\n\tbackground-color: #fff;\n\tdisplay: block;\n\tmin-height: 6rem;\n'], ['\n\tborder-radius: 7px;\n\tborder: 1px solid #ddd;\n\tpadding: 0.7rem;\n\tcolor: #3b3d42;\n\tbackground-color: #fff;\n\tdisplay: block;\n\tmin-height: 6rem;\n']);
+	var _templateObject = _taggedTemplateLiteral(['\n\tborder-radius: 7px;\n\tborder: 1px solid #ddd;\n\tpadding: 0.7rem;\n\tcolor: #3b3d42;\n\tbackground-color: #fff;\n\tdisplay: block;\n\tmin-height: 6rem;\n\tfont: 400 13.3333px Arial;\n'], ['\n\tborder-radius: 7px;\n\tborder: 1px solid #ddd;\n\tpadding: 0.7rem;\n\tcolor: #3b3d42;\n\tbackground-color: #fff;\n\tdisplay: block;\n\tmin-height: 6rem;\n\tfont: 400 13.3333px Arial;\n']);
 
 	var _react = __webpack_require__(1);
 
@@ -46014,7 +46014,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _templateObject = _taggedTemplateLiteral(['\n\tdisplay: grid;\n\tjustify-items: center;\n\talign-items: center;\n\tgrid-template-rows: 1fr 60px;\n\tgrid-template-columns: 1fr;\n\twidth: 100%;\n\tgrid-template-areas:\n\t\t"content"\n\t\t"bottom-nav-bar";\n\n\t& > div:nth-child(1) {\n\t\tgrid-area: content;\n\t\tjustify-items: stretch;\n\t\twidth: 100%;\t\t\n\t}\n\n\t& > div:nth-child(2) {\n\t\tposition: fixed;\n\t\tz-index: 20;\n\t\tbottom: 0;\n\t\twidth: 100%;\n\t\tgrid-area: bottom-nav-bar;\n\t\tjustify-self: stretch;\n\t}\n'], ['\n\tdisplay: grid;\n\tjustify-items: center;\n\talign-items: center;\n\tgrid-template-rows: 1fr 60px;\n\tgrid-template-columns: 1fr;\n\twidth: 100%;\n\tgrid-template-areas:\n\t\t"content"\n\t\t"bottom-nav-bar";\n\n\t& > div:nth-child(1) {\n\t\tgrid-area: content;\n\t\tjustify-items: stretch;\n\t\twidth: 100%;\t\t\n\t}\n\n\t& > div:nth-child(2) {\n\t\tposition: fixed;\n\t\tz-index: 20;\n\t\tbottom: 0;\n\t\twidth: 100%;\n\t\tgrid-area: bottom-nav-bar;\n\t\tjustify-self: stretch;\n\t}\n']);
+	var _templateObject = _taggedTemplateLiteral(['\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: center;\n\talign-items: center;\n\twidth: 100%;\n\n\t& > div:nth-child(1) {\n\t\tjustify-self: stretch;\n\t\twidth: 100%;\t\t\n\t}\n\n\t& > div:nth-child(2) {\n\t\tposition: fixed;\n\t\tz-index: 20;\n\t\tbottom: 0;\n\t\twidth: 100%;\n\t\tjustify-self: stretch;\n\t}\n'], ['\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: center;\n\talign-items: center;\n\twidth: 100%;\n\n\t& > div:nth-child(1) {\n\t\tjustify-self: stretch;\n\t\twidth: 100%;\t\t\n\t}\n\n\t& > div:nth-child(2) {\n\t\tposition: fixed;\n\t\tz-index: 20;\n\t\tbottom: 0;\n\t\twidth: 100%;\n\t\tjustify-self: stretch;\n\t}\n']);
 
 	var _react = __webpack_require__(1);
 
@@ -46227,7 +46227,7 @@
 		value: true
 	});
 
-	var _templateObject = _taggedTemplateLiteral(['\n\tdisplay: grid;\n\tgrid-template-rows: 60px;\n\tgrid-template-columns: 1fr 1fr 1fr 1fr 1fr;\n\tpadding: 0.5rem 0;\n\tborder-top: 1px solid #ddd;\n\tjustify-items: center;\n\talign-items: center;\n\twidth: 100%;\n\tbackground-color: white;\n\t& > div {\n\t\t& > span {\n\t\t\tdisplay: grid;\n\t\t\tjustify-items: center;\n\t\t\tfont-size: 0.7rem;\n\t\t\tgrid-template-columns: 1fr;\n\t\t\tgrid-template-rows: 35px 2fr;\n\n\t\t\t& > img {\n\t\t\t\tdisplay: block;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\n\t\t\t& > p {\n\t\t\t\tmargin: 0;\n\t\t\t}\n\t\t}\n\t}\n'], ['\n\tdisplay: grid;\n\tgrid-template-rows: 60px;\n\tgrid-template-columns: 1fr 1fr 1fr 1fr 1fr;\n\tpadding: 0.5rem 0;\n\tborder-top: 1px solid #ddd;\n\tjustify-items: center;\n\talign-items: center;\n\twidth: 100%;\n\tbackground-color: white;\n\t& > div {\n\t\t& > span {\n\t\t\tdisplay: grid;\n\t\t\tjustify-items: center;\n\t\t\tfont-size: 0.7rem;\n\t\t\tgrid-template-columns: 1fr;\n\t\t\tgrid-template-rows: 35px 2fr;\n\n\t\t\t& > img {\n\t\t\t\tdisplay: block;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\n\t\t\t& > p {\n\t\t\t\tmargin: 0;\n\t\t\t}\n\t\t}\n\t}\n']);
+	var _templateObject = _taggedTemplateLiteral(['\n\tdisplay: flex;\n\tflex-direction: row;\n\tpadding: 0.5rem 0;\n\tborder-top: 1px solid #ddd;\n\tjustify-content: stretch;\n\talign-items: center;\n\twidth: 100%;\n\tbackground-color: white;\n\t& > div {\n\t\twidth: 20%;\n\t\t& > span {\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: column;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tfont-size: 0.7rem;\n\t\t\t& > img {\n\t\t\t\tdisplay: block;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t& > p {\n\t\t\t\tmargin: 0;\n\t\t\t}\n\t\t}\n\t}\n'], ['\n\tdisplay: flex;\n\tflex-direction: row;\n\tpadding: 0.5rem 0;\n\tborder-top: 1px solid #ddd;\n\tjustify-content: stretch;\n\talign-items: center;\n\twidth: 100%;\n\tbackground-color: white;\n\t& > div {\n\t\twidth: 20%;\n\t\t& > span {\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: column;\n\t\t\tjustify-content: center;\n\t\t\talign-items: center;\n\t\t\tfont-size: 0.7rem;\n\t\t\t& > img {\n\t\t\t\tdisplay: block;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t\t& > p {\n\t\t\t\tmargin: 0;\n\t\t\t}\n\t\t}\n\t}\n']);
 
 	var _react = __webpack_require__(1);
 
@@ -46256,29 +46256,13 @@
 			BottomNavBarWrapper,
 			null,
 			props.menus.map(function (menu) {
-				if (menu.isActive) {
-					return _react2.default.createElement(
-						'div',
-						{ key: menu.type },
-						_react2.default.createElement(
-							_reactTappable2.default,
-							{ onTap: menu.onTap },
-							_react2.default.createElement('img', { src: menu.activeIcon, alt: 'bottom-navbar-icon', width: '30' }),
-							_react2.default.createElement(
-								'p',
-								null,
-								menu.menuText
-							)
-						)
-					);
-				}
 				return _react2.default.createElement(
 					'div',
 					{ key: menu.type },
 					_react2.default.createElement(
 						_reactTappable2.default,
 						{ onTap: menu.onTap },
-						_react2.default.createElement('img', { src: menu.icon, alt: 'bottom-navbar-icon', width: '30' }),
+						_react2.default.createElement('img', { src: menu.isActive ? menu.activeIcon : menu.icon, alt: 'bottom-navbar-icon', width: '30' }),
 						_react2.default.createElement(
 							'p',
 							null,
@@ -46310,7 +46294,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _templateObject = _taggedTemplateLiteral(['\n\tdisplay: grid;\n\tjustify-items: center;\n\talign-items: center;\n\tgrid-template-rows: 90px 1fr;\n\tgrid-template-columns: 1fr;\n\tjustify-items: stretch;\n\tgrid-template-areas: "top-nav-bar"\n\t\t"deal-content";\n\n\t& > div:nth-child(1) {\n\t\tgrid-area: top-nav-bar;\n\t\tborder-bottom: 1px solid #ddd;\n\t}\n\n\t& > div:nth-child(2) {\n\t\tgrid-area: deal-content;\n\t\tbackground-color: white;\n\t\tpadding: 0 1rem 1rem 1rem;\n\n\t}\n\n'], ['\n\tdisplay: grid;\n\tjustify-items: center;\n\talign-items: center;\n\tgrid-template-rows: 90px 1fr;\n\tgrid-template-columns: 1fr;\n\tjustify-items: stretch;\n\tgrid-template-areas: "top-nav-bar"\n\t\t"deal-content";\n\n\t& > div:nth-child(1) {\n\t\tgrid-area: top-nav-bar;\n\t\tborder-bottom: 1px solid #ddd;\n\t}\n\n\t& > div:nth-child(2) {\n\t\tgrid-area: deal-content;\n\t\tbackground-color: white;\n\t\tpadding: 0 1rem 1rem 1rem;\n\n\t}\n\n']);
+	var _templateObject = _taggedTemplateLiteral(['\n\tdisplay: flex;\n\tjustify-content: stretch;\n\talign-items: center;\n\t\n\t& > div:nth-child(1) {\n\t\tdisplay: flex;\n\t\theight: 90px;\n\t\tborder-bottom: 1px solid #ddd;\n\t}\n\n\t& > div:nth-child(2) {\n\t\tbackground-color: white;\n\t\tpadding: 0 1rem 1rem 1rem;\n\t}\n\n'], ['\n\tdisplay: flex;\n\tjustify-content: stretch;\n\talign-items: center;\n\t\n\t& > div:nth-child(1) {\n\t\tdisplay: flex;\n\t\theight: 90px;\n\t\tborder-bottom: 1px solid #ddd;\n\t}\n\n\t& > div:nth-child(2) {\n\t\tbackground-color: white;\n\t\tpadding: 0 1rem 1rem 1rem;\n\t}\n\n']);
 
 	var _react = __webpack_require__(1);
 
@@ -46798,7 +46782,7 @@
 		value: true
 	});
 
-	var _templateObject = _taggedTemplateLiteral(['\n\tposition: fixed;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\tdisplay: grid;\n\tgrid-template-rows: 1fr 3fr;\n\tgrid-template-columns: 3fr 4fr 3fr;\n\tjustify-items: center;\n\talign-items: center;\n\tgrid-template-areas:\n\t\t"profile-nav logo-screen switch-offer"\n\t\t"profile-nav toggle-screen switch-offer";\n\n\t& > div:nth-child(1) {\n\t\tgrid-area: logo-screen;\n\t}\n\n\t& > div:nth-child(2) {\n\t\tgrid-area: toggle-screen;\n\t\tfont-size: 1.5rem;\n\t\tfont-weight: bold;\n\t}\n\n\t& > div:nth-child(3) {\n\t\tgrid-area: profile-nav;\n\n\t\t& > span {\n\t\t\tdisplay: block;\n\t\t\t& > p {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\tmargin: 0;\n\t\t\t}\n\n\t\t\t& > img {\n\t\t\t\tdisplay: block;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t}\n\t}\n\n\t& > div:nth-child(4) {\n\t\tgrid-area: switch-offer;\n\n\t\t& > span {\n\t\t\tdisplay: block;\n\t\t\t& > p {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\tmargin: 0;\n\t\t\t}\n\n\t\t\t& > img {\n\t\t\t\tdisplay: block;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t}\n\t}\n\n\tpadding-top: 1rem;\n\tbackground-color: #F48024;\n\tcolor: white;\n\tborder-bottom: 2px solid #ddd;\n'], ['\n\tposition: fixed;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\tdisplay: grid;\n\tgrid-template-rows: 1fr 3fr;\n\tgrid-template-columns: 3fr 4fr 3fr;\n\tjustify-items: center;\n\talign-items: center;\n\tgrid-template-areas:\n\t\t"profile-nav logo-screen switch-offer"\n\t\t"profile-nav toggle-screen switch-offer";\n\n\t& > div:nth-child(1) {\n\t\tgrid-area: logo-screen;\n\t}\n\n\t& > div:nth-child(2) {\n\t\tgrid-area: toggle-screen;\n\t\tfont-size: 1.5rem;\n\t\tfont-weight: bold;\n\t}\n\n\t& > div:nth-child(3) {\n\t\tgrid-area: profile-nav;\n\n\t\t& > span {\n\t\t\tdisplay: block;\n\t\t\t& > p {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\tmargin: 0;\n\t\t\t}\n\n\t\t\t& > img {\n\t\t\t\tdisplay: block;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t}\n\t}\n\n\t& > div:nth-child(4) {\n\t\tgrid-area: switch-offer;\n\n\t\t& > span {\n\t\t\tdisplay: block;\n\t\t\t& > p {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\tmargin: 0;\n\t\t\t}\n\n\t\t\t& > img {\n\t\t\t\tdisplay: block;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t}\n\t}\n\n\tpadding-top: 1rem;\n\tbackground-color: #F48024;\n\tcolor: white;\n\tborder-bottom: 2px solid #ddd;\n']);
+	var _templateObject = _taggedTemplateLiteral(['\n\tposition: fixed;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\t\n\n\t& > div:nth-child(1) {\n\t\tgrid-area: logo-screen;\n\t}\n\n\t& > div:nth-child(2) {\n\t\tgrid-area: toggle-screen;\n\t\tfont-size: 1.5rem;\n\t\tfont-weight: bold;\n\t}\n\n\t& > div:nth-child(3) {\n\t\tgrid-area: profile-nav;\n\n\t\t& > span {\n\t\t\tdisplay: block;\n\t\t\t& > p {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\tmargin: 0;\n\t\t\t}\n\n\t\t\t& > img {\n\t\t\t\tdisplay: block;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t}\n\t}\n\n\t& > div:nth-child(4) {\n\t\tgrid-area: switch-offer;\n\n\t\t& > span {\n\t\t\tdisplay: block;\n\t\t\t& > p {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\tmargin: 0;\n\t\t\t}\n\n\t\t\t& > img {\n\t\t\t\tdisplay: block;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t}\n\t}\n\n\tpadding-top: 1rem;\n\tbackground-color: #F48024;\n\tcolor: white;\n\tborder-bottom: 2px solid #ddd;\n'], ['\n\tposition: fixed;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\t\n\n\t& > div:nth-child(1) {\n\t\tgrid-area: logo-screen;\n\t}\n\n\t& > div:nth-child(2) {\n\t\tgrid-area: toggle-screen;\n\t\tfont-size: 1.5rem;\n\t\tfont-weight: bold;\n\t}\n\n\t& > div:nth-child(3) {\n\t\tgrid-area: profile-nav;\n\n\t\t& > span {\n\t\t\tdisplay: block;\n\t\t\t& > p {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\tmargin: 0;\n\t\t\t}\n\n\t\t\t& > img {\n\t\t\t\tdisplay: block;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t}\n\t}\n\n\t& > div:nth-child(4) {\n\t\tgrid-area: switch-offer;\n\n\t\t& > span {\n\t\t\tdisplay: block;\n\t\t\t& > p {\n\t\t\t\tfont-size: 0.7rem;\n\t\t\t\tmargin: 0;\n\t\t\t}\n\n\t\t\t& > img {\n\t\t\t\tdisplay: block;\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t}\n\t}\n\n\tpadding-top: 1rem;\n\tbackground-color: #F48024;\n\tcolor: white;\n\tborder-bottom: 2px solid #ddd;\n']);
 
 	var _react = __webpack_require__(1);
 
@@ -47333,7 +47317,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _templateObject = _taggedTemplateLiteral(['\n\t& > div.product-name {\n\t\tdisplay: grid;\n\t\tgrid-template-rows: 1fr 1fr;\n\t\tgrid-template-columns: 1fr;\n\t\tjustify-items: stretch;\n\t\talign-items: start;\n\n\t\t& > h3 {\n\t\t\tmargin: 1rem 0 0.5rem 0;\n\t\t}\n\t}\n\n\t& > div.product-items {\n\t\tdisplay: grid;\n\t\tgrid-template-columns: 1fr;\n\t\tgrid-template-rows: 3rem 1fr 36px;\n\t\t& > button {\n\t\t\tmargin: 0;\n\t\t\tdisplay: block;\n\t\t}\n\n\t\t& > div:nth-child(3) {\n\t\t\tjustify-self: center;\n\t\t}\n\t}\n\n\t& > div.product-target {\n\t\tpadding: 1rem 0;\n\t\tdisplay: grid;\n\t\tgrid-template-rows: 1fr 1fr;\n\t\tgrid-template-columns: 3fr 2fr;\n\t\tgrid-template-areas: "expire-in expire-in-input"\n\t\t\t"user-target user-target-input";\n\t\talign-items: center;\n\t\t& > div:nth-child(1) {\n\t\t\tgrid-area: expire-in;\n\t\t\tjustify-self: start;\n\n\t\t\t& > p {\n\t\t\t\tfont-size: 80%;\n\t\t\t}\n\t\t}\n\n\t\t& > div:nth-child(2) {\n\t\t\tgrid-area: expire-in-input;\n\t\t\tjustify-self: stretch;\n\t\t}\n\n\t\t& > div:nth-child(3) {\n\t\t\tgrid-area: user-target;\n\t\t\tjustify-self: start;\n\t\t}\n\n\t\t& > div:nth-child(4) {\n\t\t\tgrid-area: user-target-input;\n\t\t\tjustify-self: center;\n\n\t\t\t& > button {\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t}\n\t}\n\n\t& > div.result {\n\t\tmargin: 0 -1rem;\n\t}\n'], ['\n\t& > div.product-name {\n\t\tdisplay: grid;\n\t\tgrid-template-rows: 1fr 1fr;\n\t\tgrid-template-columns: 1fr;\n\t\tjustify-items: stretch;\n\t\talign-items: start;\n\n\t\t& > h3 {\n\t\t\tmargin: 1rem 0 0.5rem 0;\n\t\t}\n\t}\n\n\t& > div.product-items {\n\t\tdisplay: grid;\n\t\tgrid-template-columns: 1fr;\n\t\tgrid-template-rows: 3rem 1fr 36px;\n\t\t& > button {\n\t\t\tmargin: 0;\n\t\t\tdisplay: block;\n\t\t}\n\n\t\t& > div:nth-child(3) {\n\t\t\tjustify-self: center;\n\t\t}\n\t}\n\n\t& > div.product-target {\n\t\tpadding: 1rem 0;\n\t\tdisplay: grid;\n\t\tgrid-template-rows: 1fr 1fr;\n\t\tgrid-template-columns: 3fr 2fr;\n\t\tgrid-template-areas: "expire-in expire-in-input"\n\t\t\t"user-target user-target-input";\n\t\talign-items: center;\n\t\t& > div:nth-child(1) {\n\t\t\tgrid-area: expire-in;\n\t\t\tjustify-self: start;\n\n\t\t\t& > p {\n\t\t\t\tfont-size: 80%;\n\t\t\t}\n\t\t}\n\n\t\t& > div:nth-child(2) {\n\t\t\tgrid-area: expire-in-input;\n\t\t\tjustify-self: stretch;\n\t\t}\n\n\t\t& > div:nth-child(3) {\n\t\t\tgrid-area: user-target;\n\t\t\tjustify-self: start;\n\t\t}\n\n\t\t& > div:nth-child(4) {\n\t\t\tgrid-area: user-target-input;\n\t\t\tjustify-self: center;\n\n\t\t\t& > button {\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t}\n\t}\n\n\t& > div.result {\n\t\tmargin: 0 -1rem;\n\t}\n']);
+	var _templateObject = _taggedTemplateLiteral(['\n\t& > div.product-name {\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tjustify-content: stretch;\n\t\talign-items: start;\n\n\t\t& > h3 {\n\t\t\tmargin: 1rem 0 0.5rem 0;\n\t\t}\n\t}\n\n\t& > div.product-items {\n\t\tdisplay: grid;\n\t\tgrid-template-columns: 1fr;\n\t\tgrid-template-rows: 3rem 1fr 36px;\n\t\t& > button {\n\t\t\tmargin: 0;\n\t\t\tdisplay: block;\n\t\t}\n\n\t\t& > div:nth-child(3) {\n\t\t\tjustify-self: center;\n\t\t}\n\t}\n\n\t& > div.product-target {\n\t\tpadding: 1rem 0;\n\t\tdisplay: grid;\n\t\tgrid-template-rows: 1fr 1fr;\n\t\tgrid-template-columns: 3fr 2fr;\n\t\tgrid-template-areas: "expire-in expire-in-input"\n\t\t\t"user-target user-target-input";\n\t\talign-items: center;\n\t\t& > div:nth-child(1) {\n\t\t\tgrid-area: expire-in;\n\t\t\tjustify-self: start;\n\n\t\t\t& > p {\n\t\t\t\tfont-size: 80%;\n\t\t\t}\n\t\t}\n\n\t\t& > div:nth-child(2) {\n\t\t\tgrid-area: expire-in-input;\n\t\t\tjustify-self: stretch;\n\t\t}\n\n\t\t& > div:nth-child(3) {\n\t\t\tgrid-area: user-target;\n\t\t\tjustify-self: start;\n\t\t}\n\n\t\t& > div:nth-child(4) {\n\t\t\tgrid-area: user-target-input;\n\t\t\tjustify-self: center;\n\n\t\t\t& > button {\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t}\n\t}\n\n\t& > div.result {\n\t\tmargin: 0 -1rem;\n\t}\n'], ['\n\t& > div.product-name {\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tjustify-content: stretch;\n\t\talign-items: start;\n\n\t\t& > h3 {\n\t\t\tmargin: 1rem 0 0.5rem 0;\n\t\t}\n\t}\n\n\t& > div.product-items {\n\t\tdisplay: grid;\n\t\tgrid-template-columns: 1fr;\n\t\tgrid-template-rows: 3rem 1fr 36px;\n\t\t& > button {\n\t\t\tmargin: 0;\n\t\t\tdisplay: block;\n\t\t}\n\n\t\t& > div:nth-child(3) {\n\t\t\tjustify-self: center;\n\t\t}\n\t}\n\n\t& > div.product-target {\n\t\tpadding: 1rem 0;\n\t\tdisplay: grid;\n\t\tgrid-template-rows: 1fr 1fr;\n\t\tgrid-template-columns: 3fr 2fr;\n\t\tgrid-template-areas: "expire-in expire-in-input"\n\t\t\t"user-target user-target-input";\n\t\talign-items: center;\n\t\t& > div:nth-child(1) {\n\t\t\tgrid-area: expire-in;\n\t\t\tjustify-self: start;\n\n\t\t\t& > p {\n\t\t\t\tfont-size: 80%;\n\t\t\t}\n\t\t}\n\n\t\t& > div:nth-child(2) {\n\t\t\tgrid-area: expire-in-input;\n\t\t\tjustify-self: stretch;\n\t\t}\n\n\t\t& > div:nth-child(3) {\n\t\t\tgrid-area: user-target;\n\t\t\tjustify-self: start;\n\t\t}\n\n\t\t& > div:nth-child(4) {\n\t\t\tgrid-area: user-target-input;\n\t\t\tjustify-self: center;\n\n\t\t\t& > button {\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t}\n\t}\n\n\t& > div.result {\n\t\tmargin: 0 -1rem;\n\t}\n']);
 
 	var _react = __webpack_require__(1);
 
@@ -51388,7 +51372,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _templateObject = _taggedTemplateLiteral(['\n\tdisplay: grid;\n\tgrid-template-columns: 1fr;\n\tgrid-template-rows: 52px 1fr;\n\tgrid-template-areas: "title-bar" "account-content";\n\n\t& > div:nth-child(1) {\n\t\tgrid-area: title-bar;\n\t}\n\n\t& > div:nth-child(2) {\n\t\tgrid-area: account-content;\n\t\tdisplay: grid;\n\t\tpadding: 0 1rem;\n\n\t\tgrid-template-columns: 1fr;\n\t\tgrid-auto-flow: row;\n\t\tjustify-items: stretch;\n\n\t\t& > div:not(:last-child) {\n\t\t\tpadding: 0.5rem 0;\n\t\t\tdisplay: grid;\n\t\t\talign-items: center;\n\n\t\t\tgrid-template-columns: 3fr 1fr;\n\t\t\tgrid-template-rows: 60px 1fr;\n\t\t\tgrid-template-areas: "subtitle subtitle" "info button";\n\n\t\t\t& > div:nth-child(1) {\n\t\t\t\tgrid-area: subtitle;\n\t\t\t}\n\n\t\t\t& > div:last-child {\n\t\t\t\tjustify-self: end;\n\t\t\t}\n\t\t\tgrid-auto-flow: row;\n\n\t\t\t& h5, & h4 {\n\t\t\t\tmargin: 0.2rem 0;\n\t\t\t}\n\n\t\t\t& a {\n\t\t\t\ttext-decoration: none;\n\t\t\t}\n\n\t\t\tborder-bottom: 1px solid #ccc;\n\n\t\t}\t\n\n\n\t\t& > div:last-child {\n\t\t\tmargin-top: 2rem;\n\t\t\tjustify-self: stretch;\n\t\t\talign-self: center;\n\t\t\tdisplay: grid;\n\t\t\tjustify-items: stretch;\n\t\t\talign-items: center;\n\t\t\t& > button {\n\t\t\t\tmargin: 0;\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t}\n\t}\n'], ['\n\tdisplay: grid;\n\tgrid-template-columns: 1fr;\n\tgrid-template-rows: 52px 1fr;\n\tgrid-template-areas: "title-bar" "account-content";\n\n\t& > div:nth-child(1) {\n\t\tgrid-area: title-bar;\n\t}\n\n\t& > div:nth-child(2) {\n\t\tgrid-area: account-content;\n\t\tdisplay: grid;\n\t\tpadding: 0 1rem;\n\n\t\tgrid-template-columns: 1fr;\n\t\tgrid-auto-flow: row;\n\t\tjustify-items: stretch;\n\n\t\t& > div:not(:last-child) {\n\t\t\tpadding: 0.5rem 0;\n\t\t\tdisplay: grid;\n\t\t\talign-items: center;\n\n\t\t\tgrid-template-columns: 3fr 1fr;\n\t\t\tgrid-template-rows: 60px 1fr;\n\t\t\tgrid-template-areas: "subtitle subtitle" "info button";\n\n\t\t\t& > div:nth-child(1) {\n\t\t\t\tgrid-area: subtitle;\n\t\t\t}\n\n\t\t\t& > div:last-child {\n\t\t\t\tjustify-self: end;\n\t\t\t}\n\t\t\tgrid-auto-flow: row;\n\n\t\t\t& h5, & h4 {\n\t\t\t\tmargin: 0.2rem 0;\n\t\t\t}\n\n\t\t\t& a {\n\t\t\t\ttext-decoration: none;\n\t\t\t}\n\n\t\t\tborder-bottom: 1px solid #ccc;\n\n\t\t}\t\n\n\n\t\t& > div:last-child {\n\t\t\tmargin-top: 2rem;\n\t\t\tjustify-self: stretch;\n\t\t\talign-self: center;\n\t\t\tdisplay: grid;\n\t\t\tjustify-items: stretch;\n\t\t\talign-items: center;\n\t\t\t& > button {\n\t\t\t\tmargin: 0;\n\t\t\t\tdisplay: block;\n\t\t\t}\n\t\t}\n\t}\n']);
+	var _templateObject = _taggedTemplateLiteral(['\n\tdisplay: flex;\n\tflex-direction: column;\n\n\t& > div:nth-child(1) {\n\t\theight: 50px;\n\t}\n\n\t& > div:nth-child(2) {\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tpadding: 0 1rem;\n\t\tjustify-content: stretch;\n\n\t\t& > div:not(:last-child) {\n\t\t\tpadding: 0.5rem 0;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: column;\n\t\t\talign-items: stretch;\n\t\t\tjustify-content: stretch;\n\n\t\t\t& > div:nth-child(1) {\n\t\t\t\theight: 50px;\n\t\t\t}\n\n\t\t\t& > div:not(:first-child) {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: row;\n\t\t\t\tjustify-content: start;\n\t\t\t\talign-items: center;\n\n\t\t\t\t& > div:first-child {\n\t\t\t\t\twidth: 70%;\n\t\t\t\t}\n\t\t\t\t& > div:last-child {\n\t\t\t\t\twidth: 30%;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t\t& h5, & h4 {\n\t\t\t\tmargin: 0.2rem 0;\n\t\t\t}\n\n\t\t\t& a {\n\t\t\t\ttext-decoration: none;\n\t\t\t\tdisplay: block;\n\t\t\t\ttext-align: right;\n\t\t\t}\n\n\t\t\tborder-bottom: 1px solid #ccc;\n\n\t\t}\t\n\n\n\t\t& > div:last-child {\n\t\t\tmargin-top: 2rem;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: stretch;\n\t\t\talign-items: center;\n\t\t\t& > button {\n\t\t\t\twidth: 100%;\n\t\t\t\tmargin: 0;\n\t\t\t\tdisplay: block;\n\t\t\t}\n\n\t\t}\n\t}\n'], ['\n\tdisplay: flex;\n\tflex-direction: column;\n\n\t& > div:nth-child(1) {\n\t\theight: 50px;\n\t}\n\n\t& > div:nth-child(2) {\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tpadding: 0 1rem;\n\t\tjustify-content: stretch;\n\n\t\t& > div:not(:last-child) {\n\t\t\tpadding: 0.5rem 0;\n\t\t\tdisplay: flex;\n\t\t\tflex-direction: column;\n\t\t\talign-items: stretch;\n\t\t\tjustify-content: stretch;\n\n\t\t\t& > div:nth-child(1) {\n\t\t\t\theight: 50px;\n\t\t\t}\n\n\t\t\t& > div:not(:first-child) {\n\t\t\t\tdisplay: flex;\n\t\t\t\tflex-direction: row;\n\t\t\t\tjustify-content: start;\n\t\t\t\talign-items: center;\n\n\t\t\t\t& > div:first-child {\n\t\t\t\t\twidth: 70%;\n\t\t\t\t}\n\t\t\t\t& > div:last-child {\n\t\t\t\t\twidth: 30%;\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t\t& h5, & h4 {\n\t\t\t\tmargin: 0.2rem 0;\n\t\t\t}\n\n\t\t\t& a {\n\t\t\t\ttext-decoration: none;\n\t\t\t\tdisplay: block;\n\t\t\t\ttext-align: right;\n\t\t\t}\n\n\t\t\tborder-bottom: 1px solid #ccc;\n\n\t\t}\t\n\n\n\t\t& > div:last-child {\n\t\t\tmargin-top: 2rem;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: stretch;\n\t\t\talign-items: center;\n\t\t\t& > button {\n\t\t\t\twidth: 100%;\n\t\t\t\tmargin: 0;\n\t\t\t\tdisplay: block;\n\t\t\t}\n\n\t\t}\n\t}\n']);
 
 	var _react = __webpack_require__(1);
 
@@ -51443,7 +51427,11 @@
 				return _react2.default.createElement(
 					AccountPageWrapper,
 					null,
-					_react2.default.createElement(_TitleBar2.default, { title: 'Profile' }),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(_TitleBar2.default, { title: 'Profile' })
+					),
 					_react2.default.createElement(
 						'div',
 						null,
@@ -51463,32 +51451,36 @@
 								'div',
 								null,
 								_react2.default.createElement(
-									'h4',
+									'div',
 									null,
-									account.firstName,
-									' ',
-									account.lastName
+									_react2.default.createElement(
+										'h4',
+										null,
+										account.firstName,
+										' ',
+										account.lastName
+									),
+									_react2.default.createElement(
+										'h5',
+										null,
+										'username: ',
+										account.username
+									),
+									_react2.default.createElement(
+										'h5',
+										null,
+										'email : ',
+										account.email
+									)
 								),
 								_react2.default.createElement(
-									'h5',
+									'div',
 									null,
-									'username: ',
-									account.username
-								),
-								_react2.default.createElement(
-									'h5',
-									null,
-									'email : ',
-									account.email
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								null,
-								_react2.default.createElement(
-									'a',
-									{ href: '#' },
-									'EDIT'
+									_react2.default.createElement(
+										'a',
+										{ href: '#' },
+										'EDIT'
+									)
 								)
 							)
 						),
@@ -51508,18 +51500,22 @@
 								'div',
 								null,
 								_react2.default.createElement(
-									'h5',
+									'div',
 									null,
-									account.address
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								null,
+									_react2.default.createElement(
+										'h5',
+										null,
+										account.address
+									)
+								),
 								_react2.default.createElement(
-									'a',
-									{ href: '#' },
-									'EDIT'
+									'div',
+									null,
+									_react2.default.createElement(
+										'a',
+										{ href: '#' },
+										'EDIT'
+									)
 								)
 							)
 						),
@@ -51539,18 +51535,22 @@
 								'div',
 								null,
 								_react2.default.createElement(
-									'h5',
+									'div',
 									null,
-									account.paymentMethod
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								null,
+									_react2.default.createElement(
+										'h5',
+										null,
+										account.paymentMethod
+									)
+								),
 								_react2.default.createElement(
-									'a',
-									{ href: '#' },
-									'EDIT'
+									'div',
+									null,
+									_react2.default.createElement(
+										'a',
+										{ href: '#' },
+										'EDIT'
+									)
 								)
 							)
 						),
@@ -51593,7 +51593,7 @@
 		value: true
 	});
 
-	var _templateObject = _taggedTemplateLiteral(['\n\tdisplay: grid;\n\tgrid-template-columns: 1fr;\n\tgrid-template-rows: 50px;\n\tborder-bottom: 1px solid #ccc;\n\tcolor: #000;\n\tjustify-items: center;\n\talign-items: center;\n\ttext-transform: uppercase;\n\tposition: fixed;\n\twidth: 100%;\n\ttop: 0;\n\tleft: 0;\n\tz-index: 100;\n\tbackground-color: #fff;\n'], ['\n\tdisplay: grid;\n\tgrid-template-columns: 1fr;\n\tgrid-template-rows: 50px;\n\tborder-bottom: 1px solid #ccc;\n\tcolor: #000;\n\tjustify-items: center;\n\talign-items: center;\n\ttext-transform: uppercase;\n\tposition: fixed;\n\twidth: 100%;\n\ttop: 0;\n\tleft: 0;\n\tz-index: 100;\n\tbackground-color: #fff;\n']);
+	var _templateObject = _taggedTemplateLiteral(['\n\tdisplay: flex;\n\theight: 50px;\n\tborder-bottom: 1px solid #ccc;\n\tcolor: #000;\n\tjustify-content: center;\n\talign-items: center;\n\ttext-transform: uppercase;\n\tposition: fixed;\n\twidth: 100%;\n\ttop: 0;\n\tleft: 0;\n\tz-index: 100;\n\tbackground-color: #fff;\n'], ['\n\tdisplay: flex;\n\theight: 50px;\n\tborder-bottom: 1px solid #ccc;\n\tcolor: #000;\n\tjustify-content: center;\n\talign-items: center;\n\ttext-transform: uppercase;\n\tposition: fixed;\n\twidth: 100%;\n\ttop: 0;\n\tleft: 0;\n\tz-index: 100;\n\tbackground-color: #fff;\n']);
 
 	var _react = __webpack_require__(1);
 
@@ -52058,7 +52058,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _templateObject = _taggedTemplateLiteral(['\n\tdisplay: grid;\n\tgrid-auto-flow: row;\n\tdisplay: grid;\n\tgrid-template-columns: 1fr;\n\tgrid-template-rows: 52px 1fr;\n\tgrid-template-areas: "title-bar" "contact-content";\n\n\t& > div:first-child {\n\t\tgrid-area: title-bar;\n\t}\n\n\t& > div:last-child {\n\t\tgrid-area: contact-content;\n\t\tpadding: 1rem;\n\t\tdisplay: grid;\n\t\tgrid-auto-flow: row;\n\t\tjustify-items: strecth;\n\t\talign-items: center;\n\n\t\t& > div:nth-child(1) {\n\t\t\tposition: relative;\n\t\t\tdisplay: grid;\n\t\t\tjustify-items: strecth;\n\t\t\talign-items: center;\n\t\t\t& > input {\n\t\t\t\tpadding-left: 2rem;\n\t\t\t}\n\t\t\t& > img {\n\t\t\t\tposition: absolute;\n\t\t\t\tleft: 10px;\n\t\t\t}\n\t\t}\n\n\t\t& > div:nth-child(2) {\n\t\t\tmargin-top: 1rem;\n\t\t}\n\t\t& > div:last-child {\n\t\t\tmargin-top: 1.5rem;\n\t\t\tdisplay: grid;\n\t\t\tjustify-items: center;\n\t\t\talign-items: center;\n\t\t}\n\t}\n'], ['\n\tdisplay: grid;\n\tgrid-auto-flow: row;\n\tdisplay: grid;\n\tgrid-template-columns: 1fr;\n\tgrid-template-rows: 52px 1fr;\n\tgrid-template-areas: "title-bar" "contact-content";\n\n\t& > div:first-child {\n\t\tgrid-area: title-bar;\n\t}\n\n\t& > div:last-child {\n\t\tgrid-area: contact-content;\n\t\tpadding: 1rem;\n\t\tdisplay: grid;\n\t\tgrid-auto-flow: row;\n\t\tjustify-items: strecth;\n\t\talign-items: center;\n\n\t\t& > div:nth-child(1) {\n\t\t\tposition: relative;\n\t\t\tdisplay: grid;\n\t\t\tjustify-items: strecth;\n\t\t\talign-items: center;\n\t\t\t& > input {\n\t\t\t\tpadding-left: 2rem;\n\t\t\t}\n\t\t\t& > img {\n\t\t\t\tposition: absolute;\n\t\t\t\tleft: 10px;\n\t\t\t}\n\t\t}\n\n\t\t& > div:nth-child(2) {\n\t\t\tmargin-top: 1rem;\n\t\t}\n\t\t& > div:last-child {\n\t\t\tmargin-top: 1.5rem;\n\t\t\tdisplay: grid;\n\t\t\tjustify-items: center;\n\t\t\talign-items: center;\n\t\t}\n\t}\n']);
+	var _templateObject = _taggedTemplateLiteral(['\n\tdisplay: flex;\n\tflex-direction: column;\n\n\t& > div:first-child {\n\t\theight: 50px;\n\t}\n\n\t& > div:last-child {\n\t\tpadding: 1rem;\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tjustify-content: strecth;\n\t\talign-items: center;\n\n\t\t& > div:nth-child(1) {\n\t\t\twidth: 100%;\n\t\t\tposition: relative;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: stretch;\n\t\t\talign-items: center;\n\n\t\t\t& > input {\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding-left: 2rem;\n\t\t\t}\n\t\t\t& > img {\n\t\t\t\tposition: absolute;\n\t\t\t\tleft: 10px;\n\t\t\t\ttop: 10px;\n\t\t\t}\n\t\t}\n\n\t\t& > div:nth-child(2) {\n\t\t\twidth: 100%;\n\t\t\tmargin-top: 1rem;\n\t\t}\n\t\t& > div:last-child {\n\t\t\twidth: 100%;\n\t\t\tmargin-top: 1.5rem;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\t& > button {\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t}\n\t}\n'], ['\n\tdisplay: flex;\n\tflex-direction: column;\n\n\t& > div:first-child {\n\t\theight: 50px;\n\t}\n\n\t& > div:last-child {\n\t\tpadding: 1rem;\n\t\tdisplay: flex;\n\t\tflex-direction: column;\n\t\tjustify-content: strecth;\n\t\talign-items: center;\n\n\t\t& > div:nth-child(1) {\n\t\t\twidth: 100%;\n\t\t\tposition: relative;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: stretch;\n\t\t\talign-items: center;\n\n\t\t\t& > input {\n\t\t\t\twidth: 100%;\n\t\t\t\tpadding-left: 2rem;\n\t\t\t}\n\t\t\t& > img {\n\t\t\t\tposition: absolute;\n\t\t\t\tleft: 10px;\n\t\t\t\ttop: 10px;\n\t\t\t}\n\t\t}\n\n\t\t& > div:nth-child(2) {\n\t\t\twidth: 100%;\n\t\t\tmargin-top: 1rem;\n\t\t}\n\t\t& > div:last-child {\n\t\t\twidth: 100%;\n\t\t\tmargin-top: 1.5rem;\n\t\t\tdisplay: flex;\n\t\t\tjustify-content: center;\n\t\t\t& > button {\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\t\t}\n\t}\n']);
 
 	var _react = __webpack_require__(1);
 
@@ -52182,7 +52182,11 @@
 				return _react2.default.createElement(
 					ContactPageWrapper,
 					null,
-					_react2.default.createElement(_TitleBar2.default, { title: 'Contacts' }),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(_TitleBar2.default, { title: 'Contacts' })
+					),
 					_react2.default.createElement(
 						'div',
 						null,

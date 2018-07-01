@@ -12,56 +12,40 @@ import CustomLabel from '../../components/CustomLabel';
 
 
 const FillAdditionalPageContainer = styled.div`
-	display: grid;
-	grid-template-rows: 60px 1fr;
-	grid-template-columns: 1fr;
-	grid-template-areas: "navigator-bar"
-		"additional-form";
+	display: flex;
+	flex-direction: column;
+	justify-content: stretch;
+	align-items: center;
+	padding: 0 1rem;
 
 	& > div:nth-child(1) {
-		grid-area: navigator-bar;
-
+		height: 50px;
 	}
 
 	& > div.additional-form {
-		justify-items: center;
-		align-items: center;
-		grid-area: additional-form;
-		display: grid;
-		grid-template-areas: 
-			"address-field"
-			"payment-method-field"
-			"save-button";
-		grid-template-columns: 1fr;
-		grid-template-rows: 1fr 1fr 0.5fr;
-		padding: 0 1rem;
+		justify-content: stretch;
+		align-items: center;	
+		width: 100%;
+		display: flex;
+		flex-direction: column;
 		
 		& > div:nth-child(3) {
-			justify-self: stretch;
-			display: grid;
-			justify-items: stretch;
-			& > span {
+			width: 100%;
+			& > button {
+				width: 100%;
+				margin: 0.5rem 0;
 				display: block;
 			}
 		}
 
 		& > div.address-field, & > div.payment-method-field {
+			margin: 1rem 0;
 			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: stretch;
 			padding: 0 1rem;
-			justify-items: start;
-			align-items: center;
-			display: grid;
-			grid-template-rows: 1fr 3fr;
-			grid-template-areas: "label" "input";
-
-			& > label {
-				grid-area: label;
-			}
-
-			& > textarea {
-				grid-area: input;
-				justify-self: stretch;
-			}
+			
 		}
 
 	}

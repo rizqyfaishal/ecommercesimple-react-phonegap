@@ -31,25 +31,19 @@ const changePageByToggle = (url) => (dispatch) => {
 }
 
 const DealPageWrapper = styled.div`
-	display: grid;
-	justify-items: center;
+	display: flex;
+	justify-content: stretch;
 	align-items: center;
-	grid-template-rows: 90px 1fr;
-	grid-template-columns: 1fr;
-	justify-items: stretch;
-	grid-template-areas: "top-nav-bar"
-		"deal-content";
-
+	
 	& > div:nth-child(1) {
-		grid-area: top-nav-bar;
+		display: flex;
+		height: 90px;
 		border-bottom: 1px solid #ddd;
 	}
 
 	& > div:nth-child(2) {
-		grid-area: deal-content;
 		background-color: white;
 		padding: 0 1rem 1rem 1rem;
-
 	}
 
 `;

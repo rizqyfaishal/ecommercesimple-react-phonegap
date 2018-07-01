@@ -28,10 +28,9 @@ const contacts = [
 ]
 const MakeDealPageWrapper = styled.div`
 	& > div.product-name {
-		display: grid;
-		grid-template-rows: 1fr 1fr;
-		grid-template-columns: 1fr;
-		justify-items: stretch;
+		display: flex;
+		flex-direction: column;
+		justify-content: stretch;
 		align-items: start;
 
 		& > h3 {
