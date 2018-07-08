@@ -18,14 +18,16 @@ export function onReceiveLoginData(data) {
 	}
 }
 
+
 export function onLoginTap(username, password) {
 	return (dispatch) => {
 		dispatch(onLoginRequest());
-		console.log(username, password);
 		return auth.login(username, password)
-			.then(status => {
-				if(status) {
-					console.log(status);
+			.then(response => {
+				if(response.status) {
+					setTimeout(() => {
+						dispatch(onReceiveLoginData(response.data));
+					}, 5000);	
 				}
 			})
 	}

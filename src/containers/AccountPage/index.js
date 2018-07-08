@@ -83,14 +83,8 @@ class AccountPage extends Component {
 	}
 
 	render() {
-		const account = {
-			firstName: 'Rizqy',
-			lastName: 'Faishal',
-			username: 'rizqyfaishal',
-			email: 'rizqyfaishal27@gmail.com',
-			address: "Jalan Raya Solo - Madiun KM. 57",
-			paymentMethod: "Transfer BNI 12121131"
-		}
+		const account = this.props.global.userData.user;
+		console.log(account);
 		return (
 				<AccountPageWrapper>
 					<div>
@@ -103,9 +97,9 @@ class AccountPage extends Component {
 							</div>
 							<div>
 								<div>
-									<h4>{account.firstName} {account.lastName}</h4>
-									<h5>username: {account.username}</h5>
-									<h5>email : {account.email}</h5>
+									<h4>{account.data.first_name} {account.data.last_name}</h4>
+									<h5>username: {account.data.username}</h5>
+									<h5>email : {account.data.email}</h5>
 								</div>
 								<div>
 									<a href="#">EDIT</a>
@@ -118,7 +112,7 @@ class AccountPage extends Component {
 							</div>
 							<div>
 								<div>
-									<h5>{account.address}</h5>
+									<h5>{account.additional_information.address}</h5>
 								</div>
 								<div>
 									<a href="#">EDIT</a>
@@ -131,7 +125,7 @@ class AccountPage extends Component {
 							</div>
 							<div>
 								<div>
-									<h5>{account.paymentMethod}</h5>
+									<h5>{account.additional_information.payment_method}</h5>
 								</div>
 								<div>
 									<a href="#">EDIT</a>
@@ -151,7 +145,7 @@ class AccountPage extends Component {
 
 
 const mapStateToProps = (state) => ({
-
+	global: state.get('global').toJS()
 })
 
 const mapDispatchToProps = (dispatch) => ({

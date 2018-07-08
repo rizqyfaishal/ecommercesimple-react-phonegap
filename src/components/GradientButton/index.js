@@ -20,7 +20,9 @@ const GradientButton = styled.button`
   box-shadow: 0 0 20px #ddd;
   border-radius: 20px;
   background-image: linear-gradient(to right, 
-  	${props => props.color1} 0%, ${props => props.color2} 51%, ${props => props.color1} 100%);
+  	${props => props.disabled ? props.disabledColor : props.color1 } 0%, 
+    ${props => props.disabled ? props.disabledColor : props.color2 } 51%, 
+    ${props => props.disabled ? props.disabledColor : props.color1 } 100%);
 
   &:active {
   	background-position: right center;
@@ -36,6 +38,8 @@ const GradientButton = styled.button`
 GradientButton.propTypes = {
 	color1: PropTypes.string,
 	color2: PropTypes.string,
+  disabledColor: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default GradientButton;

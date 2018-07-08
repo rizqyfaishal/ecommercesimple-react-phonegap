@@ -1,26 +1,23 @@
-import 'whatwg-fetch';
+import axios from 'axios';
 
 const localStorage = window.localStorage;
-const headers =  { 
-	'Access-Control-Allow-Origin': '*',
-	'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-	'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
-	'Content-Type': 'application/json'
-}
+
+const genericRequestInstance = axios.create({
+	baseURL: 'http://localhost:8000/api',
+	crossdomain: true
+});
+
 
 export const genericRequest = (url, method, data) => 
-	fetch(url, 
-		{ 	credentials: 'same-origin',
-			method: method, 
-			headers: headers,
-			body: JSON.stringify(data)
-		});
+	genericRequestInstance({ url, method, data })
 
-export const authenticatedRequest = (url, method, data) =>
-	fetch(url, 
-		{ 	credentials: 'same-origin',
-			method: method, 
-			headers: { ...headers, 'Authorization': `JWT ${localStorage.get('auth-token')}` },
-			body: JSON.stringify(data)
+export const authenticatedRequest = (url, method, data) => {
+	const authenticatedRequestInstance = axios.create({
+		baseURL: 'http://localhost:8000/api',
+		crossdomain: true,
+		headers: {
+			'Authorization': `JWT ${localStorage.getItem('auth-token')}`,
 		}
-	);
+	});
+	return authenticatedRequestInstance({ url, method, data })
+}

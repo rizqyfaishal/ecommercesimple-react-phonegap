@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const CustomLabel = styled.label`
 	font-size: 0.8rem;
-	color: #888;
+	color: ${props => props.isError ? 'red' : '#888'};
 `;
 
 export default CustomLabel;

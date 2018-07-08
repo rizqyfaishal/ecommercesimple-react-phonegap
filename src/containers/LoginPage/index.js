@@ -4,12 +4,15 @@ import { goBack, push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import Tappable from 'react-tappable';
+import { isNull } from 'lodash';
+
 import NavigatorBar from '../../components/NavigatorBar';
 import CustomButton from '../../components/CustomButton';
 import GradientButton from '../../components/GradientButton';
 import CustomInputText from '../../components/CustomInputText';
 import CustomLabel from '../../components/CustomLabel';
 import CustomNumberInput from '../../components/CustomNumberInput';
+import LoaderImage from '../../components/LoaderImage';
 
 import {
 	onLoginTap
@@ -90,11 +93,25 @@ class LoginPage extends Component {
 		this.onLoginTapped = this.onLoginTapped.bind(this);
 	}
 
+	componentWillMount() {
+		const { global, dispatch } = this.props;
+		if(!isNull(global.userData)) {
+			dispatch(push('/content/deal/make'));
+		} 
+	}
+
+	componentWillUpdate(props) {
+		const { global, dispatch } = props;
+		if(!isNull(global.userData)) {
+			dispatch(push('/content/deal/make'));
+		} 
+	}
+
+
 	onLoginTapped() {
 		const { dispatch } = this.props;
 		const username = this.usernameField.value;
 		const password = this.passwordField.value;
-
 		dispatch(onLoginTap(username, password));
 	}
 
@@ -115,6 +132,9 @@ class LoginPage extends Component {
 	}
 
 	render() {
+		if(this.props.global.isLoading) {
+			return <LoaderImage />;
+		}
 		return (
 			<CSSTransitionGroup transitionName="push"
             transitionEnterTimeout={ 300 } transitionLeaveTimeout={ 300 }>
@@ -160,7 +180,9 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-	return {};
+	return {
+		global : state.get('global').toJS()
+	};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
