@@ -4,6 +4,8 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import Tappable from 'react-tappable';
 
+import { isUndefined } from 'lodash';
+
 import CustomButton from '../../components/CustomButton';
 import GradientButton from '../../components/GradientButton';
 
@@ -150,6 +152,17 @@ class HomePage extends Component {
 		this.onLoginHereTapped = this.onLoginHereTapped.bind(this);
 	}
 
+	componentWillMount() {
+		const { dispatch, global } = this.props;
+		if(global.isLoggedIn) {
+			if(isUndefined(global.userData.additional_information)) {
+				dispatch(push('/content/fill-additional-information'));
+			} else {
+				dispatch(push('/content/deal/make'));
+			}
+		}
+	}
+
 	onGettingStartedTapped(event) {
 		const { dispatch } = this.props;
 		dispatch(push('/register'));
@@ -195,7 +208,9 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-	return {};
+	return {
+		global: state.get('global').toJS(),
+	};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

@@ -26,12 +26,14 @@ const contacts = [
 		name: 'Rizqy Faishal'
 	}
 ]
+
 const MakeDealPageWrapper = styled.div`
+	padding: 0 1rem;
 	& > div.product-name {
 		display: flex;
 		flex-direction: column;
 		justify-content: stretch;
-		align-items: start;
+		align-items: stretch;
 
 		& > h3 {
 			margin: 1rem 0 0.5rem 0;
@@ -102,6 +104,7 @@ class MakeDealPage extends Component {
 
 	}
 
+
 	onSelectContactTapped(event) {
 		const wrapper = document.createElement('div');
 		ReactDOM.render(<ContactSelector contacts={contacts}/>, wrapper);
@@ -132,7 +135,7 @@ class MakeDealPage extends Component {
 				</div>
 				<div className="product-items">
 					<h3>Daftar Item</h3>
-					<div class="items">
+					<div className="items">
 						{items.map(item => <ProductItem item={item} key={item.orderNo}/>)}
 					</div>
 					<div>

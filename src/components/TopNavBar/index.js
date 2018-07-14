@@ -3,27 +3,43 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Tappable from 'react-tappable';
 
+import Next from '../../images/next.svg';
+import Users from '../../images/users.svg';
+
+
 const TopNavBarWrapper = styled.div`
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
+	height: 70px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	
-
-	& > div:nth-child(1) {
-		grid-area: logo-screen;
-	}
+	padding: 1rem 0 0.5rem 0;;
 
 	& > div:nth-child(2) {
-		grid-area: toggle-screen;
-		font-size: 1.5rem;
-		font-weight: bold;
+		display: flex;
+		flex-direction: column;
+		width: 180px;
+		align-items: space-around;
+		& > div:nth-child(1) {
+			display: flex;
+			justify-content: center;
+			grid-area: logo-screen;
+		}
+
+		& > div:nth-child(2) {
+			display: flex;
+			justify-content: center;	
+			grid-area: toggle-screen;
+			font-size: 1.5rem;
+			font-weight: bold;
+			padding: 0.5rem 0;
+		}
 	}
 
-	& > div:nth-child(3) {
+	& > div:nth-child(1) {
 		grid-area: profile-nav;
 
 		& > span {
@@ -40,7 +56,7 @@ const TopNavBarWrapper = styled.div`
 		}
 	}
 
-	& > div:nth-child(4) {
+	& > div:nth-child(3) {
 		grid-area: switch-offer;
 
 		& > span {
@@ -57,7 +73,6 @@ const TopNavBarWrapper = styled.div`
 		}
 	}
 
-	padding-top: 1rem;
 	background-color: #F48024;
 	color: white;
 	border-bottom: 2px solid #ddd;
@@ -66,13 +81,26 @@ const TopNavBarWrapper = styled.div`
 const TopNavBar = (props) => {
 	return (
 			<TopNavBarWrapper>
-				<div>{props.title}</div>
 				<div>
-					<Tappable onTap={props.onToggleTapped}>
-						{props.status}
+					<Tappable onTap={props.onLeftTapped}>
+						<img src={Users} alt="next-button" width="30" />
+						<p>Current profile</p>
 					</Tappable>
 				</div>
-				{props.children}
+				<div>
+					<div>{props.title}</div>
+					<div>
+						<Tappable onTap={props.onToggleTapped}>
+							{props.status}
+						</Tappable>
+					</div>
+				</div>	
+				<div>
+					<Tappable>
+						<img src={Next} alt="next-button" width="30" />
+						<p>{ props.statusActionText }</p>
+					</Tappable>
+				</div>
 			</TopNavBarWrapper>
 		)
 }

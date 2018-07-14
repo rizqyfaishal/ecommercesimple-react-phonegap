@@ -6,16 +6,19 @@ import 'react-select/dist/react-select.css';
 
 const ContactMultiSelectorWrapper = styled.div`
 	padding: 1rem;
-	display: grid;
-	justify-items: strecth;
-	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: stretch;
 `;
 
 const ContactMultiSelector = (props) => {
+	const SelectAsync = Select.Async;
 	return (
 			<ContactMultiSelectorWrapper>
-				<Select options={props.options} 
-					multi={true} placeholder="Select usernames for added to your contact"
+				<SelectAsync
+					multi={true} placeholder="Find by username"
+					loadOptions={props.loadOptions}
 					value={props.value}
 					onChange={props.onChange}/>
 			</ContactMultiSelectorWrapper>

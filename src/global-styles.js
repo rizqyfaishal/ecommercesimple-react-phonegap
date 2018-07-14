@@ -1,4 +1,6 @@
 import { injectGlobal } from 'styled-components';
+// import 'sweetalert-react/node_modules/sweetalert/dist/sweetalert.css';
+
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`

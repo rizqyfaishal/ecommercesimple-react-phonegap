@@ -95,9 +95,20 @@ class RegisterPage extends Component {
 	onInputChange(event) {
 		const key = event.target.name;
 		const { registerPage, dispatch } = this.props;
-		if(registerPage[key].length > 0) {
+		if(registerPage.errors[key].length > 0) {
 			dispatch(clearErrors(key));
 		}	
+	}
+
+	componentWillMount() {
+		const { dispatch, global } = this.props;
+		if(global.isLoggedIn) {
+			if(isUndefined(global.userData.additional_information)) {
+				dispatch(push('/fill-additional-information'));
+			} else {
+				dispatch(push('/content/deal/make'));
+			}
+		}
 	}
 
 	onRegisterTapped() {
@@ -238,7 +249,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
 	return {
-		registerPage: state.get('registerPage').toJS()
+		registerPage: state.get('registerPage').toJS(),
+		global: state.get('global').toJS()
 	};
 }
 

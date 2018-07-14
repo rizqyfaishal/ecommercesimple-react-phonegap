@@ -8,62 +8,62 @@ import CustomButton from '../../components/CustomButton';
 import GradientButton from '../../components/GradientButton';
 
 const MyDealPageWrapper = styled.div`
-	margin: 0 -1rem;
-	display: grid;
-	grid-template-rows: 132px 1fr 125px;
-	grid-template-columns: 1fr;
-	grid-template-areas: "deal-name" "deal-details" "additional";
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
 	& > div:nth-child(2) {
-		display: grid;
-		grid-area: deal-details;
-		grid-template-rows: 45px 1fr 16px;
-		grid-template-columns: 1fr;
-		grid-template-areas: "headers"
-			"details"
-			"total";
+		display: flex;
+		flex-direction: column;
 
 		& > div:nth-child(1) {
-			grid-area: headers;
+			display: flex;
 			border-bottom: 1px solid #ddd;
-			display: grid;
-			grid-template-columns: 3fr 2.5fr;
-			grid-template-rows: 1fr;
 			padding: 0 1rem;
-			grid-template-areas: "item-header amount-header";
-			& > div:nth-child(1) {
-				justify-self: start;
-				align-self: center;
+			justify-content: flex-start;
+			align-items: center;
 
+			& > div:nth-child(1) {
+				width: 60%;
+				& > h5 {
+					margin: 1rem 0 0.5rem 0;
+				}
 			}
 
 			& > div:nth-child(2) {
-				justify-self: end;
-				align-self: center;
+				width: 40%;
+				justify-self: flex-end;
+				& > h5 {
+					text-align: right;
+					margin: 1rem 0 0.5rem 0;
+				}
 			}
 		}
 
 		& > div:nth-child(3) {
-			grid-area: total;
 			border-top: 1px solid #ddd;
-			display: grid;
-			grid-template-columns: 3fr 2.5fr;
+			display: flex;
+			justify-content: flex-end;
 			align-items: center;
-			justify-items: end;
-
 			padding: 0 1rem;
 
 			& > div {
-				padding: 0 0.5rem;
+				padding-left: 0.5rem;
 			}
 		}
 
 		& > div:nth-child(2) {
 			padding: 0 1rem;
-			display: grid;
+			display: flex;
+			flex-direction: column;
 			align-items: center;
+			justify-content: center;
 			& > div {
-				display: grid;
-				grid-template-columns: 3fr 2.5fr;
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
 				margin: 0.5rem 0;
 				& > div > h4, & > div > h6 {
 					margin: 0.2rem 0;
@@ -72,72 +72,77 @@ const MyDealPageWrapper = styled.div`
 				& > div > h6 {
 					font-weight: normal;
 				}
+
+				& > div:nth-child(1) {
+					width: 60%;
+				}
 				& > div:nth-child(2) {
-					justify-self: end;
-					align-self: center;
+					width: 40%;
+					& > h4 {
+						text-align: right;
+					}
 				}
 			}
 		}
 	}
-	& > div:nth-child(1) {
-		padding: 0 1rem;
-		grid-area: deal-name;
-		display: grid;
-		grid-template-columns: 3fr 2.5fr;
-		grid-template-rows: 1fr 1fr;
-		border-bottom: 1px solid #ddd;
-		grid-template-areas: "deal-name-name deal-name-nego"
-			"deal-name-price deal-name-cancel";
 
+	& > div:nth-child(1) {
+		margin-top: 10px;
+		padding: 0 1rem;
+		display: flex;
+		flex-direction: row;
+		border-bottom: 1px solid #ddd;
 		& > div:nth-child(1) {
-			grid-area: deal-name-name;
-			align-self: start;
-			& > h2 {
-				margin: 10px 0;
+			width: 50%;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			& > div:nth-child(1) {
+				& > h2 {
+					margin-top: 0;
+					margin-bottom: 10px;
+				}
+
+				& > h5 {
+					margin: 0;
+				}
 			}
 
-			& > h5 {
-				margin: 0;
+			& > div:nth-child(2) {
+				& > h3 {
+					font-size: 120%;
+				}	
 			}
 		}
 
 		& > div:nth-child(2) {
-			grid-area: deal-name-price;
-			align-self: center;
-			& > h2 {
-				margin: 10px 0;
+			width: 50%;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-end;
+
+			& > div:nth-child(1) {
+				& > h5 {
+					margin-top: 0;
+					margin-bottom: 10px;
+					text-align: right;
+				}
+			}
+
+			& > div:nth-child(2) {
+				& > button {
+					margin: 1rem 0;
+				}
 			}
 		}
 
-		& > div:nth-child(3) {
-			justify-self: end;
-			align-self: start;
-			grid-area: deal-name-nego;
-			& > h5 {
-				display: block;
-				margin: 10px auto;
-				text-align: right;
-				font-size: 70%;
-			}
-		}
-
-		& > div:nth-child(4) {
-			position: relative;	
-			justify-self: end;
-			align-self: center;
-			grid-area: deal-name-cancel;
-
-			& > button {
-				font-size: 120%;
-				margin-right: 0;
-			}
-		}
 	}
 
 	& > div:nth-child(3) {
-		grid-area: additional;
-		display: grid;
-		justify-items: center;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
 		align-items: center;
 		grid-template-columns: 1fr 1fr;
 	}
@@ -227,20 +232,24 @@ class MyDealPage extends Component {
 				<MyDealPageWrapper>
 					<div>
 						<div>
-							<h2>{product.user}</h2>
-							<h5>{product.productName}</h5>
+							<div>
+								<h2>{product.user}</h2>
+								<h5>{product.productName}</h5>
+							</div>
+							<div>
+								<h3>Rp. 100000000</h3>
+							</div>
 						</div>
 						<div>
-							<h2>Rp. 100000000</h2>
-						</div>
-						<div>
-							<h5>Date: 11/19/2017</h5>
-							<h5>Expiration: 11/29/2017</h5>
-						</div>
-						<div>
-							<GradientButton color1="#f6d365" color2="#fda085" onClick={this.onDealTapped}>
-								Ok! Deal
-							</GradientButton>
+							<div>
+								<h5>Date: 11/19/2017</h5>
+								<h5>Expiration: 11/29/2017</h5>
+							</div>
+							<div>
+								<GradientButton color1="#f6d365" color2="#fda085" onClick={this.onDealTapped}>
+									Ok! Deal
+								</GradientButton>
+							</div>
 						</div>
 					</div>
 					<div>

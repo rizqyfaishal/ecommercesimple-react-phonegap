@@ -39,10 +39,4 @@ const ProfileContent = (props) => {
 		)
 }
 
-ProfileContent.propTypes = {
-	name: PropTypes.string,
-	value: PropTypes.value,
-	label: PropTypes.label
-}
-
 export default ProfileContent;

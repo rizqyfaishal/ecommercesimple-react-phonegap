@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const CustomTextArea = styled.textarea`
 	border-radius: 7px;
-	border: 1px solid #ddd;
+	border: 1px solid ${props => props.isError ? 'red' : '#ddd'};
 	padding: 0.7rem;
 	color: #3b3d42;
 	background-color: #fff;

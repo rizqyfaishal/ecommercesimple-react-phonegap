@@ -12,21 +12,30 @@ import dealPageReducer from './containers/DealPage/reducers';
 import shoppingListPageReducer from './containers/ShoppingListPage/reducers';
 import loginPageReducer from './containers/LoginPage/reducers';
 import registerPageReducer from './containers/RegisterPage/reducers';
-
-
-
+import fillAdditionalInformationPageReducer from './containers/FillAdditionalInformationPage/reducers';
+import contactPageReducer from './containers/ContactPage/reducers';
 
 import {
   GLOBAL_SET_FLASH_MESSAGE,
   GLOBAL_UNSET_FLASH_MESSAGE,
   GLOBAL_CLEAR_FLASH_MESSAGE,
+  GLOBAL_ON_VERIFY_TOKEN,
+  GLOBAL_ON_VERIFY_TOKEN_SUCCESS,
+  GLOBAL_ON_VERIFY_TOKEN_ERROR,
+  GLOBAL_ON_LOGOUT,
+  GLOBAL_ON_RENDER,
 } from './constants';
 
 
 import {
     LOGIN_PAGE_ON_RECEIVE_LOGIN_DATA,
-    LOGIN_PAGE_ON_LOGIN_REQUEST
+    LOGIN_PAGE_ON_LOGIN_REQUEST,
+    LOGIN_PAGE_ON_RECEIVE_LOGIN_ERRORS
 } from './containers/LoginPage/constants';
+
+import {
+  FILL_ADDITIONAL_INFORMATION_PAGE_ON_RECEIVE_RESPONSE_DATA
+} from './containers/FillAdditionalInformationPage/constants';
 
 
 const routeInitialState = fromJS({
@@ -36,7 +45,10 @@ const routeInitialState = fromJS({
 
 const globalInitialState = fromJS({
   userData: null,
-  flashMessages: {}
+  flashMessages: {},
+  isLoggedIn: false,
+  isLoading: false,
+  render: false
 });
 /**
  * Merge route into the global application state
@@ -53,23 +65,50 @@ function routeReducer(state = routeInitialState, action) {
   }
 }
 
+
 function globalReducer(state = globalInitialState, action) {
+  console.log(action);
   switch(action.type) {
+    case LOCATION_CHANGE:
+      return state.set('flashMessages', {});
+    case GLOBAL_ON_RENDER:
+      return state.set('render', true);
+    case GLOBAL_ON_LOGOUT:
+      return globalInitialState.set('render', true);
     case GLOBAL_SET_FLASH_MESSAGE:
       return state.set('flashMessages', 
-        fromJS({ ...state.get('flashMessages').toJS(), [action.key]: action.message}));
+        { ...state.get('flashMessages'), [action.key]: action.message});
     case GLOBAL_CLEAR_FLASH_MESSAGE:
       return state.set('flashMessages', fromJS({}));
     case GLOBAL_UNSET_FLASH_MESSAGE: {
-      const flashMessages = state.get('flashMessages').toJS();
+      const flashMessages = state.get('flashMessages');
       const newFlashMessage = unset(flashMessages, action.key);
-      return state.set('flashMessages', fromJS({ ...newFlashMessage }));
+      return state.set('flashMessages', { ...newFlashMessage });
     }
     case LOGIN_PAGE_ON_LOGIN_REQUEST:
       return state.set('isLoading', true);
-    case LOGIN_PAGE_ON_RECEIVE_LOGIN_DATA:
-      return state.set('userData', action.data)
+    case LOGIN_PAGE_ON_RECEIVE_LOGIN_DATA:{
+      return state.set('userData', action.data.user)
+                  .set('isLoggedIn', true)
                   .set('isLoading', false);
+    }
+    case LOGIN_PAGE_ON_RECEIVE_LOGIN_ERRORS:
+      return state.set('isLoading', false);
+    case GLOBAL_ON_VERIFY_TOKEN_SUCCESS:
+      return state.set('userData', action.data.user)
+                  .set('isLoading', false)
+                  .set('isLoggedIn', true);
+    case GLOBAL_ON_VERIFY_TOKEN_ERROR:
+      return state.set('userData', null)
+                  .set('isLoading', false)
+                  .set('isLoggedIn', false);
+    case GLOBAL_ON_VERIFY_TOKEN:
+      return state.set('isLoading', true);
+    case FILL_ADDITIONAL_INFORMATION_PAGE_ON_RECEIVE_RESPONSE_DATA: {
+      console.log(action);
+      const userData = state.get('userData');
+      return state.set('userData', { ...userData, additional_information: action.data})
+    }      
     default:
       return state;
   }
@@ -88,6 +127,8 @@ export default function createReducer(injectedReducers) {
     dealPage: dealPageReducer,
     registerPage: registerPageReducer,
     route: routeReducer,
+    fillAdditionalInformationPage: fillAdditionalInformationPageReducer,
+    contactPage: contactPageReducer,
     ...injectedReducers,
   });
 }

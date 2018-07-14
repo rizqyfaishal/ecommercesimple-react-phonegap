@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { isUndefined, isNull } from 'lodash';
+
+
 import TitleBar from '../../components/TitleBar';
 
 import GradientButton from '../../components/GradientButton';
+
+import { onLogoutTapped } from '../../actions';
 
 const AccountPageWrapper = styled.div`
 	display: flex;
@@ -79,12 +85,32 @@ class AccountPage extends Component {
 
 	constructor(props) {
 		super(props);
+		this.onLogout = this.onLogout.bind(this);
+	}
 
+	componentWillMount() {
+		const { dispatch, global } = this.props;
+		console.log(global);
+		if(global.isLoggedIn) {
+			if(!isNull(global.userData) && isUndefined(global.userData.additional_information)) {
+				dispatch(push('/content/fill-additional-information'));
+			}
+		} else {
+			dispatch(push('/login'));
+		}
+		
+	}
+
+	onLogout() {
+		const { dispatch } = this.props;
+		dispatch(onLogoutTapped());
 	}
 
 	render() {
-		const account = this.props.global.userData.user;
-		console.log(account);
+		const account = this.props.global.userData;
+		if(isNull(account) || isUndefined(account.additional_information)) {
+			return null;
+		}
 		return (
 				<AccountPageWrapper>
 					<div>
@@ -133,12 +159,12 @@ class AccountPage extends Component {
 							</div>
 						</div>
 						<div>
-							<GradientButton color1="#f6d365" color2="red">
+							<GradientButton color1="#f6d365" color2="red" onClick={this.onLogout}>
 								Logout
 							</GradientButton>
 						</div>
 					</div>
-				</AccountPageWrapper>
+				</AccountPageWrapper>	
 			)
 	}
 }

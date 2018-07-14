@@ -51,8 +51,8 @@ export function clearErrors(key) {
 export function onRegisterSuccess() {
 	return dispatch => {
 		dispatch(onReceiveRegisterData());
-		dispatch(setFlashMessage('registerSuccess', 'Registration Complete'));
 		dispatch(push('/login'));
+		dispatch(setFlashMessage('registerSuccess', 'Registration Complete. Please Login.'));
 	}
 }
 

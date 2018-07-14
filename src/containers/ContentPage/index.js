@@ -4,6 +4,7 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import { fromObject } from 'immutable';
+import { isUndefined, isNull } from 'lodash';
 
 import BottomNavBar from '../../components/BottomNavBar';
 
@@ -12,6 +13,7 @@ import AccountPage from '../AccountPage';
 import ShoppingListPage from '../ShoppingListPage';
 import ComingSoonPage from '../ComingSoonPage';
 import ContactPage from '../ContactPage';
+import FillAdditionalInformationPage from '../FillAdditionalInformationPage';
 
 import {
 	BOTTOM_NAVBAR_MY_OFFER,
@@ -107,6 +109,13 @@ class ContentPage extends Component {
 
 	}
 
+	componentWillMount() {
+		const { dispatch, global } = this.props;
+		if(!isNull(global.userData) && (isUndefined(global.userData.additional_information))) {
+			dispatch(push('/content/fill-additional-information'));
+		}
+	}	
+
 	render() {
 		const { dispatch, contentPage } = this.props;
 		const menuProps = menus.map(menu => {
@@ -124,6 +133,7 @@ class ContentPage extends Component {
           <Route path={`${match.url}/accounts`} component={AccountPage}/>
           <Route path={`${match.url}/coming-soon`} component={ComingSoonPage}/>
           <Route path={`${match.url}/contacts`} component={ContactPage}/>
+          <Route path={`${match.url}/fill-additional-information`} component={FillAdditionalInformationPage} />
 				</div>
 				<div>
 					<BottomNavBar menus={menuProps}/>
@@ -138,7 +148,8 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const mapStateTopProps = (state) => ({
-	contentPage: state.get('contentPage').toJS()
+	contentPage: state.get('contentPage').toJS(),
+	global: state.get('global').toJS()
 })
 
 export default connect(mapStateTopProps, mapDispatchToProps)(ContentPage);
