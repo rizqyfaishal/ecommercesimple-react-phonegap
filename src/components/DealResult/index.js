@@ -4,23 +4,25 @@ import GradientButton from '../../components/GradientButton';
 
 import Cart from '../../images/cart_deal.svg';
 
+import { convertToRupiah } from '../../utils';
+
 const DealResultWrapper = styled.div`
 	background-color: #f4f4f4;
 	border-top: 2px solid #ddd;
-	display: grid;
-	grid-template-rows: 1fr;
-	grid-template-columns: 1.5fr 6fr;
-	grid-template-areas: "quantity-count price-total";
+	display: flex;
 	align-items: center;
 	padding: 0.5rem 1rem;
 	& > div:nth-child(1) {
-		justify-self: start;
+		width: 20%;
+		margin-top: 1rem;
+		justify-content: flex-start;
 		position: relative;
 		& > span {
 			top: -11px;
 			left: 3px;
-			display: grid;
-			justify-items: center;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
 			align-items: center;
 			background-color: #000;
 			color: white;
@@ -34,9 +36,12 @@ const DealResultWrapper = styled.div`
 	}
 
 	& > div:nth-child(2) {
-		justify-self: stretch;
-		display: grid;
-		justify-items: stretch;
+		display: flex;
+		width: 80%;
+		flex-direction: column;
+		justify-content: stretch;
+		align-items: stretch;
+
 		& > h3 {
 			margin: 0.5rem 0;
 		}
@@ -51,7 +56,7 @@ const DealResultWrapper = styled.div`
 const DealResult = (props) => {
 	let total = 0;
 	props.items.forEach(item => {
-		total += item.price
+		total += (item.price * item.quantity)
 	})
 	return (
 			<DealResultWrapper>
@@ -60,8 +65,8 @@ const DealResult = (props) => {
 					<img src={Cart} alt="cart" width="35" />
 				</div>
 				<div>
-					<h3>Total Rp. {total}</h3>
-					<GradientButton color1="#f6d365" color2="#fda085">
+					<h3>Total Rp. { convertToRupiah(total) }</h3>
+					<GradientButton color1="#f6d365" color2="#fda085" onClick={props.onShareProductClick}>
 						Bagikan Produk
 					</GradientButton>
 				</div>

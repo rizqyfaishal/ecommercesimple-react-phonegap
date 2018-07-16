@@ -11,8 +11,8 @@ const TitleBarWrapper = styled.div`
 	text-transform: uppercase;
 	position: fixed;
 	width: 100%;
+	max-width: 600px;
 	top: 0;
-	left: 0;
 	z-index: 100;
 	background-color: #fff;
 `;

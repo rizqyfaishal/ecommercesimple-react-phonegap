@@ -1,5 +1,4 @@
 import { injectGlobal } from 'styled-components';
-// import 'sweetalert-react/node_modules/sweetalert/dist/sweetalert.css';
 
 
 /* eslint no-unused-expressions: 0 */
@@ -13,6 +12,7 @@ injectGlobal`
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     margin: 0 auto;
+    background-color: #f4f4f4;
   }
 
   body.fontLoaded {
@@ -24,6 +24,8 @@ injectGlobal`
     min-height: 100%;
     min-width: 300px;
     overflow-x: hidden;
+    max-width: 600px;
+    margin: 0 auto;
   }
 
   p,

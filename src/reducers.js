@@ -14,6 +14,17 @@ import loginPageReducer from './containers/LoginPage/reducers';
 import registerPageReducer from './containers/RegisterPage/reducers';
 import fillAdditionalInformationPageReducer from './containers/FillAdditionalInformationPage/reducers';
 import contactPageReducer from './containers/ContactPage/reducers';
+import makeDealReducer from './containers/MakeDealPage/reducers';
+
+import {
+  MAKE_DEAL_PAGE_FETCH_USER_CONTACTS_DATA_REQUEST,
+  MAKE_DEAL_PAGE_RECEIVE_USER_CONTACTS_DATA
+} from './containers/MakeDealPage/constants';
+
+import {
+  DEAL_PAGE_FETCH_USER_PROFILES_DATA_REQUEST,
+  DEAL_PAGE_RECEIVE_USER_PROFILES_DATA
+} from './containers/DealPage/constants';
 
 import {
   GLOBAL_SET_FLASH_MESSAGE,
@@ -37,6 +48,9 @@ import {
   FILL_ADDITIONAL_INFORMATION_PAGE_ON_RECEIVE_RESPONSE_DATA
 } from './containers/FillAdditionalInformationPage/constants';
 
+import {
+  CONTACT_PAGE_RECEIVE_SAVED_USER_CONTACTS_DATA
+} from './containers/ContactPage/constants';
 
 const routeInitialState = fromJS({
   location: null,
@@ -48,7 +62,9 @@ const globalInitialState = fromJS({
   flashMessages: {},
   isLoggedIn: false,
   isLoading: false,
-  render: false
+  render: false,
+  contactsData: [],
+  profiles: null
 });
 /**
  * Merge route into the global application state
@@ -67,8 +83,19 @@ function routeReducer(state = routeInitialState, action) {
 
 
 function globalReducer(state = globalInitialState, action) {
-  console.log(action);
   switch(action.type) {
+    case CONTACT_PAGE_RECEIVE_SAVED_USER_CONTACTS_DATA:
+      return state.set('contactsData', [...state.get('contactsData'), ...action.data.contact_users]);
+    case MAKE_DEAL_PAGE_FETCH_USER_CONTACTS_DATA_REQUEST:
+      return state.set('isLoading', true);
+    case MAKE_DEAL_PAGE_RECEIVE_USER_CONTACTS_DATA:
+      return state.set('isLoading', false)
+                  .set('contactData', action.data.map(contact => ({ value: contact.contact_user.id, 
+                      label: contact.contact_user.username })));;
+    case DEAL_PAGE_RECEIVE_USER_PROFILES_DATA:
+      return state.set('isLoading', false);
+    case DEAL_PAGE_FETCH_USER_PROFILES_DATA_REQUEST:
+      return state.set('isLoading', true);
     case LOCATION_CHANGE:
       return state.set('flashMessages', {});
     case GLOBAL_ON_RENDER:
@@ -129,6 +156,7 @@ export default function createReducer(injectedReducers) {
     route: routeReducer,
     fillAdditionalInformationPage: fillAdditionalInformationPageReducer,
     contactPage: contactPageReducer,
+    makeDealPage: makeDealReducer,
     ...injectedReducers,
   });
 }

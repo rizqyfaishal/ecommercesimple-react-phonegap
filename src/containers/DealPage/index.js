@@ -15,18 +15,21 @@ import LoaderImage from '../../components/LoaderImage';
 import FieldErrorMessage from '../../components/FieldErrorMessage';
 
 import {
-	TOGGLE_STATUS_BUY,
-	TOGGLE_STATUS_SELL
+  TOGGLE_STATUS_BUY,
+  TOGGLE_STATUS_SELL
 } from './constants';
 
 import {
-	onToggleTapped,
-	fetchUserProfilesData,
-	onSaveNewProfile,
-	onShowProfileDialog,
-	onHideProfileDialog,
-	onProfileSelected,
-	onSaveNewProfileFromDialogRequest
+  onToggleTapped,
+  fetchUserProfilesData,
+  onSaveNewProfile,
+  onShowProfileDialog,
+  onHideProfileDialog,
+  onProfileSelected,
+  onSaveNewProfileFromDialogRequest,
+  onProfileTempSelected,
+  cancelProfileSelected,
+  onSwitchProfile
 } from './actions';
 
 
@@ -35,131 +38,156 @@ import MakeDealPage from '../MakeDealPage';
 
 
 const changePageByToggle = (url) => (dispatch) => {
-	dispatch(push(url));
-	dispatch(onToggleTapped());
+  dispatch(push(url));
+  dispatch(onToggleTapped());
 }
 
 const DealPageWrapper = styled.div`
-	display: flex;
-	justify-content: stretch;
-	align-items: center;
-	
-	& > div:nth-child(1) {
-		display: flex;
-		height: 90px;
-		border-bottom: 1px solid #ddd;
-	}
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  
+  & > div:nth-child(1) {
+    display: flex;
+    height: 90px;
+    border-bottom: 1px solid #ddd;
+  }
 
-	& > div:not(.dialogALert):nth-child(2) {
-		width: 100%;
-		margin-top: 95px;
-		background-color: white;
-		margin-bottom: 60px;
-	}
+  & > div:not(.dialogALert):nth-child(2) {
+    width: 100%;
+    margin-top: 95px;
+    background-color: white;
+    margin-bottom: 60px;
+  }
 
 `;
 
 class DealPage extends Component {
 
-	constructor(props) {
-		super(props);
-		this.onToggleTapped = this.onToggleTapped.bind(this);
-		this.onLeftTapped = this.onLeftTapped.bind(this);
-		this.saveNewProfile = this.saveNewProfile.bind(this);
-		this.saveNewProfileFromDialog = this.saveNewProfileFromDialog.bind(this);
-		this.onProfileSelected = this.onProfileSelected.bind(this);
-		this.createNewProfileRef = React.createRef();
-	}
+  constructor(props) {
+    super(props);
+    this.onToggleTapped = this.onToggleTapped.bind(this);
+    this.onLeftTapped = this.onLeftTapped.bind(this);
+    this.saveNewProfile = this.saveNewProfile.bind(this);
+    this.saveNewProfileFromDialog = this.saveNewProfileFromDialog.bind(this);
+    this.onProfileSelected = this.onProfileSelected.bind(this);
+    this.createNewProfileRef = React.createRef();
+    this.onProfileTapped = this.onProfileTapped.bind(this);
+    this.onSwitchProfileTapped = this.onSwitchProfileTapped.bind(this);
+    // this.onSwitchOfferTapped = this.onSwitchOfferTapped.bind(this);
+  }
 
-	componentWillMount() {
-		const { dispatch } = this.props;
-		dispatch(fetchUserProfilesData());
-	}
+  onSwitchProfileTapped() {
+    const { dispatch } = this.props;
+    dispatch(onSwitchProfile());
+  }
 
-	onProfileSelected() {
-		const { dispatch } = this.props;
-	}
+  // onSwitchOfferTapped() {
 
-	saveNewProfile() {
-		const { dispatch, global } = this.props;
-		dispatch(onSaveNewProfile({ user: global.userData.data.id, profile_name: this.profileNameField.value }, false));
-	}
+  // }
 
-	saveNewProfileFromDialog() {
-		const { dispatch, global } = this.props;
-		console.log(this.createNewProfileRef.current.value);
-		dispatch(onSaveNewProfile({ user: global.userData.data.id, profile_name: this.createNewProfileRef.current.value }, true));
-	}
+  onProfileTapped(event) {
+    const { dispatch } = this.props;
+    dispatch(onProfileTempSelected(event.target.value));
+  }
 
-	onToggleTapped(event) {
-		const { dispatch, dealPage } = this.props;
-		const url = dealPage.currentToggleStatus == TOGGLE_STATUS_SELL ? '/content/deal/my' : '/content/deal/make';
-		dispatch(changePageByToggle(url));
-	}
+  // componentWillMount() {
+  //   const { dispatch } = this.props;
+  //   dispatch(fetchUserProfilesData());
+  // }
 
-	onLeftTapped(event) {
-		const { dispatch, dealPage } = this.props;
-		dispatch(onShowProfileDialog());
-	}
+  onProfileSelected() {
+    const { dispatch } = this.props;
+  }
 
-	render() {
-		const { dealPage, match, dispatch } = this.props;
-		let content = null;
-		if(!isNull(dealPage.profiles) && dealPage.profiles.length == 0) {
-			content = <div className="dialogALert">
-				<CustomAlert show={true} 
-				title="Create new profile"
-				okButtonText={dealPage.isLoading ? 'Saving profile' : 'Save profile'}
-				onOkClick={this.saveNewProfile}
-				cancel={false} okButtonDisabled={dealPage.isLoading}>
-					<CustomInputText placeholder="Profile name" isError={dealPage.newProfileErrors.profile_name.length > 0}
-						innerRef={profileName => {this.profileNameField = profileName; }}/>
-					{dealPage.newProfileErrors.profile_name.map(error => 
-						<FieldErrorMessage className="error-message" key={error}>{error}</FieldErrorMessage>)}
-				</CustomAlert>
-			</div>;
-		} else if(dealPage.isLoading) {
-			content = <LoaderImage />;
-		} else if(!isNull(dealPage.profiles)){
-			content = <div>
-				<Route path={`${match.url}/make`} component={MakeDealPage} />
-				<Route path={`${match.url}/my`} component={MyDealPage} />
-				<CustomAlert show={dealPage.showProfileDialog} 
-					onOkClick={() => { dispatch(onHideProfileDialog()); }}
-					onCancelClick={() => { dispatch(onProfileSelected()); }}
-					title="Select Profile" 
-					okButtonText="Select" 
-					okButtonDisabled={dealPage.isLoading}
-					cancelButtonText="Cancel"
-					cancel={true}>
-					<ProfileSelector name="profile" profiles={dealPage.profiles} 
-						isSaving={dealPage.isLoadingDialog}
-						newProfileErrors={dealPage.newProfileErrors}
-						createNewProfileRef={this.createNewProfileRef}
-						onSaveNewProfileClick={this.saveNewProfileFromDialog} />
-				</CustomAlert>
-			</div>;
-		}
-		return <DealPageWrapper>
-			<div>
-				<TopNavBar title="Logo" status={dealPage.currentToggleStatus}
-					onLeftTapped={this.onLeftTapped}
-					statusActionText={dealPage.currentToggleStatus == TOGGLE_STATUS_SELL ? 'Switch Profile' : 'Switch Offer'}
-					onToggleTapped={this.onToggleTapped} />
-			</div>
-			{ content }
-		</DealPageWrapper>;
-	}
+  saveNewProfile() {
+    const { dispatch, global } = this.props;
+    dispatch(
+      onSaveNewProfile({ user: global.userData.data.id, profile_name: this.profileNameField.value }, 
+        false,
+        this.createNewProfileRef));
+  }
+
+  saveNewProfileFromDialog() {
+    const { dispatch, global } = this.props;
+    dispatch(
+      onSaveNewProfile({ user: global.userData.data.id, profile_name: this.createNewProfileRef.current.value }, 
+        true,
+        this.createNewProfileRef));
+  }
+
+  onToggleTapped(event) {
+    const { dispatch, dealPage } = this.props;
+    const url = dealPage.currentToggleStatus == TOGGLE_STATUS_SELL ? '/content/deal/my' : '/content/deal/make';
+    dispatch(changePageByToggle(url));
+  }
+
+  onLeftTapped(event) {
+    const { dispatch, dealPage } = this.props;
+    dispatch(onShowProfileDialog());
+  }
+
+  render() {
+    const { dealPage, match, dispatch } = this.props;
+    let content = null;
+    if(!isNull(dealPage.profiles) && dealPage.profiles.length == 0) {
+      content = <div className="dialogALert">
+        <CustomAlert show={true} 
+        title="Create new profile"
+        okButtonText={dealPage.isLoading ? 'Saving profile' : 'Save profile'}
+        onOkClick={this.saveNewProfile}
+        cancel={false} okButtonDisabled={dealPage.isLoading}>
+          <CustomInputText placeholder="Profile name" isError={dealPage.newProfileErrors.profile_name.length > 0}
+            innerRef={profileName => {this.profileNameField = profileName; }}/>
+          {dealPage.newProfileErrors.profile_name.map(error => 
+            <FieldErrorMessage className="error-message" key={error}>{error}</FieldErrorMessage>)}
+        </CustomAlert>
+      </div>;
+    } else if(dealPage.isLoading) {
+      content = <LoaderImage />;
+    } else if(!isNull(dealPage.profiles)){
+      content = <div>
+        <Route path={`${match.url}/make`} component={MakeDealPage} />
+        <Route path={`${match.url}/my`} component={MyDealPage} />
+        <CustomAlert show={dealPage.showProfileDialog} 
+          onOkClick={() => { dispatch(onProfileSelected()); }}
+          onCancelClick={() => { dispatch(cancelProfileSelected()); }}
+          title="Select Profile" 
+          okButtonText="Select" 
+          okButtonDisabled={dealPage.isLoading}
+          cancelButtonText="Cancel"
+          cancel={true}>
+          <ProfileSelector name="profile" profiles={dealPage.profiles} 
+            onProfileTapped={this.onProfileTapped}
+            isSaving={dealPage.isLoadingDialog}
+            newProfileErrors={dealPage.newProfileErrors}
+            createNewProfileRef={this.createNewProfileRef}
+            onSaveNewProfileClick={this.saveNewProfileFromDialog} />
+        </CustomAlert>
+      </div>;
+    }
+    return <DealPageWrapper>
+      <div>
+        <TopNavBar title="Logo" status={dealPage.currentToggleStatus}
+          currentProfileText={!isNull(dealPage.profiles) && dealPage.profiles.length > 0 ? dealPage.profiles[dealPage.currentProfileIndex].label : ''}
+          onLeftTapped={this.onLeftTapped}
+          onRightTapped ={dealPage.currentToggleStatus == TOGGLE_STATUS_SELL ? this.onSwitchProfileTapped : this.onSwitchOfferTapped}
+          statusActionText={dealPage.currentToggleStatus == TOGGLE_STATUS_SELL ? 'Switch Profile' : 'Switch Offer'}
+          onToggleTapped={this.onToggleTapped} />
+      </div>
+      { content }
+    </DealPageWrapper>;
+  }
 }
 
 
 const mapStateToProps = (state) => ({
-	global: state.get('global').toJS(),
-	dealPage: state.get('dealPage').toJS(),
+  global: state.get('global').toJS(),
+  dealPage: state.get('dealPage').toJS(),
 })
 
 const mapDispatchToProps = (dispatch) => ({
-	dispatch: dispatch
+  dispatch: dispatch
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DealPage);

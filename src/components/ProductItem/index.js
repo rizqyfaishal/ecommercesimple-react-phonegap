@@ -5,80 +5,120 @@ import CircleNumber from '../../components/CircleNumber';
 import CustomInputText from '../../components/CustomInputText';
 import CustomNumberInput from '../../components/CustomNumberInput';
 import CustomButton from '../../components/CustomButton';
+import FieldErrorMessage from '../../components/FieldErrorMessage';
+
+import { convertToRupiah } from '../../utils';
+
 
 const ProductItemWrapper = styled.div`
-	display: grid;
-	grid-template-rows: 1fr 1fr 1fr;
-	grid-template-columns: repeat(8, 1fr);
-	grid-template-areas: 
-		"order-no item-name item-name item-name item-name item-name item-name item-name"
-		"price price price price price quantity quantity quantity"
-		"subtotal subtotal subtotal subtotal subtotal subtotal delete delete";
-	justify-items: center;
-	align-items: center;
-
+	display: flex;
+	flex-direction: column;
 	& > div:nth-child(1) {
-		justify-self: start;
-		grid-area: order-no;
+		display: flex;
+		align-items: center;
+
+		& > div:nth-child(1) {
+			width: 12%;
+			display: flex;
+			justify-content: flex-start;
+		}
+
+		& > div:last-child {
+			width: 88%;
+			display: flex;
+			flex-direction: column;
+			justify-content: stretch;
+
+			& > p {
+				font-size: 80%;
+				margin: 0.2rem 0 0 0.2rem;
+			}
+		}
+		margin-bottom: 1rem;
 	}
 
 	& > div:nth-child(2) {
-		display: grid;
-		justify-self: stretch;
-		grid-area: item-name;
+		display: flex;
+		justify-content: stretch;
+		align-items: center;
+		& > div:nth-child(1) {	
+			width: 60%;
+			display: flex;
+			justify-content: stretch;
+			flex-direction: column;
+			& > p {
+				font-size: 80%;
+				margin: 0.2rem 0 0 0.2rem;
+			}
+		}
+
+		& > div:nth-child(2) {
+			width: 40%;
+			display: flex;
+			justify-content: flex-end;
+		}
 	}
 
 	& > div:nth-child(3) {
-		justify-self: stretch;
-		grid-area: price;
-		display: grid;
-		justify-items: stretch;
+		display: flex;
 		align-items: center;
-	}
+		& > div:nth-child(1) {
+			width: 70%;
+			display: flex;
+			justify-content: stretch;
+		}
 
-	& > div:nth-child(4) {
-		justify-self: end;
-		grid-area: quantity;
-		display: grid;
-		justify-items: stretch;
-		align-items: center;
+		& > div:nth-child(2) {
+			width: 30%;
+			display: flex;
+			justify-content: flex-end;
+		}
 	}
+	margin-bottom: 1rem;
 
-	& > div:nth-child(5) {
-		justify-self: start;
-		grid-area: subtotal;
-	}
-
-	& > div:nth-child(6) {
-		justify-self: end;
-		grid-area: delete;
-	}
 `;
 
 const ProductItem = (props) => {
 	return (
 		<ProductItemWrapper>
 			<div>
-				<CircleNumber>{props.item.orderNo}</CircleNumber>
+				<div>
+					<CircleNumber>{props.orderNo}</CircleNumber>
+				</div>
+				<div>
+					<CustomInputText placeholder="Nama item"
+						isError={props.errors.item_name.length > 0} 
+						innerRef={props.item.itemNameRef}/>
+					{props.errors.item_name.map((error, index) => 
+						<FieldErrorMessage key={index}>{error}</FieldErrorMessage>)}
+				</div>
 			</div>
 			<div>
-				<CustomInputText placeholder="Nama item" />
+				<div>
+					<CustomInputText placeholder="Price" innerRef={props.item.priceRef}
+						isError={props.errors.price.length > 0}
+						onChange={(e) => { props.onPriceChange(e, props.orderNo-1); }}/>
+					{props.errors.price.map((error, index) => 
+						<FieldErrorMessage key={index}>{error}</FieldErrorMessage>
+					)}
+				</div>
+				<div>
+					<CustomNumberInput number={props.item.quantity}
+						onPlusTap={props.onPlusTapItem} 
+						onMinusTap={props.onMinusTapItem}/>
+				</div>
 			</div>
 			<div>
-				<CustomInputText placeholder="Price" />
+				<div>
+					<h4>Subtotal : Rp. {convertToRupiah(props.item.price * props.item.quantity)}</h4>
+				</div>
+				<div>
+					{ props.isDeleteShow && 
+					<CustomButton color="white" bg="red" onClick={props.onDelete}>
+						Delete
+					</CustomButton>}
+				</div>
 			</div>
-			<div>
-				<CustomNumberInput number={0}/>
-			</div>
-			<div>
-				<h4>Subtotal : Rp. {props.item.price * props.item.quantity}</h4>
-			</div>
-			<div>
-				<CustomButton color="white" bg="red">
-					Delete
-				</CustomButton>
-			</div>
-
 		</ProductItemWrapper>
 	)
 }

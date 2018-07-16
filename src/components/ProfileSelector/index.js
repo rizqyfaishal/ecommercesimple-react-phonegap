@@ -8,37 +8,57 @@ import CustomButton from '../CustomButton';
 import FieldErrorMessage from '../FieldErrorMessage';
 
 const ProfileSelectorWrapper = styled.div`
-	display: grid;
-	grid-flow: auto;
-	max-height: 300px;
-	overflow-y: scroll;
+	display: flex;
+	flex-direction: column;
+	justify-content: stretch;
+	align-items: stretch;
+	& > div:first-child {
+		max-height: 300px;
+		overflow-y: scroll;
+	}
+
 	& > div:last-child {
+
 		padding: 0.5rem 0;
-		display: grid;
-		grid-template-rows: 1fr;
-		grid-template-columns: 6fr 2fr;
-		justify-items: stretch;
+		display: flex;
+		flex-direction: row;
+		justify-content: stretch;
 		align-items: center;
 
 		& > div:first-child {
+			width: 70%;
+			display: flex;
+			flex-direction: column;
+			justify-content: stretch;
 			& > p {
 				font-size: 80%;
 				margin: 0.2rem 0 0 0.4rem;
 				text-align: left;
 			}
 		}
+		& > div:last-child {
+			padding-left: 0.5rem;	
+			width: 30%;
+			display: flex;
+			flex-direction: column;
+			justify-content: stretch;
+		}
 	}
 `;
 
 const ProfileSelector = (props) => {
 	console.log(props);	
-	return (<ProfileSelectorWrapper>
-		{props.profiles.map(profile => <ProfileContent 
-			key={profile.value}
-			onProfileTapped={props.onProfileTapped}
-			value={profile.value}
-			label={profile.label}
-			name={props.name} />)}
+	return (
+		<ProfileSelectorWrapper>
+			<div>
+					{props.profiles.map(profile => <ProfileContent 
+						key={profile.value}
+						onProfileTapped={props.onProfileTapped}
+						isActive={profile.isActive}
+						value={profile.value}
+						label={profile.label}
+						name={props.name} />)}
+			</div>
 		<div>
 			<div>
 				<CustomInputText 
@@ -51,7 +71,7 @@ const ProfileSelector = (props) => {
 				<CustomButton color="white" bg="#F48024" 
 					disabled={props.isSaving}
 					onClick={props.onSaveNewProfileClick}>
-					{ props.isSaving ? 'Saving profile' : 'Save'}
+					{ props.isSaving ? 'Saving' : 'Save'}
 				</CustomButton>
 			</div>
 		</div>

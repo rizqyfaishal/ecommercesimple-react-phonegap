@@ -31,3 +31,7 @@ export function saveProfileAPI(data) {
 export default function authenticatedAPI(url, method, data) {
 	return authenticatedRequest(url, method, data);
 }
+
+export function saveProduct(data) {
+	return authenticatedRequest('/products/', 'POST', data);
+}

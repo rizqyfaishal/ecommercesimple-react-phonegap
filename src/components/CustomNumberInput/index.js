@@ -11,8 +11,6 @@ const CustomTapPlus = styled.button`
 	border: none;
 	display: block;
 	margin: 0 auto;
-
-	
 `;
 
 const CustomTapMinus = styled.button`
@@ -23,17 +21,14 @@ const CustomTapMinus = styled.button`
 `;
 
 const CustomNumberInputWrapper = styled.div`
-	display: grid;
-	grid-template-columns: 30px 1fr 30px;
-	grid-template-rows: 30px;
-	grid-template-areas: "minus number plus";
-	justify-items: stretch;
-	align-items: stretch;	
+	display: flex;
+	flex-direction: row;
+	max-height: 30px;
 	border-radius: 4px;
 	overflow: hidden;
 	border: 1px solid #ccc;
 	& > div:nth-child(1) {
-		grid-area: minus;
+		width: 30px;
 		background-color: #F48024;
 		margin-left: -1px;
 		& > button {
@@ -54,20 +49,23 @@ const CustomNumberInputWrapper = styled.div`
 	}
 
 	& > div:nth-child(2) {
-		grid-area: number;
+		width: calc(100% - 58px);
 		align-self: center;
 		justify-self: stretch;
 		display: grid;
 		justify-items: stretch;
 		align-items: center;
 		& > span {
+			min-width: 30px;
+			text-align: center;
 			display: block;
-			margin: 0.7rem;
+			margin: 0.7rem auto;
+			font-size: 80%;
 		}
 	}
 
 	& > div:nth-child(3) {
-		grid-area: plus;
+		width: 30px;
 		background-color: #F48024;
 		margin-right: -1px;
 		& > button {
@@ -90,13 +88,13 @@ const CustomNumberInput = (props) => {
 	return (
 			<CustomNumberInputWrapper>
 				<div>
-					<CustomTapMinus onTap={props.onMinusTap} disabled>
+					<CustomTapMinus onClick={props.onMinusTap} disabled={props.number == 1}>
 						<img src={Minus} alt="minus" width="16" />
 					</CustomTapMinus>
 				</div>
 				<div><span>{props.number} {props.prefix}</span></div>
 				<div>
-					<CustomTapPlus onTap={props.onPlusTap}>
+					<CustomTapPlus onClick={props.onPlusTap}>
 						<img src={Plus} alt="plus" width="16" />
 					</CustomTapPlus>
 				</div>

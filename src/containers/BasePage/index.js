@@ -13,48 +13,51 @@ import { onVerifyTokenAction, onRender } from '../../actions';
 
 
 class BasePage extends Component {
-	constructor(props) {
+  constructor(props) {
 
-		super(props);
-	}
+    super(props);
+  }
 
-	componentWillMount() {
+  componentWillMount() {
     const { dispatch } = this.props;
     const token = window.localStorage.getItem('auth-token');
     if(token) {
       dispatch(onVerifyTokenAction());
     } else {
-    	dispatch(onRender());
+      dispatch(onRender());
     }
   }
 
 
-	render() {
-		const { global, dispatch } = this.props;
+  render() {
+    const { global, dispatch, state } = this.props;
+    console.log(global);
+    console.log(state);
     if(global.isLoading) {
       return <LoaderImage />;
     } else if(global.render) {
-    	return <div>
-				<Switch>
-					<Route exact path="/" component={HomePage} />
-					<Route path="/login" component={LoginPage} />
-	        <Route path="/register" component={RegisterPage} />
-	        <Route path="/content" component={ContentPage}/>
-				</Switch>
-			</div>
+      return <div>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={RegisterPage} />
+          <Route path="/content" component={ContentPage}/>
+        </Switch>
+      </div>
     } else {
-    	return null;
+      return null;
     }
-	}
+  }
 } 
 
 
 const mapStateToProps = state => ({
-	global: state.get('global').toJS()
+  global: state.get('global').toJS(),
+  state: state.toJS()
 });
 
 const mapDispatchToProps = dispatch => ({
-	dispatch: dispatch
+  dispatch: dispatch
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BasePage);
