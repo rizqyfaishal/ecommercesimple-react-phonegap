@@ -16,7 +16,7 @@ const invoiceSellerPageInitialState = fromJS({
 function invoiceSellerPageReducer(state=invoiceSellerPageInitialState, action) {
   switch(action.type) {
     case LOCATION_CHANGE:
-      return invoiceSellerPageInitialState;
+      return action.payload.pathname == '/content/shopping-list/seller' ? state : invoiceSellerPageInitialState;
     case INVOICE_SELLER_PAGE_SELECT_FILTERED_PROFILE:
       return state.set('currentSelectedFilterProfiles', fromJS(action.selectedProfiles))
     case INVOICE_SELLER_PAGE_FETCH_USER_INVOICE_PRODUCTS_REQUEST:

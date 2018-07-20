@@ -13,7 +13,7 @@ const invoiceBuyerPageInitialState = fromJS({
 function invoiceBuyerPageReducer(state=invoiceBuyerPageInitialState, action) {
   switch(action.type) {
     case LOCATION_CHANGE:
-      return invoiceBuyerPageInitialState;
+      return action.payload.pathname == '/content/shopping-list/buyer' ? state : invoiceBuyerPageInitialState;
     case INVOICE_BUYER_PAGE_FETCH_USER_INVOICE_PRODUCTS_REQUEST:
       return state.set('isLoading', true);
     case INVOICE_BUYER_PAGE_RECEIVE_USER_INVOICE_PRODUCTS_DATA:

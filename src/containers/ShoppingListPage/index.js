@@ -61,7 +61,6 @@ class ShoppingListPage extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { match, dispatch, shoppingListPage } = this.props;
     const menuProps = menus.map(menu => {
       return {
@@ -72,6 +71,8 @@ class ShoppingListPage extends Component {
           isActive: menu.content == shoppingListPage.currentTab
         }
     })
+    console.log(menuProps);
+    console.log(shoppingListPage);
     return (
         <ShoppingListPageWrapper>
           <CustomTab menus={menuProps} />

@@ -13,9 +13,13 @@ const shoppingListPageInitialState = fromJS({
 
 
 function shoppingListPageReducer(state=shoppingListPageInitialState, action) {
+  console.log(action);
   switch(action.type) {
     case LOCATION_CHANGE:
-      return shoppingListPageInitialState;
+      if(action.payload.pathname != '/content/shopping-list/seller' && action.payload.pathname != '/content/shopping-list/buyer') {
+        return shoppingListPageInitialState;
+      }
+      return state;
     case SHOPPING_LIST_PAGE_ON_CUSTOM_TAB_TAP:
       return state.set('currentTab', action.currentTab);
     default:

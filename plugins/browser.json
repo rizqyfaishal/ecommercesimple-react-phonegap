@@ -12,6 +12,21 @@
     },
     "cordova-plugin-crosswalk-webview": {
       "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    },
+    "cordova-plugin-media-capture": {
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    },
+    "cordova-plugin-media": {
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
     }
   },
   "dependent_plugins": {}

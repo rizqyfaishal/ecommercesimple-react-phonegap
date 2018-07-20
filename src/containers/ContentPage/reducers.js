@@ -69,8 +69,6 @@ const contentPageIntialState = fromJS({
 
 const contentPageReducer = function(state = contentPageIntialState, action) {
   switch(action.type) {
-    case LOCATION_CHANGE:
-      return contentPageIntialState;
     case CONTENT_PAGE_ON_BOTTOM_NAVBAR_TAP:
       return state.set('currentBottomNavBar', action.nextNav)
                   .update('menus', menus => menus.map(menu => 
