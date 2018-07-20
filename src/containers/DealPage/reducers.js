@@ -39,6 +39,8 @@ const dealPageInitialState = fromJS({
 });
 
 function dealPageReducer(state = dealPageInitialState, action) {
+  console.log(action);
+  console.log(state.toJS());
   switch(action.type) {
     case DEAL_PAGE_SET_TOGGLE_STATUS:
       return state.set('currentToggleStatus', action.toggleStatus);
@@ -60,10 +62,9 @@ function dealPageReducer(state = dealPageInitialState, action) {
     case DEAL_PAGE_FETCH_USER_PROFILES_DATA_REQUEST:
       return state.set('isLoading', true);
     case DEAL_PAGE_RECEIVE_USER_PROFILES_DATA:{
-      let currentProfileIndex = -1;
+      let currentProfileIndex = action.data.length > 0 ? 0 : -1;
       const profiles = action.data.map((profile, index) => {
         if(index == 0) {
-          currentProfileIndex = 0;
           return ({ label: profile.profile_name, value: profile.id, isActive: true });
         } else {
           return ({ label: profile.profile_name, value: profile.id, isActive: false });
@@ -85,7 +86,7 @@ function dealPageReducer(state = dealPageInitialState, action) {
                   .set('isLoadingDialog', false)
                   .set('newProfileErrors', dealPageInitialState.toJS().newProfileErrors)
                   .set('profiles', profiles)
-                  .set('currentProfileIndex', currentProfile == -1 ? 0 : findIndex(profiles, (profile) => profile.isActive))
+                  .set('currentProfileIndex', currentProfileIndex == -1 ? 0 : findIndex(profiles, (profile) => profile.isActive))
                   .set('currentProfile', currentProfile == -1 ? profiles[0].value : currentProfile);
     }
     case DEAL_PAGE_RECEIVE_SAVED_NEW_PROFILE_ERRORS:
@@ -95,7 +96,7 @@ function dealPageReducer(state = dealPageInitialState, action) {
     case DEAL_PAGE_ON_PROFILE_SELECTED: {
       const temp = state.get('tempSelectedProfile');
       const currentProfileIndex = findIndex(state.get('profiles'), profile => profile.value == temp);
-      return state.set('currentProfile', temp)
+      return temp == -1 ? state.set('showProfileDialog', false) : state.set('currentProfile', temp)
                   .set('currentProfileIndex', currentProfileIndex)
                   .set('tempSelectedProfile', -1)
                   .set('showProfileDialog', false);

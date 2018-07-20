@@ -185,6 +185,9 @@ class DealPage extends Component {
         </CustomAlert>
       </div>;
     }
+    console.log(dealPage.currentProfileIndex);
+    console.log(dealPage.profiles)
+    console.log(dealPage.profiles[dealPage.currentProfileIndex]);
     return <DealPageWrapper>
       <div>
         <TopNavBar title="Logo" status={dealPage.currentToggleStatus}

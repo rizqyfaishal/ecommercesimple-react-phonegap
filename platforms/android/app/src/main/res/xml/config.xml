@@ -37,6 +37,7 @@
     <splash density="port-xxhdpi" src="res/screen/android/drawable-port-xxhdpi-screen.png" />
     <splash density="port-xxxhdpi" src="res/screen/android/drawable-port-xxxhdpi-screen.png" />
     <content src="http://10.0.2.2:8080/index.html" />
+    <allow-navigation href="*" />
     <allow-intent href="market:*" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="webView" value="org.crosswalk.engine.XWalkWebViewEngine" />
