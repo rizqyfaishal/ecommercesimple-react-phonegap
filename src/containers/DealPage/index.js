@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { Switch, Route } from 'react-router-dom';
 import Tappable from 'react-tappable';
-import { isNull } from 'lodash';
+import { isNull, isUndefined } from 'lodash';
 
 import EditDealPage from '../EditDealPage';
 
@@ -104,10 +104,15 @@ class DealPage extends Component {
     const { myDealPage, dispatch } = this.props;
     dispatch(onSwitchPreviousOfferAction(myDealPage.myDealProducts[myDealPage.currentProductId - 1].id));
   }
-  // componentWillMount() {
-  //   const { dispatch } = this.props;
-  //   dispatch(fetchUserProfilesData());
-  // }
+
+  componentDidMount() {
+    const { dispatch, global } = this.props;
+    if(global.isLoggedIn) {
+      if(isUndefined(global.userData.additional_information)) {
+        dispatch(push('/content/fill-additional-information'));
+      }
+    }
+  }
 
   onProfileSelected() {
     const { dispatch } = this.props;

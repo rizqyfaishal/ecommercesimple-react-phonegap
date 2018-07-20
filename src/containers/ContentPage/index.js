@@ -73,10 +73,10 @@ class ContentPage extends Component {
 
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch, global } = this.props;
-    if(!isNull(global.userData) && (isUndefined(global.userData.additional_information))) {
-      dispatch(push('/content/fill-additional-information'));
+    if(isNull(global.userData) && !global.isLoggedIn) {
+      dispatch(push('/login'));
     }
   } 
 

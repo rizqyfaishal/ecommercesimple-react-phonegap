@@ -40,7 +40,6 @@ const myDealPageInitialState = fromJS({
 });
 
 function myDealPageReducer(state=myDealPageInitialState, action) {
-  console.log(action);
   switch(action.type) {
     case MY_DEAL_PAGE_ON_SWITCH_PREVIOUS_OFFER:
       return state.set('currentProductId', state.get('currentProductId') - 1);

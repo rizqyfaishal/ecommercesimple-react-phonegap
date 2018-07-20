@@ -79,7 +79,6 @@ const ProductItemWrapper = styled.div`
 `;
 
 const ProductItem = (props) => {
-  console.log(props.defaultDataValues);
   return (
     <ProductItemWrapper>
       <div>

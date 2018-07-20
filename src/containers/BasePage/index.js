@@ -4,12 +4,14 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import HomePage from '../HomePage';
 import LoginPage from '../LoginPage';
+import ErrorPage from '../ErrorPage';
 import RegisterPage from '../RegisterPage';
 import FillAdditionalInformationPage from '../FillAdditionalInformationPage';
 import ContentPage from '../ContentPage';
 
 import LoaderImage from '../../components/LoaderImage';
 import { onVerifyTokenAction, onRender } from '../../actions';
+
 
 
 class BasePage extends Component {
@@ -40,6 +42,7 @@ class BasePage extends Component {
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/content" component={ContentPage}/>
+          <Route exact={true} path="*" component={ErrorPage} />
         </Switch>
       </div>
     } else {

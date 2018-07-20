@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
-import { isNull } from 'lodash';
+import { isNull, isUndefined } from 'lodash';
 import CustomInputText from '../../components/CustomInputText';
 import CustomLabel from '../../components/CustomLabel';
 import GradientButton from '../../components/GradientButton';
@@ -192,7 +192,7 @@ class MakeDealPage extends Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, global } = this.props;
     dispatch(setToggleStatus(TOGGLE_STATUS_SELL));
   }
 

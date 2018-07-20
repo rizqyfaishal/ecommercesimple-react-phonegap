@@ -1,3 +1,5 @@
+import { push } from 'react-router-redux';
+import { isUndefined } from 'lodash';
 import {  
   CONTACT_PAGE_FETCH_USER_CONTACTS_REQUEST,
   CONTACT_PAGE_RECEIVE_USER_CONTACTS_DATA,
@@ -95,7 +97,6 @@ export function fetchUserContactsRequestAction() {
     dispatch(fetchUserContactsRequest());
     getUserContacts()
       .then(response => {
-        console.log(response);
         if(response.status == 200) {
           dispatch(onReceiveUserContactsData(response.data));
         }
@@ -103,6 +104,8 @@ export function fetchUserContactsRequestAction() {
       .catch(err => {
         if(err.response.status == 200) {
           dispatch(onReceiveUserContactsErrors(err.response.data));
+        } else {
+
         }
       })
   }
@@ -114,17 +117,17 @@ export function onSavingContacts(data) {
     dispatch(hideAlert());
     saveContacts(data)
       .then(response => {
-
         if(response.status == 201) {
           dispatch(onReceiveSavedUserContactsData(response.data));
           dispatch(setFlashMessage('saveContactsSuccess', 'Contact Added.'));
           return response;
         }
-
       })
       .catch(err => {
-        if(err.response.status == 400) {
+        if(!isUndefined(err.response) && err.response.status == 400) {
           dispatch(onReceiveUserContactsErrors(err.response.data));
+        } else {
+          dispatch(push('/error'));
         }
       })
   }
