@@ -18,7 +18,8 @@ import {
   DEAL_PAGE_ON_CANCEL_PROFILE_SELECTED,
   DEAL_PAGE_ON_SWITCH_PROFILE,
   DEAL_PAGE_ON_SWITCH_OFFER,
-  DEAL_PAGE_ON_SWITCH_TO_FREEZE_TOGGLE
+  DEAL_PAGE_ON_SWITCH_TO_FREEZE_TOGGLE,
+  DEAL_PAGE_SET_TOGGLE_STATUS
 } from './constants';
 
 
@@ -39,8 +40,8 @@ const dealPageInitialState = fromJS({
 
 function dealPageReducer(state = dealPageInitialState, action) {
   switch(action.type) {
-    case LOCATION_CHANGE:
-      return state.set('currentToggleStatus', TOGGLE_STATUS_SELL);
+    case DEAL_PAGE_SET_TOGGLE_STATUS:
+      return state.set('currentToggleStatus', action.toggleStatus);
     case DEAL_PAGE_ON_SWITCH_TO_FREEZE_TOGGLE:
       return state.set('freezeToggle', true);
     case DEAL_PAGE_ON_SAVE_NEW_PROFILE_FROM_DIALOG_REQUEST:

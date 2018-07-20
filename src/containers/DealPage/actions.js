@@ -14,7 +14,8 @@ import {
   DEAL_PAGE_ON_CANCEL_PROFILE_SELECTED,
   DEAL_PAGE_ON_SWITCH_PROFILE,
   DEAL_PAGE_ON_SWITCH_OFFER,
-  DEAL_PAGE_ON_SWITCH_TO_FREEZE_TOGGLE
+  DEAL_PAGE_ON_SWITCH_TO_FREEZE_TOGGLE,
+  DEAL_PAGE_SET_TOGGLE_STATUS
 } from './constants';
 
 import {
@@ -116,6 +117,13 @@ export function onProfileSelected() {
     type: DEAL_PAGE_ON_PROFILE_SELECTED
   }
 
+}
+
+export function setToggleStatus(toggleStatus) {
+  return {
+    type: DEAL_PAGE_SET_TOGGLE_STATUS,
+    toggleStatus
+  }
 }
 
 export function fetchUserProfilesData() {

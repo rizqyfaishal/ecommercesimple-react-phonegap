@@ -23,6 +23,15 @@ import {
   onNegotiateDealRequestAction
 } from './actions';
 
+import {
+  setToggleStatus
+} from '../DealPage/actions';
+
+import {
+  TOGGLE_STATUS_BUY,
+  TOGGLE_STATUS_SELL
+} from '../DealPage/constants';
+
 const MyDealPageWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -207,6 +216,7 @@ class MyDealPage extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
+    dispatch(setToggleStatus(TOGGLE_STATUS_BUY));
     dispatch(fetchMyDealProductsAction());
   }
 

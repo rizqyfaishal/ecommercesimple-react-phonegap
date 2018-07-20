@@ -34,6 +34,16 @@ import {
 	onAddItem
 } from './actions';
 
+import {
+  setToggleStatus
+} from '../DealPage/actions';
+
+import {
+  TOGGLE_STATUS_BUY,
+  TOGGLE_STATUS_SELL
+} from '../DealPage/constants';
+
+
 const EditDealPageWrapper = styled.div`
 	& > div.result {
     margin: 0 -1rem;
@@ -133,6 +143,7 @@ class EditDealPage extends Component {
     this.onInputItemFieldChange = this.onInputItemFieldChange.bind(this);
   }
 
+
   onPriceItemChange(event, index) {
     const { dispatch, editDealPage } = this.props;
     if(editDealPage.productErrors.items[index]['price'].length > 0) {
@@ -217,6 +228,7 @@ class EditDealPage extends Component {
 
 	componentDidMount() {
 		const { dispatch, match } = this.props;
+		dispatch(setToggleStatus(TOGGLE_STATUS_SELL));
 		dispatch(fetchDealProductDataAction(match.params.productId));
 	}
 

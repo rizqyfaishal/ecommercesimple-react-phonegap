@@ -34,6 +34,16 @@ import {
   resetErrorsItemField
 } from './actions';
 
+import {
+  setToggleStatus
+} from '../DealPage/actions';
+
+import {
+  TOGGLE_STATUS_BUY,
+  TOGGLE_STATUS_SELL
+} from '../DealPage/constants';
+
+
 const MakeDealPageWrapper = styled.div`
   & > div.result {
     margin: 0 -1rem;
@@ -181,9 +191,10 @@ class MakeDealPage extends Component {
     dispatch(saveProductAction(requestData));
   }
 
-  // componentWillMount() {
-  //   const { dispatch } = this.props;
-  // }
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(setToggleStatus(TOGGLE_STATUS_SELL));
+  }
 
   onAddItem() {
     const { dispatch } = this.props;
