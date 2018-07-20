@@ -135,9 +135,11 @@ const CustomAlert = (props) =>
 	<AlertOverlay show={props.show} onClick={props.onOutsideClick}>
 		<AlertModal show={props.show} onClick={props.onInsideClick}>
 			<AlertTitle>{props.title}</AlertTitle>
-			<AlertContent>
-				{props.children}
-			</AlertContent>
+			{ !props.noContent &&
+				<AlertContent>
+					{props.children}
+				</AlertContent>
+			}
 			<AlertFooter>
 				{ props.cancel && <AlertButton 
 					cancel={props.cancel} 

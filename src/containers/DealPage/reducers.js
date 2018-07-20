@@ -1,5 +1,6 @@
 import { fromJS } from 'immutable';
 import { findIndex } from 'lodash';
+import { LOCATION_CHANGE } from 'react-router-redux';
 import {
   DEAL_PAGE_ON_TOGGLE_TAPPED,
   DEAL_PAGE_ON_SHOW_PROFILE_DIALOG,
@@ -16,7 +17,8 @@ import {
   DEAL_PAGE_ON_SAVE_NEW_PROFILE_FROM_DIALOG_REQUEST,
   DEAL_PAGE_ON_CANCEL_PROFILE_SELECTED,
   DEAL_PAGE_ON_SWITCH_PROFILE,
-  DEAL_PAGE_ON_SWITCH_OFFER
+  DEAL_PAGE_ON_SWITCH_OFFER,
+  DEAL_PAGE_ON_SWITCH_TO_FREEZE_TOGGLE
 } from './constants';
 
 
@@ -32,10 +34,15 @@ const dealPageInitialState = fromJS({
   },
   tempSelectedProfile: -1,
   currentProfileIndex: 0,
+  freezeToggle: false,
 });
 
 function dealPageReducer(state = dealPageInitialState, action) {
   switch(action.type) {
+    case LOCATION_CHANGE:
+      return state.set('currentToggleStatus', TOGGLE_STATUS_SELL);
+    case DEAL_PAGE_ON_SWITCH_TO_FREEZE_TOGGLE:
+      return state.set('freezeToggle', true);
     case DEAL_PAGE_ON_SAVE_NEW_PROFILE_FROM_DIALOG_REQUEST:
       return state.set('isLoadingDialog', true);
     case DEAL_PAGE_ON_TOGGLE_TAPPED: {

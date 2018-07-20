@@ -162,9 +162,9 @@ class ContactPage extends Component {
   render() {
     const { value, contactPage, global } = this.props;
     const searchKey = contactPage.searchKey;
+    console.log(global.contactsData);
     const usernames = global.contactsData
-        .filter(contact => contact.contact_user.username.indexOf(searchKey) != -1)
-        .map(contact => ({ label: contact.contact_user.username }));
+        .filter(contact => contact.label.indexOf(searchKey) != -1);
     return <ContactPageWrapper>
       <div>
         <TitleBar title="Contacts" />

@@ -14,6 +14,9 @@ import ShoppingListPage from '../ShoppingListPage';
 import ComingSoonPage from '../ComingSoonPage';
 import ContactPage from '../ContactPage';
 import FillAdditionalInformationPage from '../FillAdditionalInformationPage';
+import InvoiceBuyerDetailPage from '../InvoiceBuyerDetailPage';
+import InvoiceSellerDetailPage from '../InvoiceSellerDetailPage';
+import EditDealPage from '../EditDealPage';
 
 import {
   BOTTOM_NAVBAR_MY_OFFER,
@@ -24,7 +27,8 @@ import {
 } from './constants';
 
 import {
-  onBotomNavBarTap
+  onBotomNavBarTap,
+  changePage
 } from './actions';
 
 import Coupon from '../../images/coupon.svg';
@@ -38,11 +42,7 @@ import ShippingActive from '../../images/shipping_active.svg';
 import ShoppingCart from '../../images/shopping-cart.svg';
 import ShoppingCartActive from '../../images/shopping-cart_active.svg';
 
-const changePage = (urlPage, type) =>
-  (dispatch) => {
-    dispatch(push(urlPage))
-    dispatch(onBotomNavBarTap(type))
-  }
+
 
 const ContentPageWrapper = styled.div`
   display: flex;
@@ -66,43 +66,6 @@ const ContentPageWrapper = styled.div`
   }
 `;
 
-const menus = [
-  {
-    type: BOTTOM_NAVBAR_MY_OFFER,
-    menuText: 'My Offer',
-    icon: Shipping,
-    activeIcon: ShippingActive,
-    url: '/content/deal/make'
-  },
-  {
-    type: BOTTOM_NAVBAR_SHOPPING_LIST,
-    menuText: 'Shops List',
-    icon: ShoppingCart,
-    activeIcon: ShoppingCartActive,
-    url: '/content/shopping-list/seller'
-  },
-  {
-    type: BOTTOM_NAVBAR_CONTACTS,
-    menuText: 'Contacts',
-    icon: Phonebook,
-    activeIcon: PhonebookActive,
-    url: '/content/contacts'
-  },
-  {
-    type: BOTTOM_NAVBAR_COMING_SOON,
-    menuText:'Coming Soon',
-    icon: Coupon,
-    activeIcon: CouponActive,
-    url: '/content/coming-soon'
-  },
-  {
-    type: BOTTOM_NAVBAR_ACCOUNT,
-    menuText: 'Account',
-    icon: Protect,
-    activeIcon: ProtectActive,
-    url: '/content/accounts'
-  }
-]
 
 class ContentPage extends Component {
   constructor(props) {
@@ -119,13 +82,8 @@ class ContentPage extends Component {
 
   render() {
     const { dispatch, contentPage } = this.props;
-    const menuProps = menus.map(menu => {
-      if(menu.type == contentPage.currentBottomNavBar) {
-        return { ...menu,  onTap: () => {dispatch(changePage(menu.url, menu.type))}, isActive: true};
-      }
-      return { ...menu,  onTap: () => {dispatch(changePage(menu.url, menu.type))}, isActive: false}
-    })
     const { match } = this.props;
+    const menus = contentPage.menus.map(menu => ({ ...menu, onTap: () => { dispatch(changePage(menu.url, menu.type))}}))
     return (
       <ContentPageWrapper>
         <div>
@@ -135,9 +93,11 @@ class ContentPage extends Component {
           <Route path={`${match.url}/coming-soon`} component={ComingSoonPage}/>
           <Route path={`${match.url}/contacts`} component={ContactPage}/>
           <Route path={`${match.url}/fill-additional-information`} component={FillAdditionalInformationPage} />
+          <Route path={`${match.url}/invoices/buyer/:productId`} component={InvoiceBuyerDetailPage} />
+          <Route path={`${match.url}/invoices/seller/:productId`} component={InvoiceSellerDetailPage} />
         </div>
         <div>
-          <BottomNavBar menus={menuProps}/>
+          <BottomNavBar menus={menus}/>
         </div>
       </ContentPageWrapper>
     )

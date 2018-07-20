@@ -15,6 +15,14 @@ import registerPageReducer from './containers/RegisterPage/reducers';
 import fillAdditionalInformationPageReducer from './containers/FillAdditionalInformationPage/reducers';
 import contactPageReducer from './containers/ContactPage/reducers';
 import makeDealReducer from './containers/MakeDealPage/reducers';
+import accountPageReducer from './containers/AccountPage/reducers';
+import myDealPageReducer from './containers/MyDealPage/reducers';
+import editDealPageReducer from './containers/EditDealPage/reducers';
+import invoiceSellerPageReducer from './containers/InvoiceSellerPage/reducers';
+import invoiceBuyerPageReducer from './containers/InvoiceBuyerPage/reducers';
+import invoiceBuyerDetailPageReducer from './containers/InvoiceBuyerDetailPage/reducers';
+import invoiceSellerDetailPageReducer from './containers/InvoiceSellerDetailPage/reducers';
+
 
 import {
   MAKE_DEAL_PAGE_FETCH_USER_CONTACTS_DATA_REQUEST,
@@ -43,6 +51,12 @@ import {
     LOGIN_PAGE_ON_LOGIN_REQUEST,
     LOGIN_PAGE_ON_RECEIVE_LOGIN_ERRORS
 } from './containers/LoginPage/constants';
+
+import {
+  ACCOUNT_PAGE_RECEIVE_ACCOUNT_INFO_DATA,
+  ACCOUNT_PAGE_RECEIVE_ADDRESS_DATA,
+  ACCOUNT_PAGE_RECEIVE_PAYMENT_METHOD_DATA
+} from './containers/AccountPage/constants';
 
 import {
   FILL_ADDITIONAL_INFORMATION_PAGE_ON_RECEIVE_RESPONSE_DATA
@@ -84,13 +98,20 @@ function routeReducer(state = routeInitialState, action) {
 
 function globalReducer(state = globalInitialState, action) {
   switch(action.type) {
+    case ACCOUNT_PAGE_RECEIVE_PAYMENT_METHOD_DATA:
+    case ACCOUNT_PAGE_RECEIVE_ADDRESS_DATA:
+      return state.set('userData', { ...state.get('userData'), additional_information: action.data });
+    case ACCOUNT_PAGE_RECEIVE_ACCOUNT_INFO_DATA:
+      return state.set('userData', { ...state.get('userData'), data: action.data });
     case CONTACT_PAGE_RECEIVE_SAVED_USER_CONTACTS_DATA:
-      return state.set('contactsData', [...state.get('contactsData'), ...action.data.contact_users]);
+      return state.set('contactsData', [...state.get('contactsData'), 
+        ...action.data.contact_users.map(contact => ({ label: contact.contact_user.username, 
+                                                        value: contact.contact_user.id}))]);
     case MAKE_DEAL_PAGE_FETCH_USER_CONTACTS_DATA_REQUEST:
       return state.set('isLoading', true);
     case MAKE_DEAL_PAGE_RECEIVE_USER_CONTACTS_DATA:
       return state.set('isLoading', false)
-                  .set('contactData', action.data.map(contact => ({ value: contact.contact_user.id, 
+                  .set('contactsData', action.data.map(contact => ({ value: contact.contact_user.id, 
                       label: contact.contact_user.username })));;
     case DEAL_PAGE_RECEIVE_USER_PROFILES_DATA:
       return state.set('isLoading', false);
@@ -157,6 +178,13 @@ export default function createReducer(injectedReducers) {
     fillAdditionalInformationPage: fillAdditionalInformationPageReducer,
     contactPage: contactPageReducer,
     makeDealPage: makeDealReducer,
+    accountPage: accountPageReducer,
+    myDealPage: myDealPageReducer,
+    invoiceSellerPage: invoiceSellerPageReducer,
+    invoiceBuyerPage: invoiceBuyerPageReducer,
+    invoiceBuyerDetailPage: invoiceBuyerDetailPageReducer,
+    invoiceSellerDetailPage: invoiceSellerDetailPageReducer,
+    editDealPage: editDealPageReducer,
     ...injectedReducers,
   });
 }

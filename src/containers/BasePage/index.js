@@ -31,8 +31,6 @@ class BasePage extends Component {
 
   render() {
     const { global, dispatch, state } = this.props;
-    console.log(global);
-    console.log(state);
     if(global.isLoading) {
       return <LoaderImage />;
     } else if(global.render) {

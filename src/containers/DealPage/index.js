@@ -7,6 +7,8 @@ import { Switch, Route } from 'react-router-dom';
 import Tappable from 'react-tappable';
 import { isNull } from 'lodash';
 
+import EditDealPage from '../EditDealPage';
+
 import TopNavBar from '../../components/TopNavBar';
 import ProfileSelector from '../../components/ProfileSelector';
 import CustomAlert from '../../components/CustomAlert';
@@ -31,6 +33,11 @@ import {
   cancelProfileSelected,
   onSwitchProfile
 } from './actions';
+
+import {
+  onSwitchNextOfferAction,
+  onSwitchPreviousOfferAction
+} from '../MyDealPage/actions';
 
 
 import MyDealPage from '../MyDealPage';
@@ -74,7 +81,8 @@ class DealPage extends Component {
     this.createNewProfileRef = React.createRef();
     this.onProfileTapped = this.onProfileTapped.bind(this);
     this.onSwitchProfileTapped = this.onSwitchProfileTapped.bind(this);
-    // this.onSwitchOfferTapped = this.onSwitchOfferTapped.bind(this);
+    this.onSwitchOfferTapped = this.onSwitchOfferTapped.bind(this);
+    this.onPreviousOfferTapped = this.onPreviousOfferTapped.bind(this);
   }
 
   onSwitchProfileTapped() {
@@ -82,15 +90,20 @@ class DealPage extends Component {
     dispatch(onSwitchProfile());
   }
 
-  // onSwitchOfferTapped() {
-
-  // }
+  onSwitchOfferTapped() {
+    const { myDealPage, dispatch } = this.props;
+    dispatch(onSwitchNextOfferAction(myDealPage.myDealProducts[myDealPage.currentProductId + 1].id));
+  }
 
   onProfileTapped(event) {
     const { dispatch } = this.props;
     dispatch(onProfileTempSelected(event.target.value));
   }
 
+  onPreviousOfferTapped() {
+    const { myDealPage, dispatch } = this.props;
+    dispatch(onSwitchPreviousOfferAction(myDealPage.myDealProducts[myDealPage.currentProductId - 1].id));
+  }
   // componentWillMount() {
   //   const { dispatch } = this.props;
   //   dispatch(fetchUserProfilesData());
@@ -128,7 +141,7 @@ class DealPage extends Component {
   }
 
   render() {
-    const { dealPage, match, dispatch } = this.props;
+    const { dealPage, match, dispatch, myDealPage } = this.props;
     let content = null;
     if(!isNull(dealPage.profiles) && dealPage.profiles.length == 0) {
       content = <div className="dialogALert">
@@ -149,6 +162,7 @@ class DealPage extends Component {
       content = <div>
         <Route path={`${match.url}/make`} component={MakeDealPage} />
         <Route path={`${match.url}/my`} component={MyDealPage} />
+        <Route path={`${match.url}/edit/:productId`} component={EditDealPage} />
         <CustomAlert show={dealPage.showProfileDialog} 
           onOkClick={() => { dispatch(onProfileSelected()); }}
           onCancelClick={() => { dispatch(cancelProfileSelected()); }}
@@ -169,8 +183,13 @@ class DealPage extends Component {
     return <DealPageWrapper>
       <div>
         <TopNavBar title="Logo" status={dealPage.currentToggleStatus}
+          freezeToggle={dealPage.freezeToggle}
           currentProfileText={!isNull(dealPage.profiles) && dealPage.profiles.length > 0 ? dealPage.profiles[dealPage.currentProfileIndex].label : ''}
-          onLeftTapped={this.onLeftTapped}
+          onLeftTapped={dealPage.currentToggleStatus == TOGGLE_STATUS_SELL ? this.onLeftTapped : this.onPreviousOfferTapped}
+          rightButtonHide={(myDealPage.isLoading && dealPage.currentToggleStatus == TOGGLE_STATUS_BUY) || ((dealPage.currentToggleStatus == TOGGLE_STATUS_BUY) 
+            && (!isNull(myDealPage.myDealProducts) && myDealPage.myDealProducts.length == myDealPage.currentProductId + 1))}
+          leftButtonHide={(myDealPage.isLoading && dealPage.currentToggleStatus == TOGGLE_STATUS_BUY) || ((dealPage.currentToggleStatus == TOGGLE_STATUS_BUY) 
+            && (!isNull(myDealPage.myDealProducts) && myDealPage.currentProductId <= 0))}
           onRightTapped ={dealPage.currentToggleStatus == TOGGLE_STATUS_SELL ? this.onSwitchProfileTapped : this.onSwitchOfferTapped}
           statusActionText={dealPage.currentToggleStatus == TOGGLE_STATUS_SELL ? 'Switch Profile' : 'Switch Offer'}
           onToggleTapped={this.onToggleTapped} />
@@ -184,6 +203,7 @@ class DealPage extends Component {
 const mapStateToProps = (state) => ({
   global: state.get('global').toJS(),
   dealPage: state.get('dealPage').toJS(),
+  myDealPage: state.get('myDealPage').toJS(),
 })
 
 const mapDispatchToProps = (dispatch) => ({

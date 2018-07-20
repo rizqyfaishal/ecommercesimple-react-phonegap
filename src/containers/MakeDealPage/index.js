@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
+import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { isNull } from 'lodash';
 import CustomInputText from '../../components/CustomInputText';
@@ -28,7 +29,9 @@ import {
   onPlusTapItem,
   onMinusTapItem,
   onItemPriceChange,
-  saveProductAction
+  saveProductAction,
+  resetErrorsField,
+  resetErrorsItemField
 } from './actions';
 
 const MakeDealPageWrapper = styled.div`
@@ -127,12 +130,32 @@ class MakeDealPage extends Component {
     this.onAddItem = this.onAddItem.bind(this);
     this.onPriceItemChange = this.onPriceItemChange.bind(this);
     this.onShareProductClick = this.onShareProductClick.bind(this);
+    this.onInputFieldChange = this.onInputFieldChange.bind(this);
+    this.onInputItemFieldChange = this.onInputItemFieldChange.bind(this);
   }
 
   onPriceItemChange(event, index) {
-    const { dispatch } = this.props;
+    const { dispatch, makeDealPage } = this.props;
+    if(makeDealPage.productErrors.items[index]['price'].length > 0) {
+      dispatch(resetErrorsItemField(index, 'price'));
+    }
     dispatch(onItemPriceChange(index, event.target.value));
   }
+
+  onInputItemFieldChange(e, index, key) {
+    const { dispatch, makeDealPage } = this.props;
+    if(makeDealPage.productErrors.items[index][key].length > 0) {
+      dispatch(resetErrorsItemField(index, key));
+    }
+  }
+
+  onInputFieldChange(e, key) {
+    const { dispatch, makeDealPage } = this.props;
+    if(makeDealPage.productErrors[key].length > 0) {
+      dispatch(resetErrorsField(key));
+    }
+  }
+
 
   onShareProductClick() {
     const { makeDealPage, dispatch, dealPage } = this.props;
@@ -142,13 +165,13 @@ class MakeDealPage extends Component {
     })
     const requestData = {
       product_name: makeDealPage.product.productNameRef.current.value,
-      expire_in_day: makeDealPage.product.expireInDay,
+      expired_in_day: makeDealPage.product.expireInDay,
       user_target: !isNull(makeDealPage.product.userTarget) ? makeDealPage.product.userTarget.value : null,
       status: 1,
       profile: dealPage.currentProfile,
       total: total,
       items: makeDealPage.product.itemData.map((item, index) => ({
-        orderNo: index + 1,
+        order_mo: index + 1,
         quantity: item.quantity,
         price: item.price,
         item_name: item.itemNameRef.current.value,
@@ -168,7 +191,10 @@ class MakeDealPage extends Component {
   }
 
   onHandleChangeSelectContact(value) {
-    const { dispatch } = this.props;
+    const { dispatch, makeDealPage } = this.props;
+    if(makeDealPage.productErrors['user_target'].length > 0) {
+      dispatch(resetErrorsField('user_target'));
+    }
     dispatch(onContactSelected(value));
   }
 
@@ -185,8 +211,7 @@ class MakeDealPage extends Component {
 
   render() {
     const items = [];
-    const { makeDealPage, dispatch } = this.props;
-    console.log(makeDealPage.productErrors)
+    const { makeDealPage, dispatch, global } = this.props;
     if(makeDealPage.isLoading) {      
       return <LoaderImage />
     }
@@ -196,6 +221,8 @@ class MakeDealPage extends Component {
           <h3>Produk Saya</h3>
           <CustomInputText placeholder="Penjelasan produk" 
             isError={makeDealPage.productErrors.product_name.length > 0}
+            onChange={(e) => { this.onInputFieldChange(e, 'product_name')}}
+            defaultValue={makeDealPage.tempRequestData.product_name}
             innerRef={makeDealPage.product.productNameRef}/>
           {makeDealPage.productErrors.product_name.map((error, index) => 
             <FieldErrorMessage key={index}>{error}</FieldErrorMessage>
@@ -206,6 +233,8 @@ class MakeDealPage extends Component {
           <div className="items">
             {makeDealPage.product.itemData.map((item, index) => <ProductItem 
               errors={makeDealPage.productErrors.items[index]}
+              defaultDataValues={makeDealPage.tempRequestData.items[index]}
+              resetErrorsFunction={this.onInputItemFieldChange}
               orderNo={index+1}
               item={item} key={index}
               onPriceChange={this.onPriceItemChange}
@@ -257,17 +286,28 @@ class MakeDealPage extends Component {
                 onCancelClick={this.onCancelSelectDialog}
                 onOkClick={() => { dispatch(onContactFinalSelected())}}
                 show={makeDealPage.showSelectContactDialog}>
-                <ContactSelector 
-                  contacts={makeDealPage.contactData} 
+                <ContactSelector
+                  contacts={global.contactsData} 
                   handleChange={this.onHandleChangeSelectContact}
                   currentContactSelected={makeDealPage.product.userTarget} />
               </CustomAlert>
+              { makeDealPage.successSaved && 
+                <CustomAlert 
+                  show={true}
+                  cancel={false} 
+                  noContent={true}
+                  okButtonText="Ok!" 
+                  title="Success Saved"
+                  onOkClick={() => { dispatch(push('/content/shopping-list/seller')) }}></CustomAlert>
+              }
 
             </div>
           </div>
         </div>
         <div className="result">
-          <DealResult items={makeDealPage.product.itemData} onShareProductClick={this.onShareProductClick}/>
+          <DealResult items={makeDealPage.product.itemData} 
+            buttonTitle="Bagikan produk"
+            onShareProductClick={this.onShareProductClick}/>
         </div>
       </MakeDealPageWrapper>
     )

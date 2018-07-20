@@ -10,40 +10,40 @@ const ComingSoonPageWrapper = styled.div`
 
 class ComingSoonPage extends Component {
 
-	constructor(props) {
-		super(props);
-		this.onButtonClick = this.onButtonClick.bind(this);
-		this.onOutsideClick = this.onOutsideClick.bind(this);
-		this.onInsideClick = this.onInsideClick.bind(this);
-		this.state = {
-			show: false
-		}
-	}
+  constructor(props) {
+    super(props);
+    this.onButtonClick = this.onButtonClick.bind(this);
+    this.onOutsideClick = this.onOutsideClick.bind(this);
+    this.onInsideClick = this.onInsideClick.bind(this);
+    this.state = {
+      show: false
+    }
+  }
 
-	onButtonClick() {
-		this.setState({
-			show: true
-		})
-	}
+  onButtonClick() {
+    this.setState({
+      show: true
+    })
+  }
 
-	onInsideClick(event) {
-		event.stopPropagation();
-	}
+  onInsideClick(event) {
+    event.stopPropagation();
+  }
 
-	onOutsideClick(event) {
-	}
+  onOutsideClick(event) {
+  }
 
-	render() {
-		return <div>
-			<button onClick={this.onButtonClick}>Click</button>
-			<CustomAlert show={this.state.show}
-				title="Add Contact"
-				okButtonText="Save"
-				cancelButtonText="Cancel"
-				onInsideClick={this.onInsideClick}
-				onOutsideClick={this.onOutsideClick}/>
-		</div>;
-	}
+  render() {
+    return <div>
+      <button onClick={this.onButtonClick}>Click</button>
+      <CustomAlert show={this.state.show}
+        title="Add Contact"
+        okButtonText="Save"
+        cancelButtonText="Cancel"
+        onInsideClick={this.onInsideClick}
+        onOutsideClick={this.onOutsideClick}/>
+    </div>;
+  }
 }
 
 
@@ -52,7 +52,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-	dispatch: dispatch
+  dispatch: dispatch
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ComingSoonPage);

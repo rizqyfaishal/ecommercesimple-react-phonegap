@@ -13,7 +13,8 @@ import {
   DEAL_PAGE_ON_SAVE_NEW_PROFILE_FROM_DIALOG_REQUEST,
   DEAL_PAGE_ON_CANCEL_PROFILE_SELECTED,
   DEAL_PAGE_ON_SWITCH_PROFILE,
-  DEAL_PAGE_ON_SWITCH_OFFER
+  DEAL_PAGE_ON_SWITCH_OFFER,
+  DEAL_PAGE_ON_SWITCH_TO_FREEZE_TOGGLE
 } from './constants';
 
 import {
@@ -22,6 +23,11 @@ import {
   saveProfileAPI
 } from '../../api';
 
+export function onSwitchToFreezeToggle() {
+  return {
+    type: DEAL_PAGE_ON_SWITCH_TO_FREEZE_TOGGLE
+  }
+}
 
 export function onSwitchProfile() {
   return {

@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 import { findIndex } from 'lodash';
-
+import { LOCATION_CHANGE } from 'react-router-redux';
 import {  
   CONTACT_PAGE_FETCH_USER_CONTACTS_REQUEST,
   CONTACT_PAGE_RECEIVE_USER_CONTACTS_DATA,
@@ -26,6 +26,8 @@ const contactPageInitialState = fromJS({
 
 function contactPageReducer(state=contactPageInitialState, action) {
   switch(action.type) {
+    case LOCATION_CHANGE:
+      return contactPageInitialState;
     case CONTACT_PAGE_ON_USER_SEARCH_CONTACT:
       return state.set('searchKey', action.key);
     case CONTACT_PAGE_HIDE_ALERT:

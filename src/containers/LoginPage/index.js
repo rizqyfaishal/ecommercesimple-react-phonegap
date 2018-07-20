@@ -146,6 +146,7 @@ class LoginPage extends Component {
     dispatch(push('/'));
   }
 
+
   onInputFieldChange() {
     const { loginPage, dispatch } = this.props;
     if(loginPage.errors.length > 0) {

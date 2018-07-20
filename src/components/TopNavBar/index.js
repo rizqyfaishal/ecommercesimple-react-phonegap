@@ -3,9 +3,16 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Tappable from 'react-tappable';
 
+import {
+  TOGGLE_STATUS_BUY,
+  TOGGLE_STATUS_SELL
+} from '../../containers/DealPage/constants';
+
 import Next from '../../images/next.svg';
 import Users from '../../images/users.svg';
 
+import LeftArrow from '../../images/left-arrow.svg';
+import RightArrow from '../../images/right-arrow.svg';
 
 const TopNavBarWrapper = styled.div`
   position: fixed;
@@ -45,15 +52,18 @@ const TopNavBarWrapper = styled.div`
     align-items: center;
     & > span {
       display: block;
-      & > p {
+      & > div > p, & > p {
         font-size: 0.7rem;
-        margin: 0;
         text-align: center;
+        margin: 0;
+        &:first-child {
+          margin: 0.2rem;
+        }
       }
 
       & > img {
         display: block;
-        margin: 0 auto;
+        margin: 0.2rem auto;
       }
     }
   }
@@ -68,7 +78,7 @@ const TopNavBarWrapper = styled.div`
       display: block;
       & > p {
         font-size: 0.7rem;
-        margin: 0 0 1rem 0;
+        margin: 0;
       }
 
       & > img {
@@ -87,25 +97,35 @@ const TopNavBar = (props) => {
   return (
       <TopNavBarWrapper>
         <div>
-          <Tappable onTap={props.onLeftTapped}>
-            <img src={Users} alt="next-button" width="30" />
-            <p>Current profile</p>
-            <p>({props.currentProfileText})</p>
-          </Tappable>
+         {
+           !props.leftButtonHide &&
+            <Tappable onTap={props.onLeftTapped}>
+              <img src={props.status == TOGGLE_STATUS_SELL ? Users : LeftArrow} alt="next-button" width="30" />
+              { props.status == TOGGLE_STATUS_SELL ?
+                <div>
+                  <p>Current profile</p>
+                  <p>({props.currentProfileText})</p>
+                </div> :
+                <p>Previous offer</p>
+              }
+            </Tappable>
+         }
         </div>
         <div>
           <div>{props.title}</div>
           <div>
-            <Tappable onTap={props.onToggleTapped}>
+            <Tappable onTap={props.freezeToggle ? () => {} : props.onToggleTapped}>
               {props.status}
             </Tappable>
           </div>
         </div>  
         <div>
-          <Tappable onTap={props.onRightTapped}>
-            <img src={Next} alt="next-button" width="30" />
-            <p>{ props.statusActionText }</p>
-          </Tappable>
+          { !props.rightButtonHide && 
+            <Tappable onTap={props.onRightTapped}>
+              <img src={props.status == TOGGLE_STATUS_SELL ? Next : RightArrow } alt="next-button" width="30" />
+              <p>{ props.statusActionText }</p>
+            </Tappable>
+          }
         </div>
       </TopNavBarWrapper>
     )

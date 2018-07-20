@@ -87,5 +87,14 @@ if (ENV === 'development') {
   });
 } else {
   // config can be added here for minifying / etc
-  module.exports = merge(common, {});
+  module.exports = merge(common, {
+    devtool: 'cheap-module-source-map',
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          'NODE_ENV': JSON.stringify('production')
+        }
+      })
+    ],
+    });
 }

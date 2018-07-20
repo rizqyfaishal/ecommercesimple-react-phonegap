@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable';
+import { LOCATION_CHANGE } from 'react-router-redux';
 import {
 	REGISTER_PAGE_ON_REGISTER_POST_REQUEST,
 	REGISTER_PAGE_ON_RECEIVE_REGISTER_DATA,
@@ -22,6 +23,8 @@ const registerPageInitialState = fromJS({
 
 function registerPageReducer(state=registerPageInitialState, action) {
 	switch(action.type) {
+		case LOCATION_CHANGE:
+			return registerPageInitialState;
 		case REGISTER_PAGE_CLEAR_ERRORS: {
 			let errors = state.get('errors');
 			errors = {

@@ -9,7 +9,7 @@ const LoaderImageWrapper = styled.div`
 	justify-content: center;
 	align-items: center;
 	margin: 2rem;
-	height: calc((100vh - 60px) / 2);
+	height: ${props => props.height || 'calc((100vh - 60px) / 2)'};
 `;
 
 const LoaderImage = (props) => 
