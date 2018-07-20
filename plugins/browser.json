@@ -6,6 +6,13 @@
   "config_munge": {
     "files": {}
   },
-  "installed_plugins": {},
+  "installed_plugins": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    },
+    "cordova-plugin-crosswalk-webview": {
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    }
+  },
   "dependent_plugins": {}
 }
