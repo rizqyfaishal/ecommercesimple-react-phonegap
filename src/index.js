@@ -9,6 +9,7 @@ import configureStore from './configStore';
 import App from './containers/App';
 
 import './global-styles';
+import "babel-polyfill";
 import 'es6-promise/auto';
 
 

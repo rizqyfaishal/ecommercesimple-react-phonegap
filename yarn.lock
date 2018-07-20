@@ -742,6 +742,14 @@ babel-plugin-transform-strict-mode@^6.24.1:
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
 
+babel-polyfill@^6.26.0:
+  version "6.26.0"
+  resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.26.0.tgz#379937abc67d7895970adc621f284cd966cf2153"
+  dependencies:
+    babel-runtime "^6.26.0"
+    core-js "^2.5.0"
+    regenerator-runtime "^0.10.5"
+
 babel-preset-es2015@^6.3.13:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-preset-es2015/-/babel-preset-es2015-6.24.1.tgz#d44050d6bc2c9feea702aaf38d727a0210538939"
@@ -1280,10 +1288,6 @@ cordova-common@^2.2.0:
     shelljs "^0.8.1"
     strip-bom "^3.0.0"
     underscore "^1.8.3"
-
-cordova-plugin-crosswalk-webview@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-crosswalk-webview/-/cordova-plugin-crosswalk-webview-2.4.0.tgz#90717bc4315c92d3182782fcba6b7ad89e532311"
 
 cordova-registry-mapper@^1.1.8:
   version "1.1.15"
@@ -3789,6 +3793,10 @@ redux@^4.0.0:
 regenerate@^1.2.1:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.4.0.tgz#4a856ec4b56e4077c557589cae85e7a4c8869a11"
+
+regenerator-runtime@^0.10.5:
+  version "0.10.5"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.10.5.tgz#336c3efc1220adcedda2c9fab67b5a7955a33658"
 
 regenerator-runtime@^0.11.0:
   version "0.11.1"
