@@ -16,7 +16,6 @@ import RegisterPage from '../RegisterPage';
 import FillAdditionalInformationPage from '../FillAdditionalInformationPage';
 import ContentPage from '../ContentPage';
 import OfflinePage from '../OfflinePage';
-import ErrorPage from '../ErrorPage';
 
 
 
@@ -29,10 +28,14 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Switch>
-          <Route path="/" component={BasePage} />
-          <Route exact={true} path="*" component={ErrorPage} />
-        </Switch>
+        <Offline>
+          <OfflinePage />
+        </Offline>
+        <Online>
+          <Switch>
+            <Route path="/" component={BasePage} />
+          </Switch>
+        </Online>
       </div>
     );
   }

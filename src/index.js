@@ -9,6 +9,8 @@ import configureStore from './configStore';
 import App from './containers/App';
 
 import './global-styles';
+import 'es6-promise/auto';
+
 
 
 const initialState = {};
