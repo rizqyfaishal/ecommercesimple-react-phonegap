@@ -98,7 +98,7 @@
         <uses-permission android:name="android.permission.CAMERA" />
         <uses-feature android:name="android.hardware.camera" android:required="false" />
         <uses-feature android:name="android.hardware.camera.autofocus" />
-        <feature name="http://api.phonegap.com/1.0/camera" />
+
     </platform>
     <platform name="ios">
         <content src="http://localhost:8080/index.html" />
