@@ -95,9 +95,9 @@
         <content src="http://10.0.2.2:8080/index.html" />
         <allow-navigation href="*" />
         <allow-intent href="market:*" />
-        <uses-permission android:name="android.permission.CAMERA" />
-        <uses-feature android:name="android.hardware.camera" android:required="false" />
-        <uses-feature android:name="android.hardware.camera.autofocus" />
+
+
+
 
     </platform>
     <platform name="ios">
