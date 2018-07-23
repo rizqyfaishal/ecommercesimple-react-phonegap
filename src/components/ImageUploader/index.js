@@ -70,7 +70,7 @@ class ImageUploader extends Component {
 	render() {
 		return (
 			<ImageUploaderWrapper>
-				<input type="file" onChange={this.props.onChange} ref={this.imageField} />
+				<input type="file" onChange={this.props.onChange} ref={this.imageField} accept="image/*" />
 				{ isNull(this.props.currentImage) &&  <div className="uploadField">
             <img src={Upload} width="50" /> 
              <CustomButton
