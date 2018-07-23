@@ -90,8 +90,6 @@ export function onVerifyTokenAction() {
           window.localStorage.setItem('auth-token', response.data.token);
           dispatch(onVerifyTokenSuccess(response.data));
           dispatch(fetchUserProfilesData());
-          dispatch(fetchUserContactsData());
-          dispatch(onRender());
         }
       })
       .catch(error => {

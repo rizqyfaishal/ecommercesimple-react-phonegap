@@ -13,7 +13,6 @@ const shoppingListPageInitialState = fromJS({
 
 
 function shoppingListPageReducer(state=shoppingListPageInitialState, action) {
-  console.log(action);
   switch(action.type) {
     case LOCATION_CHANGE:
       if(action.payload.pathname != '/content/shopping-list/seller' && action.payload.pathname != '/content/shopping-list/buyer') {

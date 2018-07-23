@@ -24,6 +24,10 @@ import {
   saveProfileAPI
 } from '../../api';
 
+import {
+  fetchUserContactsData
+} from '../MakeDealPage/actions';
+
 export function onSwitchToFreezeToggle() {
   return {
     type: DEAL_PAGE_ON_SWITCH_TO_FREEZE_TOGGLE
@@ -133,7 +137,7 @@ export function fetchUserProfilesData() {
       .then(response => {
         if(response.status == 200) {
           dispatch(receiveUserProfilesData(response.data));
-        }
+          dispatch(fetchUserContactsData());        }
       })
       .catch(err => {
         throw err;

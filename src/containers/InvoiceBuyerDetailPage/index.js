@@ -234,6 +234,7 @@ class InvoiceBuyerDetailPage extends Component {
 
   render() {
     const { invoiceBuyerDetailPage, dispatch } = this.props;
+    console.log(cordova.file);
     if(invoiceBuyerDetailPage.isLoading || isNull(invoiceBuyerDetailPage.invoiceData)) {
       return <InvoiceBuyerDetailPageWrapper>
         <TitleBar title="Invoice Detail" />

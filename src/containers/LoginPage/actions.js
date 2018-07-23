@@ -78,8 +78,6 @@ export function onLoginTapAction(username, password) {
           window.localStorage.setItem('auth-token', response.data.token);
           dispatch(onReceiveLoginData(response.data));
           dispatch(fetchUserProfilesData());
-          dispatch(fetchUserContactsData());
-          dispatch(push('/content/deal/make'))
         }
       })
       .catch(error => {

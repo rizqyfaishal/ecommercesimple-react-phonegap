@@ -21,10 +21,14 @@ import {
   MAKE_DEAL_RESET_ERRORS_FIELD,
   MAKE_DEAL_RESET_ERRORS_ITEM_FIELD
 } from './constants';
+
 import {
   convertErrorResponse
 } from '../../utils';
 
+import {
+  onRender 
+} from '../../actions';
 
 export function resetErrorsField(key) {
   return {
@@ -155,6 +159,7 @@ export function fetchUserContactsData() {
       .then(response => {
         if(response.status == 200) {
           dispatch(receiveUserContactsData(response.data));
+          dispatch(onRender());
           dispatch(push('/content/deal/make'));
         }
       })
