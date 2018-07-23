@@ -95,6 +95,7 @@
         <content src="http://10.0.2.2:8080/index.html" />
         <allow-navigation href="*" />
         <allow-intent href="market:*" />
+        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     </platform>
     <platform name="ios">
         <content src="http://localhost:8080/index.html" />
