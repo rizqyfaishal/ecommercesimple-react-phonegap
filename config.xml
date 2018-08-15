@@ -115,6 +115,8 @@
     <plugin name="cordova-plugin-device" spec="^2.0.2" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-media" spec="^5.0.2" />
-    <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />
     <plugin name="cordova-plugin-contacts" spec="^3.0.1" />
+    <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />
+    <plugin name="cordova-plugin-contacts-phonenumbers" spec="0.0.11" />
+    <engine name="android" spec="~5.0.0" />
 </widget>

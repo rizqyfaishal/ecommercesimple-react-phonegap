@@ -1,0 +1,24 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    },
+    "cordova-plugin-contacts-phonenumbers": {
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    }
+  },
+  "dependent_plugins": {}
+}
