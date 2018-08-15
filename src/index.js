@@ -12,6 +12,10 @@ import './global-styles';
 import "babel-polyfill";
 import 'es6-promise/auto';
 
+document.addEventListener('deviceready', () => {
+	console.log(navigator.contacts);
+}, false)
+
 
 
 const initialState = {};

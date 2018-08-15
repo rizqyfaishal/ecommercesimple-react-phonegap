@@ -95,7 +95,7 @@
         <content src="http://10.0.2.2:8080/index.html" />
         <allow-navigation href="*" />
         <allow-intent href="market:*" />
-s    </platform>
+    </platform>
     <platform name="ios">
         <content src="http://localhost:8080/index.html" />
         <allow-intent href="itms:*" />
@@ -116,4 +116,6 @@ s    </platform>
     <plugin name="cordova-plugin-device" spec="^2.0.2" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-media" spec="^5.0.2" />
+    <plugin name="cordova-plugin-contacts" spec="^3.0.1" />
+    <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />
 </widget>

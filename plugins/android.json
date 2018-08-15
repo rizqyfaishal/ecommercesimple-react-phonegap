@@ -32,6 +32,12 @@
     },
     "cordova-plugin-media": {
       "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    },
+    "cordova-plugin-contacts": {
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    },
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
     }
   },
   "dependent_plugins": {}

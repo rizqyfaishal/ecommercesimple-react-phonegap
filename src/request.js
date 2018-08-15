@@ -3,8 +3,10 @@ import FormData from 'form-data';
 
 const localStorage = window.localStorage;
 
+const BASE_URL = 'https://calm-garden-81692.herokuapp.com/api';
+
 const genericRequestInstance = axios.create({
-  baseURL: 'http://35.240.171.112/api',
+  baseURL: BASE_URL,
   crossdomain: true
 });
 
@@ -15,7 +17,7 @@ export const genericRequest = (url, method, data) =>
 
 export const authenticatedRequest = (url, method, data) => {
   const authenticatedRequestInstance = axios.create({
-    baseURL: 'http://35.240.171.112/api',
+    baseURL: BASE_URL,
     crossdomain: true,
     headers: {
       'Authorization': `JWT ${localStorage.getItem('auth-token')}`,
@@ -29,7 +31,7 @@ export const authenticatedPostImageRequest = (url, method, data) => {
   // console.log(form.getHeaders);
   form.set('image', data);
   const authenticatedRequestInstance = axios.create({
-    baseURL: 'http://35.240.171.112/api',
+    baseURL: BASE_URL,
     crossdomain: true,
     headers: {
       'Authorization': `JWT ${localStorage.getItem('auth-token')}`,
