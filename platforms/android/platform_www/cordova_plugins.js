@@ -8,13 +8,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cordova-plugin-contacts-phonenumbers/www/contactsPhoneNumbers.js",
-        "id": "cordova-plugin-contacts-phonenumbers.contactsPhoneNumbers",
-        "clobbers": [
-            "navigator.contactsPhoneNumbers"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-device/www/device.js",
         "id": "cordova-plugin-device.device",
         "clobbers": [

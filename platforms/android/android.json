@@ -13,10 +13,6 @@
               "count": 1
             },
             {
-              "xml": "<feature name=\"ContactsPhoneNumbers\"><param name=\"android-package\" value=\"com.dbaq.cordova.contactsPhoneNumbers.ContactsManager\" /></feature>",
-              "count": 1
-            },
-            {
               "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
               "count": 1
             },
@@ -29,21 +25,13 @@
       },
       "AndroidManifest.xml": {
         "parents": {
-          "/*": [
-            {
-              "xml": "<uses-permission android:name=\"android.permission.READ_CONTACTS\" />",
-              "count": 1
-            }
-          ]
+          "/*": []
         }
       }
     }
   },
   "installed_plugins": {
     "cordova-plugin-android-permissions": {
-      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
-    },
-    "cordova-plugin-contacts-phonenumbers": {
       "PACKAGE_NAME": "com.phonegap.ecommercesimple"
     },
     "cordova-plugin-device": {
@@ -60,13 +48,6 @@
       "id": "cordova-plugin-android-permissions.Permissions",
       "clobbers": [
         "cordova.plugins.permissions"
-      ]
-    },
-    {
-      "file": "plugins/cordova-plugin-contacts-phonenumbers/www/contactsPhoneNumbers.js",
-      "id": "cordova-plugin-contacts-phonenumbers.contactsPhoneNumbers",
-      "clobbers": [
-        "navigator.contactsPhoneNumbers"
       ]
     },
     {

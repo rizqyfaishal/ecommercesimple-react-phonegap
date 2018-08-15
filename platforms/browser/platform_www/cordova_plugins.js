@@ -407,14 +407,6 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.permissions"
         ]
-    },
-    {
-        "file": "plugins/cordova-plugin-contacts-phonenumbers/www/contactsPhoneNumbers.js",
-        "id": "cordova-plugin-contacts-phonenumbers.contactsPhoneNumbers",
-        "pluginId": "cordova-plugin-contacts-phonenumbers",
-        "clobbers": [
-            "navigator.contactsPhoneNumbers"
-        ]
     }
 ];
 module.exports.metadata = 
@@ -428,8 +420,7 @@ module.exports.metadata =
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-media": "5.0.2",
     "cordova-plugin-contacts": "3.0.1",
-    "cordova-plugin-android-permissions": "1.0.0",
-    "cordova-plugin-contacts-phonenumbers": "0.0.11"
+    "cordova-plugin-android-permissions": "1.0.0"
 }
 // BOTTOM OF METADATA
 });
