@@ -17,6 +17,7 @@ export const updateContactsByPhoneBook = (dispatcher, actionCreator) => {
    document.addEventListener('deviceready', () => {
       navigator.contactsPhoneNumbers.list(function(contacts) {
          console.log(contacts.length + ' contacts found');
+         console.log(contacts);
          const emails = [];
          const phoneNumbers = [];
          for(var i = 0; i < contacts.length; i++) {
