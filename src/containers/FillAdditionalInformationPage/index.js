@@ -20,6 +20,7 @@ import CustomTextArea from '../../components/CustomTextArea';
 import CustomLabel from '../../components/CustomLabel';
 import LoaderImage from '../../components/LoaderImage';
 import FieldErrorMessage from '../../components/FieldErrorMessage';
+import CustomInputText from '../../components/CustomInputText';
 
 const FillAdditionalPageContainer = styled.div`
 	display: flex;
@@ -39,7 +40,7 @@ const FillAdditionalPageContainer = styled.div`
 		display: flex;
 		flex-direction: column;
 		
-		& > div:nth-child(3) {
+		& > div:nth-child(4) {
 			width: 100%;
 			& > button {
 				width: 100%;
@@ -48,7 +49,7 @@ const FillAdditionalPageContainer = styled.div`
 			}
 		}
 
-		& > div.address-field, & > div.payment-method-field {
+		& > div.address-field, & > div.payment-method-field, & > div.phone-number-field {
 			margin: 1rem 0;
 			width: 100%;
 			display: flex;
@@ -81,14 +82,15 @@ class FillAdditionalInformationPage extends Component {
 
 	onSaveTapped(event) {
 		const { dispatch } = this.props;
-		dispatch(onSaveTappedAction(this.address.value, this.payment_method.value));
+		dispatch(onSaveTappedAction(this.address.value, this.payment_method.value, this.phone_number.value));
 	}
 
 	onInputChange(event) {
 		const addressValue = this.address.value;
 		const paymentMethodValue = this.payment_method.value;
+		const phoneNumberValue = this.phone_number.value;
 		const { dispatch, fillAdditionalInformationPage } = this.props;
-		if(!isEmpty(addressValue) && !isEmpty(paymentMethodValue)) {
+		if(!isEmpty(addressValue) && !isEmpty(paymentMethodValue) && !isEmpty(phoneNumberValue)) {
 			if(!fillAdditionalInformationPage.buttonEnabled) {
 				dispatch(setEnableButton());
 			}
@@ -104,7 +106,6 @@ class FillAdditionalInformationPage extends Component {
 		if(fillAdditionalInformationPage.successSaved) {
 			dispatch(push('/content/deal/make'));
 		}
-		console.log(fillAdditionalInformationPage.errors);
 		const content = fillAdditionalInformationPage.isLoading ?
 			<LoaderImage /> : 
 				<FillAdditionalPageContainer>
@@ -112,6 +113,23 @@ class FillAdditionalInformationPage extends Component {
 						<NavigatorBar title="Fill Additional Information" onBackTapped={this.onBackTapped} />
 					</div>
 					<div className="additional-form">
+						<div className="phone-number-field">
+							<CustomLabel
+								isError={!isUndefined(fillAdditionalInformationPage.errors.phone_number) &&
+									fillAdditionalInformationPage.errors.phone_number.length > 0}
+							>Phone Number</CustomLabel>
+							<CustomInputText placeholder="Your phone number ex: +6285xxxxxxxx"
+								isError={!isUndefined(fillAdditionalInformationPage.errors.phone_number) &&
+									fillAdditionalInformationPage.errors.phone_number.length > 0}
+									defaultValue={fillAdditionalInformationPage.formData.phone_number}
+									onChange={this.onInputChange}
+									innerRef={phone_number => { this.phone_number = phone_number; }} />
+								{ !isUndefined(fillAdditionalInformationPage.errors.phone_number) &&
+									fillAdditionalInformationPage.errors.phone_number.map((error, index) => 
+										<FieldErrorMessage key={'error' + index}>{error}</FieldErrorMessage>
+									)
+								}
+						</div>
 						<div className="address-field">
 							<CustomLabel 
 								isError={!isUndefined(fillAdditionalInformationPage.errors.address) && 
@@ -123,8 +141,8 @@ class FillAdditionalInformationPage extends Component {
 								onChange={this.onInputChange}
 								innerRef={address => { this.address = address; }}/>
 							{ !isUndefined(fillAdditionalInformationPage.errors.address) && 
-								fillAdditionalInformationPage.errors.address.map(error => 
-									<FieldErrorMessage>{error}</FieldErrorMessage>
+								fillAdditionalInformationPage.errors.address.map((error, index) => 
+									<FieldErrorMessage key={'error' + index}>{error}</FieldErrorMessage>
 								)}
 						</div>
 						<div className="payment-method-field">
@@ -138,8 +156,8 @@ class FillAdditionalInformationPage extends Component {
 								onChange={this.onInputChange}
 								innerRef={payment_method => { this.payment_method = payment_method; }}/>
 							{ !isUndefined(fillAdditionalInformationPage.errors.payment_method) && 
-								fillAdditionalInformationPage.errors.payment_method.map(error => 
-									<FieldErrorMessage>{error}</FieldErrorMessage>
+								fillAdditionalInformationPage.errors.payment_method.map((error, index) => 
+									<FieldErrorMessage key={'error' + index}>{error}</FieldErrorMessage>
 								)}
 						</div>
 						<div>

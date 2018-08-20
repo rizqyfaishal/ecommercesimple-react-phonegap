@@ -19,7 +19,9 @@ import {
   DEAL_PAGE_ON_SWITCH_PROFILE,
   DEAL_PAGE_ON_SWITCH_OFFER,
   DEAL_PAGE_ON_SWITCH_TO_FREEZE_TOGGLE,
-  DEAL_PAGE_SET_TOGGLE_STATUS
+  DEAL_PAGE_SET_TOGGLE_STATUS,
+  DEAL_PAGE_ON_USER_CHOICE_IMAGE,
+  DEAL_PAGE_ON_USER_REMOVE_IMAGE
 } from './constants';
 
 
@@ -36,12 +38,22 @@ const dealPageInitialState = fromJS({
   tempSelectedProfile: -1,
   currentProfileIndex: 0,
   freezeToggle: false,
+  tempImage: null,
+  tempImageUrl: null,
+  imageData: null,
+  errors: []
 });
 
 function dealPageReducer(state = dealPageInitialState, action) {
-  console.log(action);
-  console.log(state.toJS());
   switch(action.type) {
+    case DEAL_PAGE_ON_USER_REMOVE_IMAGE:
+      return state.set('tempImage', null)
+                  .set('errors', fromJS([]))
+                  .set('tempImageUrl', null);
+    case DEAL_PAGE_ON_USER_CHOICE_IMAGE:
+      return state.set('tempImage', fromJS(action.image))
+                  .set('errors', fromJS([]))
+                  .set('tempImageUrl', action.imageURL);
     case DEAL_PAGE_SET_TOGGLE_STATUS:
       return state.set('currentToggleStatus', action.toggleStatus);
     case DEAL_PAGE_ON_SWITCH_TO_FREEZE_TOGGLE:

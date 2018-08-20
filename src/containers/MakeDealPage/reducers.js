@@ -20,7 +20,9 @@ import {
   MAKE_DEAL_RECEIVE_PRODUCT_DATA,
   MAKE_DEAL_RECEIVE_PRODUCT_ERRORS,
   MAKE_DEAL_RESET_ERRORS_FIELD,
-  MAKE_DEAL_RESET_ERRORS_ITEM_FIELD
+  MAKE_DEAL_RESET_ERRORS_ITEM_FIELD,
+  MAKE_DEAL_ON_USER_CHOICE_IMAGE,
+  MAKE_DEAL_ON_USER_REMOVE_IMAGE
 } from './constants';
 
 
@@ -70,11 +72,18 @@ const makeDealInitialState = fromJS({
     expire_in_day: 1,
     user_target: null
   },
+  tempImage: null,
+  tempImageUrl: null,
+  isOnChoiceImage: null
 });
 
 
 function makeDealReducer(state=makeDealInitialState, action) {
   switch(action.type) {
+    case MAKE_DEAL_ON_USER_REMOVE_IMAGE:
+      return state;
+    case MAKE_DEAL_ON_USER_CHOICE_IMAGE:
+      return state;
     case MAKE_DEAL_RESET_ERRORS_FIELD:
       return state.setIn(['productErrors', action.key], fromJS([]));
     case MAKE_DEAL_RESET_ERRORS_ITEM_FIELD:

@@ -1,9 +1,10 @@
 import axios from 'axios';
 import FormData from 'form-data';
+import { keys } from 'lodash';
 
 const localStorage = window.localStorage;
 
-const BASE_URL = 'https://calm-garden-81692.herokuapp.com/api';
+const BASE_URL = 'http://178.128.82.252:17519/api';
 
 const genericRequestInstance = axios.create({
   baseURL: BASE_URL,
@@ -29,7 +30,11 @@ export const authenticatedRequest = (url, method, data) => {
 export const authenticatedPostImageRequest = (url, method, data) => {
   const form = new FormData();
   // console.log(form.getHeaders);
-  form.set('image', data);
+  const key_data = keys(data);
+  key_data.forEach(key => {
+    form.set(key, data[key])
+  })
+  console.log(form);
   const authenticatedRequestInstance = axios.create({
     baseURL: BASE_URL,
     crossdomain: true,

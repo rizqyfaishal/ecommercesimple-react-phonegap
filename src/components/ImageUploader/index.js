@@ -74,7 +74,7 @@ class ImageUploader extends Component {
 				{ isNull(this.props.currentImage) &&  <div className="uploadField">
             <img src={Upload} width="50" /> 
              <CustomButton
-              onClick={() => {this.imageField.current.click()}} color="white" bg="#F48024">Pilih Gambar</CustomButton>   
+              onClick={() => {this.imageField.current.click()}} color="white" bg="#F48024">{ this.props.buttonText}</CustomButton>   
           </div>
         }
         { !isNull(this.props.currentImage) &&
@@ -87,9 +87,11 @@ class ImageUploader extends Component {
                 </FieldErrorMessage>)
               }
             </div>
-            <CustomButton onClick={ this.props.onUploadClick } 
+            { !this.props.hideOnShowImage && 
+              <CustomButton onClick={ this.props.onUploadClick } 
                 disabled={this.props.errors.length > 0}
                 color="white" bg="#F48024">Upload</CustomButton>
+            }
           </div>
         }
 			</ImageUploaderWrapper>

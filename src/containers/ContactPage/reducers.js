@@ -13,7 +13,9 @@ import {
   CONTACT_PAGE_RECEIVE_ALL_CONTACTS_ERRORS,
   CONTACT_PAGE_SHOW_ALERT,
   CONTACT_PAGE_HIDE_ALERT,
-  CONTACT_PAGE_ON_USER_SEARCH_CONTACT
+  CONTACT_PAGE_ON_USER_SEARCH_CONTACT,
+  CONTACT_PAGE_RECEIVE_IMPORTED_CONTACT_FROM_PHONEBOOK,
+  CONTACT_PAGE_IMPORT_CONTACTS_FROM_PHONEBOOK_REQUEST
 } from './constants';
 
 const contactPageInitialState = fromJS({
@@ -26,6 +28,11 @@ const contactPageInitialState = fromJS({
 
 function contactPageReducer(state=contactPageInitialState, action) {
   switch(action.type) {
+    case CONTACT_PAGE_IMPORT_CONTACTS_FROM_PHONEBOOK_REQUEST:
+      return state.set('isLoading', true);
+    case CONTACT_PAGE_RECEIVE_IMPORTED_CONTACT_FROM_PHONEBOOK:
+      return state.set('isLoading', false)
+                  .update('contactsData', contactsData => contactsData.push(action.data));
     case LOCATION_CHANGE:
       return contactPageInitialState;
     case CONTACT_PAGE_ON_USER_SEARCH_CONTACT:

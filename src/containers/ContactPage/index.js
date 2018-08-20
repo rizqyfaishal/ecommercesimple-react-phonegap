@@ -25,8 +25,13 @@ import {
   showAlert,
   hideAlert,
   onSavingContacts,
-  onUserSearchContact
+  onUserSearchContact,
+  importContactsFromPhoneBooks
 } from './actions';
+
+import {
+  updateContactsByPhoneBook
+} from '../../utils';
 
 
 const ContactPageWrapper = styled.div`
@@ -103,6 +108,13 @@ class ContactPage extends Component {
     this.onOkDialogClick = this.onOkDialogClick.bind(this);
     this.onCancelDialogClick = this.onCancelDialogClick.bind(this);
     this.onSearchKeyChange = this.onSearchKeyChange.bind(this);
+    this.importFromPhoneBook = this.importFromPhoneBook.bind(this);
+  }
+
+  importFromPhoneBook() {
+    const { dispatch } = this.props;
+    console.log(updateContactsByPhoneBook);
+    updateContactsByPhoneBook(dispatch, importContactsFromPhoneBooks);
   }
 
   componentWillMount() {
@@ -204,6 +216,9 @@ class ContactPage extends Component {
           <div>
             <CustomButton color="#fff" bg="#F48024" onClick={this.onAddContact}>
               + Tambah Kontak
+            </CustomButton>
+             <CustomButton color="#fff" bg="#F48024" onClick={this.importFromPhoneBook}>
+              Import dari phonebook
             </CustomButton>
           </div>
       </div>}

@@ -329,7 +329,7 @@ class InvoiceBuyerDetailPage extends Component {
           { invoice.status == 2 && 
             <div className="sudah-upload">
               <h4>{invoiceStatus[invoice.status - 1]}</h4>
-              <img alt="bukti-pembayaran" src={`http://35.240.171.112${invoice.attachment_data.image_data.image}`} />
+              <img alt="bukti-pembayaran" src={`http://178.128.82.252:17519${invoice.attachment_data.image_data.image}`} />
             </div>
           } 
         </div>

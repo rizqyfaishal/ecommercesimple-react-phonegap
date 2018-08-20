@@ -12,3 +12,31 @@ export function convertToRupiah(angka)
 export function convertErrorResponse(error) {
 	return isUndefined(error) ? [] : error
 }
+
+export const updateContactsByPhoneBook = (dispatcher, actionCreator) => {
+   document.addEventListener('deviceready', () => {
+      navigator.contactsPhoneNumbers.list(function(contacts) {
+         console.log(contacts.length + ' contacts found');
+         const emails = [];
+         const phoneNumbers = [];
+         for(var i = 0; i < contacts.length; i++) {
+            console.log(contacts[i].emails);
+            console.log(contacts[i].phoneNumbers);
+            contacts[i].emails.forEach(email => {
+               if(emails.indexOf(email) == -1) {
+                  emails.push(email);
+               }
+            })
+
+            contacts[i].phoneNumbers.forEach(phoneNumber => {
+               if(phoneNumbers.indexOf(phoneNumber) == -1) {
+                  phoneNumbers.push(phoneNumber);
+               }
+            })
+         }
+         dispatcher(actionCreator(emails, phoneNumbers));
+      }, function(error) {
+         console.error(error);
+      });
+   }, false)
+}

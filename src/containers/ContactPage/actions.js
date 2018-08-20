@@ -13,7 +13,10 @@ import {
   CONTACT_PAGE_RECEIVE_ALL_CONTACTS_ERRORS,
   CONTACT_PAGE_SHOW_ALERT,
   CONTACT_PAGE_HIDE_ALERT,
-  CONTACT_PAGE_ON_USER_SEARCH_CONTACT
+  CONTACT_PAGE_ON_USER_SEARCH_CONTACT,
+  CONTACT_PAGE_IMPORT_CONTACTS_FROM_PHONEBOOK,
+  CONTACT_PAGE_RECEIVE_IMPORTED_CONTACT_FROM_PHONEBOOK,
+  CONTACT_PAGE_IMPORT_CONTACTS_FROM_PHONEBOOK_REQUEST
 } from './constants';
 
 import {
@@ -22,8 +25,39 @@ import {
 
 import {
   getUserContacts,
-  saveContacts
+  saveContacts,
+  saveContactsFromPhoneBooks
 } from '../../api';
+
+export function importContactsFromPhoneBooksRequest() {
+  return {
+    type: CONTACT_PAGE_IMPORT_CONTACTS_FROM_PHONEBOOK_REQUEST
+  }
+}
+
+export function importContactsFromPhoneBooks(emails, phonenumbers) {
+  return dispatch => {
+    dispatch(importContactsFromPhoneBooksRequest());
+    return saveContactsFromPhoneBooks({ emails, phonenumbers })
+      .then(response => {
+        if(response.status == 201) {
+          dispatch(receiveImportedContactFromPhoneBooks(response.data.contact_users));
+          dispatch(setFlashMessage('saveContactsSuccess', response.data.contact_users.length + ' contacts added.'));
+        }
+      })
+      .catch(err => {
+        throw err;
+      })
+  }
+}
+
+export function receiveImportedContactFromPhoneBooks(data) {
+  return {
+    type: CONTACT_PAGE_RECEIVE_IMPORTED_CONTACT_FROM_PHONEBOOK,
+    data
+  }
+}
+
 
 export function hideAlert() {
   return {

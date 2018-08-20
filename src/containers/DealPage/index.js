@@ -15,6 +15,8 @@ import CustomAlert from '../../components/CustomAlert';
 import CustomInputText from '../../components/CustomInputText';
 import LoaderImage from '../../components/LoaderImage';
 import FieldErrorMessage from '../../components/FieldErrorMessage';
+import CustomButton from '../../components/CustomButton';
+import ImageUploader from '../../components/ImageUploader';
 
 import {
   TOGGLE_STATUS_BUY,
@@ -31,7 +33,9 @@ import {
   onSaveNewProfileFromDialogRequest,
   onProfileTempSelected,
   cancelProfileSelected,
-  onSwitchProfile
+  onSwitchProfile,
+  onUserChoiceImage,
+  onUserRemoveImage
 } from './actions';
 
 import {
@@ -67,6 +71,12 @@ const DealPageWrapper = styled.div`
     margin-bottom: 60px;
   }
 
+  & > div.dialogALert {
+    & > div > div > div > div.upload-profile-pict {
+      margin-top: 1rem;
+    }
+  }
+
 `;
 
 class DealPage extends Component {
@@ -83,6 +93,39 @@ class DealPage extends Component {
     this.onSwitchProfileTapped = this.onSwitchProfileTapped.bind(this);
     this.onSwitchOfferTapped = this.onSwitchOfferTapped.bind(this);
     this.onPreviousOfferTapped = this.onPreviousOfferTapped.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
+    this.onRemoveImage = this.onRemoveImage.bind(this);
+  }
+
+  handleImageChange(event) {
+    const { dispatch } = this.props;
+    const file = event.target.files[0];
+    this.readFile(file)
+      .then(fileData => {
+        dispatch(onUserChoiceImage(fileData.file, fileData.dataURL));
+      })
+  }
+
+  readFile(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      // Read the image via FileReader API and save image result in state.
+      reader.onload = function (e) {
+        // Add the file name to the data URL
+        let dataURL = e.target.result;
+        dataURL = dataURL.replace(";base64", `;name=${file.name};base64`);
+        resolve({file, dataURL});
+      };
+
+      reader.readAsDataURL(file);
+    });
+  }
+
+
+  onRemoveImage() {
+    const { dispatch, match } = this.props;
+    dispatch(onUserRemoveImage()); 
   }
 
   onSwitchProfileTapped() {
@@ -119,9 +162,10 @@ class DealPage extends Component {
   }
 
   saveNewProfile() {
-    const { dispatch, global } = this.props;
+    const { dispatch, global, dealPage } = this.props;
     dispatch(
-      onSaveNewProfile({ user: global.userData.data.id, profile_name: this.profileNameField.value }, 
+      onSaveNewProfile({ user: global.userData.data.id, 
+        profile_name: this.profileNameField.value, profile_picture: dealPage.tempImage }, 
         false,
         this.createNewProfileRef));
   }
@@ -151,14 +195,26 @@ class DealPage extends Component {
     if(!isNull(dealPage.profiles) && dealPage.profiles.length == 0) {
       content = <div className="dialogALert">
         <CustomAlert show={true} 
-        title="Create new profile"
-        okButtonText={dealPage.isLoading ? 'Saving profile' : 'Save profile'}
-        onOkClick={this.saveNewProfile}
-        cancel={false} okButtonDisabled={dealPage.isLoading}>
+          title="Create new profile"
+          okButtonText={dealPage.isLoading ? 'Saving profile' : 'Save profile'}
+          onOkClick={this.saveNewProfile}
+          cancel={false} okButtonDisabled={dealPage.isLoading}>
           <CustomInputText placeholder="Profile name" isError={dealPage.newProfileErrors.profile_name.length > 0}
             innerRef={profileName => {this.profileNameField = profileName; }}/>
           {dealPage.newProfileErrors.profile_name.map(error => 
             <FieldErrorMessage className="error-message" key={error}>{error}</FieldErrorMessage>)}
+          <div className="upload-profile-pict">
+          <ImageUploader 
+            currentImage={dealPage.tempImage}
+            currentImageURL={dealPage.tempImageUrl}
+            onUploadClick={this.saveNewProfile}
+            onRemoveImage={this.onRemoveImage}
+            errors={dealPage.errors}
+            hideOnShowImage={true}
+            isOptional={true}
+            buttonText={"Pilih Profile Pict"}
+            onChange={this.handleImageChange} />
+          </div>
         </CustomAlert>
       </div>;
     } else if(dealPage.isLoading) {
@@ -189,14 +245,21 @@ class DealPage extends Component {
       <div>
         <TopNavBar title="Logo" status={dealPage.currentToggleStatus}
           freezeToggle={dealPage.freezeToggle}
-          currentProfileText={!isNull(dealPage.profiles) && dealPage.profiles.length > 0 ? dealPage.profiles[dealPage.currentProfileIndex].label : ''}
-          onLeftTapped={dealPage.currentToggleStatus == TOGGLE_STATUS_SELL ? this.onLeftTapped : this.onPreviousOfferTapped}
-          rightButtonHide={(myDealPage.isLoading && dealPage.currentToggleStatus == TOGGLE_STATUS_BUY) || ((dealPage.currentToggleStatus == TOGGLE_STATUS_BUY) 
-            && (!isNull(myDealPage.myDealProducts) && myDealPage.myDealProducts.length == myDealPage.currentProductId + 1))}
-          leftButtonHide={(myDealPage.isLoading && dealPage.currentToggleStatus == TOGGLE_STATUS_BUY) || ((dealPage.currentToggleStatus == TOGGLE_STATUS_BUY) 
+          currentProfileText={!isNull(dealPage.profiles) && dealPage.profiles.length > 0 ? 
+            dealPage.profiles[dealPage.currentProfileIndex].label : ''}
+          onLeftTapped={dealPage.currentToggleStatus == TOGGLE_STATUS_SELL ? 
+            this.onLeftTapped : this.onPreviousOfferTapped}
+          rightButtonHide={(myDealPage.isLoading && 
+            dealPage.currentToggleStatus == TOGGLE_STATUS_BUY) || ((dealPage.currentToggleStatus == TOGGLE_STATUS_BUY) 
+            && (!isNull(myDealPage.myDealProducts) && 
+              myDealPage.myDealProducts.length == myDealPage.currentProductId + 1))}
+          leftButtonHide={(myDealPage.isLoading && 
+            dealPage.currentToggleStatus == TOGGLE_STATUS_BUY) || ((dealPage.currentToggleStatus == TOGGLE_STATUS_BUY) 
             && (!isNull(myDealPage.myDealProducts) && myDealPage.currentProductId <= 0))}
-          onRightTapped ={dealPage.currentToggleStatus == TOGGLE_STATUS_SELL ? this.onSwitchProfileTapped : this.onSwitchOfferTapped}
-          statusActionText={dealPage.currentToggleStatus == TOGGLE_STATUS_SELL ? 'Switch Profile' : 'Switch Offer'}
+          onRightTapped ={dealPage.currentToggleStatus == TOGGLE_STATUS_SELL ? 
+            this.onSwitchProfileTapped : this.onSwitchOfferTapped}
+          statusActionText={dealPage.currentToggleStatus == TOGGLE_STATUS_SELL ? 
+            'Switch Profile' : 'Switch Offer'}
           onToggleTapped={this.onToggleTapped} />
       </div>
       { content }

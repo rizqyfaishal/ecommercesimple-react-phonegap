@@ -25,7 +25,7 @@ export function saveContacts(data) {
 }
 
 export function saveProfileAPI(data) {
-  return authenticatedRequest('/profiles/', 'POST', data);
+  return authenticatedPostImageRequest('/profiles/', 'POST', data);
 }
 
 export default function authenticatedAPI(url, method, data) {
@@ -90,4 +90,8 @@ export function userCreateAttachment(data) {
 
 export function userGetDealProductData(productId) {
   return authenticatedRequest(`/products/${productId}/`, 'GET', null)
+}
+
+export function saveContactsFromPhoneBooks(data) {
+  return authenticatedRequest('/auth/contacts/saves-by-phonenumbers/', 'POST', data)
 }

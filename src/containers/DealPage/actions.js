@@ -15,7 +15,9 @@ import {
   DEAL_PAGE_ON_SWITCH_PROFILE,
   DEAL_PAGE_ON_SWITCH_OFFER,
   DEAL_PAGE_ON_SWITCH_TO_FREEZE_TOGGLE,
-  DEAL_PAGE_SET_TOGGLE_STATUS
+  DEAL_PAGE_SET_TOGGLE_STATUS,
+  DEAL_PAGE_ON_USER_CHOICE_IMAGE,
+  DEAL_PAGE_ON_USER_REMOVE_IMAGE
 } from './constants';
 
 import {
@@ -27,6 +29,20 @@ import {
 import {
   fetchUserContactsData
 } from '../MakeDealPage/actions';
+
+export function onUserChoiceImage(image, imageURL) {
+  return {
+    type: DEAL_PAGE_ON_USER_CHOICE_IMAGE,
+    image,
+    imageURL
+  }
+}
+
+export function onUserRemoveImage() {
+  return {
+    type: DEAL_PAGE_ON_USER_REMOVE_IMAGE
+  }
+}
 
 export function onSwitchToFreezeToggle() {
   return {
@@ -146,6 +162,7 @@ export function fetchUserProfilesData() {
 }
 
 export function onSaveNewProfile(data, dialog, ref) {
+  console.log(data);
   return dispatch => {
     if(dialog) {
       dispatch(onSaveNewProfileFromDialogRequest());
@@ -166,7 +183,8 @@ export function onSaveNewProfile(data, dialog, ref) {
           if(isUndefined(error.response.data.non_field_errors)) {
             dispatch(receiveSavedNewProfileErrors(error.response.data));
           } else {
-            dispatch(receiveSavedNewProfileErrors({ profile_name: error.response.data.non_field_errors }));
+            dispatch(receiveSavedNewProfileErrors(
+              { profile_name: error.response.data.non_field_errors }));
           }
         } 
       })

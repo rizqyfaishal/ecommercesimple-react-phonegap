@@ -42,10 +42,10 @@ export function onReceiveResponseErrors(errors) {
 	}
 }
 
-export function onSaveTappedAction(address, payment_method) {
+export function onSaveTappedAction(address, payment_method, phone_number) {
 	return dispatch => {
-		dispatch(onSaveRequest({ address, payment_method }));
-		userPostAdditionalInformation({ address, payment_method })
+		dispatch(onSaveRequest({ address, payment_method, phone_number }));
+		return userPostAdditionalInformation({ address, payment_method, phone_number })
 			.then(response => {
 				if(response.status == 201) {
 					dispatch(onReceiveResponseData(response.data));

@@ -14,6 +14,7 @@ import { onVerifyTokenAction, onRender } from '../../actions';
 
 
 
+
 class BasePage extends Component {
   constructor(props) {
 
