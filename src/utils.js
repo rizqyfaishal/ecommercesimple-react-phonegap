@@ -22,17 +22,21 @@ export const updateContactsByPhoneBook = (dispatcher, actionCreator) => {
          for(var i = 0; i < contacts.length; i++) {
             console.log(contacts[i].emails);
             console.log(contacts[i].phoneNumbers);
-            contacts[i].emails.forEach(email => {
-               if(emails.indexOf(email) == -1) {
-                  emails.push(email);
-               }
-            })
+            if(contacts[i].emails) {
+            	contacts[i].emails.forEach(email => {
+	              if(emails.indexOf(email) == -1) {
+	                 emails.push(email.email);
+	              }
+	            })
+            } 
 
-            contacts[i].phoneNumbers.forEach(phoneNumber => {
-               if(phoneNumbers.indexOf(phoneNumber) == -1) {
-                  phoneNumbers.push(phoneNumber);
-               }
-            })
+            if(contacts[i].phoneNumbers) {
+            	contacts[i].phoneNumbers.forEach(phoneNumber => {
+	              if(phoneNumbers.indexOf(phoneNumber) == -1) {
+	                 phoneNumbers.push(phoneNumber.normalizedNumber);
+	              }
+	            })
+            }
          }
          dispatcher(actionCreator(emails, phoneNumbers));
       }, function(error) {
