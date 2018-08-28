@@ -21,7 +21,7 @@ import {
 const contactPageInitialState = fromJS({
   isLoading: false,
   selectedContacts: [],
-  contactsData: [],
+  contactsData: fromJS([]),
   showAlert: false,
   searchKey: ''
 });

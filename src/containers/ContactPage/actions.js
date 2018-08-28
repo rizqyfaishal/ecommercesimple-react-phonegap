@@ -35,10 +35,10 @@ export function importContactsFromPhoneBooksRequest() {
   }
 }
 
-export function importContactsFromPhoneBooks(emails, phonenumbers) {
+export function importContactsFromPhoneBooks(emails, phone_numbers) {
   return dispatch => {
     dispatch(importContactsFromPhoneBooksRequest());
-    return saveContactsFromPhoneBooks({ emails, phonenumbers })
+    return saveContactsFromPhoneBooks({ emails, phone_numbers })
       .then(response => {
         if(response.status == 201) {
           console.log(response);
