@@ -93,5 +93,5 @@ export function userGetDealProductData(productId) {
 }
 
 export function saveContactsFromPhoneBooks(data) {
-  return authenticatedRequest('/auth/contacts/saves-by-phonenumbers/', 'POST', data)
+  return authenticatedRequest('/multiple-contacts/', 'POST', data)
 }

@@ -20,6 +20,11 @@ const store = configureStore(initialState, history);
 window.addEventListener('deviceready', () => {
 	window.handleOpenURL = (url) => {
 	  console.log("received url: " + url);
+	  document.getElementById('app').innerHTML = url;
+	}
+	function handleOpenURL(url) {
+	  console.log("received url: " + url);
+	  document.getElementById('app').innerHTML = url;
 	}
 })
 
