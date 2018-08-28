@@ -21,7 +21,9 @@ import {
   DEAL_PAGE_ON_SWITCH_TO_FREEZE_TOGGLE,
   DEAL_PAGE_SET_TOGGLE_STATUS,
   DEAL_PAGE_ON_USER_CHOICE_IMAGE,
-  DEAL_PAGE_ON_USER_REMOVE_IMAGE
+  DEAL_PAGE_ON_USER_REMOVE_IMAGE,
+  DEAL_PAGE_FETCH_PRODUCT_LIST_DATA_REQUEST,
+  DEAL_PAGE_RECEIVE_PRODUCT_LIST_DATA
 } from './constants';
 
 
@@ -33,7 +35,8 @@ const dealPageInitialState = fromJS({
   isLoading: false,
   isLoadingDialog: false,
   newProfileErrors: {
-    profile_name: []
+    profile_name: [],
+    description: []
   },
   tempSelectedProfile: -1,
   currentProfileIndex: 0,
@@ -41,11 +44,19 @@ const dealPageInitialState = fromJS({
   tempImage: null,
   tempImageUrl: null,
   imageData: null,
-  errors: []
+  errors: [],
+  productListData: []
 });
 
 function dealPageReducer(state = dealPageInitialState, action) {
   switch(action.type) {
+    case DEAL_PAGE_FETCH_PRODUCT_LIST_DATA_REQUEST:
+      return state.set('isLoading', true);
+    case DEAL_PAGE_RECEIVE_PRODUCT_LIST_DATA: {
+      console.log(action);
+      return state.set('productListData', action.data)
+                  .set('isLoading', false);
+    }
     case DEAL_PAGE_ON_USER_REMOVE_IMAGE:
       return state.set('tempImage', null)
                   .set('errors', fromJS([]))
@@ -77,9 +88,9 @@ function dealPageReducer(state = dealPageInitialState, action) {
       let currentProfileIndex = action.data.length > 0 ? 0 : -1;
       const profiles = action.data.map((profile, index) => {
         if(index == 0) {
-          return ({ label: profile.profile_name, value: profile.id, isActive: true });
+          return ({ label: profile.profile_name, value: profile.id, isActive: true, pict: profile.profile_picture });
         } else {
-          return ({ label: profile.profile_name, value: profile.id, isActive: false });
+          return ({ label: profile.profile_name, value: profile.id, isActive: false, pict: profile.profile_picture });
         }
       })
       const currentProfile = profiles.length > 0 ? profiles[0].value : -1;
@@ -93,11 +104,14 @@ function dealPageReducer(state = dealPageInitialState, action) {
     case DEAL_PAGE_RECEIVE_SAVED_NEW_PROFILE_DATA: {
       const currentProfile = state.get('currentProfile');
       const profiles = [...state.get('profiles'), { label: action.data.profile_name, 
-        value: action.data.id, isActive: currentProfile == -1 }];
+        value: action.data.id, isActive: currentProfile == -1, pict: action.data.profile_picture }];
       return state.set('isLoading', false)
                   .set('isLoadingDialog', false)
                   .set('newProfileErrors', dealPageInitialState.toJS().newProfileErrors)
                   .set('profiles', profiles)
+                  .set('tempImage',  null)
+                  .set('tempImageUrl', null)
+                  .set('errors', [])
                   .set('currentProfileIndex', currentProfileIndex == -1 ? 0 : findIndex(profiles, (profile) => profile.isActive))
                   .set('currentProfile', currentProfile == -1 ? profiles[0].value : currentProfile);
     }

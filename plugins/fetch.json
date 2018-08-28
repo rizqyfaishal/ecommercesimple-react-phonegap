@@ -74,9 +74,27 @@
   "cordova-plugin-contacts-phonenumbers": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-contacts-phonenumbers"
+      "id": "cordova-plugin-contacts-phonenumbers@0.0.11"
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "com.napolitano.cordova.plugin.intent": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/napolitano/cordova-plugin-intent"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-customurlscheme": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-customurlscheme"
+    },
+    "is_top_level": true,
+    "variables": {
+      "URL_SCHEME": "ecommercesimpleapp"
+    }
   }
 }

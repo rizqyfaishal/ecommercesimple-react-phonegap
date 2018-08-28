@@ -17,6 +17,7 @@ import RightArrow from '../../images/right-arrow.svg';
 const TopNavBarWrapper = styled.div`
   position: fixed;
   top: 0;
+  z-index: 900;
   width: 100%;
   max-width: 600px;
   height: 70px;

@@ -13,6 +13,7 @@ import TopNavBar from '../../components/TopNavBar';
 import ProfileSelector from '../../components/ProfileSelector';
 import CustomAlert from '../../components/CustomAlert';
 import CustomInputText from '../../components/CustomInputText';
+import CustomTextArea from '../../components/CustomTextArea';
 import LoaderImage from '../../components/LoaderImage';
 import FieldErrorMessage from '../../components/FieldErrorMessage';
 import CustomButton from '../../components/CustomButton';
@@ -35,12 +36,13 @@ import {
   cancelProfileSelected,
   onSwitchProfile,
   onUserChoiceImage,
-  onUserRemoveImage
+  onUserRemoveImage,
+  fetchProductListData
 } from './actions';
 
 import {
   onSwitchNextOfferAction,
-  onSwitchPreviousOfferAction
+  onSwitchPreviousOfferAction,
 } from '../MyDealPage/actions';
 
 
@@ -75,6 +77,10 @@ const DealPageWrapper = styled.div`
     & > div > div > div > div.upload-profile-pict {
       margin-top: 1rem;
     }
+
+    & > div > div > div > textarea {
+      margin-top:  0.5rem;
+    }
   }
 
 `;
@@ -89,6 +95,7 @@ class DealPage extends Component {
     this.saveNewProfileFromDialog = this.saveNewProfileFromDialog.bind(this);
     this.onProfileSelected = this.onProfileSelected.bind(this);
     this.createNewProfileRef = React.createRef();
+    this.profileDescriptionRef = React.createRef();
     this.onProfileTapped = this.onProfileTapped.bind(this);
     this.onSwitchProfileTapped = this.onSwitchProfileTapped.bind(this);
     this.onSwitchOfferTapped = this.onSwitchOfferTapped.bind(this);
@@ -150,11 +157,13 @@ class DealPage extends Component {
 
   componentDidMount() {
     const { dispatch, global } = this.props;
-    if(global.isLoggedIn) {
-      if(isUndefined(global.userData.additional_information)) {
-        dispatch(push('/content/fill-additional-information'));
-      }
-    }
+    // if(global.isLoggedIn) {
+    //   if(isUndefined(global.userData.additional_information)) {
+    //     dispatch(push('/content/fill-additional-information'));
+    //   } else {
+    //     dispatch(fetchProductListData());
+    //   }
+    // }
   }
 
   onProfileSelected() {
@@ -164,16 +173,20 @@ class DealPage extends Component {
   saveNewProfile() {
     const { dispatch, global, dealPage } = this.props;
     dispatch(
-      onSaveNewProfile({ user: global.userData.data.id, 
+      onSaveNewProfile({ user: global.userData.id, 
+        description: this.descriptionField.value,
         profile_name: this.profileNameField.value, profile_picture: dealPage.tempImage }, 
         false,
         this.createNewProfileRef));
   }
 
   saveNewProfileFromDialog() {
-    const { dispatch, global } = this.props;
+    const { dispatch, global, dealPage } = this.props;
     dispatch(
-      onSaveNewProfile({ user: global.userData.data.id, profile_name: this.createNewProfileRef.current.value }, 
+      onSaveNewProfile({ user: global.userData.id, 
+        description: this.profileDescriptionRef.value,
+        profile_name: this.createNewProfileRef.current.value,  
+        profile_picture: dealPage.tempImage}, 
         true,
         this.createNewProfileRef));
   }
@@ -203,17 +216,25 @@ class DealPage extends Component {
             innerRef={profileName => {this.profileNameField = profileName; }}/>
           {dealPage.newProfileErrors.profile_name.map(error => 
             <FieldErrorMessage className="error-message" key={error}>{error}</FieldErrorMessage>)}
+          <CustomTextArea 
+            placeholder="Description about your profile"
+            isError={dealPage.newProfileErrors.description.length > 0}
+            innerRef={description => { this.descriptionField = description; }}
+          />
+          {dealPage.newProfileErrors.description.map(error => 
+            <FieldErrorMessage className="error-message" key={error}>{error}</FieldErrorMessage>
+          )}
           <div className="upload-profile-pict">
-          <ImageUploader 
-            currentImage={dealPage.tempImage}
-            currentImageURL={dealPage.tempImageUrl}
-            onUploadClick={this.saveNewProfile}
-            onRemoveImage={this.onRemoveImage}
-            errors={dealPage.errors}
-            hideOnShowImage={true}
-            isOptional={true}
-            buttonText={"Pilih Profile Pict"}
-            onChange={this.handleImageChange} />
+            <ImageUploader 
+              currentImage={dealPage.tempImage}
+              currentImageURL={dealPage.tempImageUrl}
+              onUploadClick={this.saveNewProfile}
+              onRemoveImage={this.onRemoveImage}
+              errors={dealPage.errors}
+              hideOnShowImage={true}
+              isOptional={true}
+              buttonText={"Pilih Profile Pict"}
+              onChange={this.handleImageChange} />
           </div>
         </CustomAlert>
       </div>;
@@ -233,10 +254,16 @@ class DealPage extends Component {
           cancelButtonText="Cancel"
           cancel={true}>
           <ProfileSelector name="profile" profiles={dealPage.profiles} 
+            tempImage={dealPage.tempImage}
+            tempImageUrl={dealPage.tempImageUrl}
             onProfileTapped={this.onProfileTapped}
+            onRemoveImage={this.onRemoveImage}
             isSaving={dealPage.isLoadingDialog}
+            handleImageChange={this.handleImageChange}
+            imageErrors={dealPage.errors}
             newProfileErrors={dealPage.newProfileErrors}
             createNewProfileRef={this.createNewProfileRef}
+            descriptionFieldRef={this.profileDescriptionRef}
             onSaveNewProfileClick={this.saveNewProfileFromDialog} />
         </CustomAlert>
       </div>;

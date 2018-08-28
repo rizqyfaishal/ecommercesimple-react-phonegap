@@ -68,11 +68,11 @@ export function setButtonDisabled() {
 }
 
 
-export function onLoginTapAction(username, password) {
+export function onLoginTapAction(phone_number, password) {
   return (dispatch) => {
-    dispatch(onLoginTap({ username, password }));
+    dispatch(onLoginTap({ phone_number, password }));
     dispatch(onLoginRequest());
-    return auth.login(username, password)
+    return auth.login(phone_number, password)
       .then(response => {
         if(response.status == 200) {
           window.localStorage.setItem('auth-token', response.data.token);

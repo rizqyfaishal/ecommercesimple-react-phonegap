@@ -11,10 +11,7 @@ import {
 const registerPageInitialState = fromJS({
 	isLoading: false,
 	errors: {
-		username: [],
-		email: [],
-		first_name: [],
-		last_name: [],
+		phone_number: [],
 		password: []
 	},
 	registerData: {},

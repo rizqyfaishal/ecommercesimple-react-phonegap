@@ -21,7 +21,8 @@ import {
   MAKE_DEAL_RESET_ERRORS_FIELD,
   MAKE_DEAL_RESET_ERRORS_ITEM_FIELD,
   MAKE_DEAL_ON_USER_CHOICE_IMAGE,
-  MAKE_DEAL_ON_USER_REMOVE_IMAGE
+  MAKE_DEAL_ON_USER_REMOVE_IMAGE,
+  MAKE_DEAL_ON_USER_CHOICE_CREATION_PRODUCT_MODE
 } from './constants';
 
 import {
@@ -31,6 +32,13 @@ import {
 import {
   onRender 
 } from '../../actions';
+
+export function onUserChoiceCreationProductMode(newMode) {
+  return {
+    type: MAKE_DEAL_ON_USER_CHOICE_CREATION_PRODUCT_MODE,
+    newMode
+  }
+}
 
 export function onUserChoiceImage(image, imageUrl) {
   return {

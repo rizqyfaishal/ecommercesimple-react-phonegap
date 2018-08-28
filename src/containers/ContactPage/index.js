@@ -113,7 +113,6 @@ class ContactPage extends Component {
 
   importFromPhoneBook() {
     const { dispatch } = this.props;
-    console.log(updateContactsByPhoneBook);
     updateContactsByPhoneBook(dispatch, importContactsFromPhoneBooks);
   }
 
@@ -149,9 +148,10 @@ class ContactPage extends Component {
     if(!input) {
       return Promise.resolve({ options: []})
     }
-    return api(`/auth/get-all-users-data/?q=${input}`, 'GET', null)
+    return api(`/search-profiles/?q=${input}`, 'GET', null)
       .then(response => response.status == 200 ? response.data : [])
       .then(data => {
+        console.log(data);
         return { options: data.map(option => ({ label: option.username, value: option.id })) }
       })
   }
@@ -190,7 +190,7 @@ class ContactPage extends Component {
           okButtonText="Save" 
           cancel
           cancelButtonText="Cancel">
-           <ContactMultiSelector 
+          <ContactMultiSelector 
               loadOptions={this.getUsers}
               onChange={this.handleChange} 
               value={contactPage.selectedContacts} />

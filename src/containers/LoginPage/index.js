@@ -126,9 +126,9 @@ class LoginPage extends Component {
 
   onLoginTapped() {
     const { dispatch } = this.props;
-    const username = this.usernameField.value;
+    const phone_number = this.phoneNumberField.value;
     const password = this.passwordField.value;
-    dispatch(onLoginTapAction(username, password));
+    dispatch(onLoginTapAction(phone_number, password));
   }
 
   onBackTapped(event) {
@@ -153,7 +153,7 @@ class LoginPage extends Component {
       dispatch(loginPageClearErrors());
     }
 
-    if(isEmpty(this.usernameField.value) || isEmpty(this.passwordField.value)) {
+    if(isEmpty(this.phoneNumberField.value) || isEmpty(this.passwordField.value)) {
       if(loginPage.buttonEnabled) {
         dispatch(setButtonDisabled());
       }
@@ -166,7 +166,6 @@ class LoginPage extends Component {
 
   render() {
     const { loginPage, global } = this.props;
-    console.log(global);
     return (
       <CSSTransitionGroup transitionName="push"
             transitionEnterTimeout={ 300 } transitionLeaveTimeout={ 300 }>
@@ -183,11 +182,11 @@ class LoginPage extends Component {
             }
           <div className="login-form">
             <div className="username-field">
-              <CustomLabel>Username or email</CustomLabel>
-              <CustomInputText placeholder="Username" 
+              <CustomLabel>Your phone number</CustomLabel>
+              <CustomInputText placeholder="Phone number" 
                 onChange={this.onInputFieldChange}
-                defaultValue={loginPage.formData.username}
-                innerRef={username => { this.usernameField = username; }}/>
+                defaultValue={loginPage.formData.phone_number}
+                innerRef={phone_number => { this.phoneNumberField = phone_number; }}/>
             </div>
             <div className="password-field">
               <CustomLabel>Password</CustomLabel>

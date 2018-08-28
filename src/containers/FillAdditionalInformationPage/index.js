@@ -40,7 +40,7 @@ const FillAdditionalPageContainer = styled.div`
 		display: flex;
 		flex-direction: column;
 		
-		& > div:nth-child(4) {
+		& > div:nth-child(3) {
 			width: 100%;
 			& > button {
 				width: 100%;
@@ -81,16 +81,15 @@ class FillAdditionalInformationPage extends Component {
 	}
 
 	onSaveTapped(event) {
-		const { dispatch } = this.props;
-		dispatch(onSaveTappedAction(this.address.value, this.payment_method.value, this.phone_number.value));
+		const { dispatch, global } = this.props;
+		dispatch(onSaveTappedAction(this.address.value, this.payment_method.value, global.userData.id));
 	}
 
 	onInputChange(event) {
 		const addressValue = this.address.value;
 		const paymentMethodValue = this.payment_method.value;
-		const phoneNumberValue = this.phone_number.value;
 		const { dispatch, fillAdditionalInformationPage } = this.props;
-		if(!isEmpty(addressValue) && !isEmpty(paymentMethodValue) && !isEmpty(phoneNumberValue)) {
+		if(!isEmpty(addressValue) && !isEmpty(paymentMethodValue)) {
 			if(!fillAdditionalInformationPage.buttonEnabled) {
 				dispatch(setEnableButton());
 			}
@@ -113,23 +112,6 @@ class FillAdditionalInformationPage extends Component {
 						<NavigatorBar title="Fill Additional Information" onBackTapped={this.onBackTapped} />
 					</div>
 					<div className="additional-form">
-						<div className="phone-number-field">
-							<CustomLabel
-								isError={!isUndefined(fillAdditionalInformationPage.errors.phone_number) &&
-									fillAdditionalInformationPage.errors.phone_number.length > 0}
-							>Phone Number</CustomLabel>
-							<CustomInputText placeholder="Your phone number ex: +6285xxxxxxxx"
-								isError={!isUndefined(fillAdditionalInformationPage.errors.phone_number) &&
-									fillAdditionalInformationPage.errors.phone_number.length > 0}
-									defaultValue={fillAdditionalInformationPage.formData.phone_number}
-									onChange={this.onInputChange}
-									innerRef={phone_number => { this.phone_number = phone_number; }} />
-								{ !isUndefined(fillAdditionalInformationPage.errors.phone_number) &&
-									fillAdditionalInformationPage.errors.phone_number.map((error, index) => 
-										<FieldErrorMessage key={'error' + index}>{error}</FieldErrorMessage>
-									)
-								}
-						</div>
 						<div className="address-field">
 							<CustomLabel 
 								isError={!isUndefined(fillAdditionalInformationPage.errors.address) && 
@@ -186,7 +168,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
 	return {
-		fillAdditionalInformationPage: state.get('fillAdditionalInformationPage').toJS()
+		fillAdditionalInformationPage: state.get('fillAdditionalInformationPage').toJS(),
+		global: state.get('global').toJS()
 	};
 }
 

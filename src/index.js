@@ -17,6 +17,12 @@ const initialState = {};
 const history = createHistory();
 const store = configureStore(initialState, history);
 
+window.addEventListener('deviceready', () => {
+	window.handleOpenURL = (url) => {
+	  console.log("received url: " + url);
+	}
+})
+
 
 ReactDOM.render((<Provider store={store}>
       <ConnectedRouter history={history}>

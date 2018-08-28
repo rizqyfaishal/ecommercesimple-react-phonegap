@@ -71,8 +71,6 @@ class ShoppingListPage extends Component {
           isActive: menu.content == shoppingListPage.currentTab
         }
     })
-    console.log(menuProps);
-    console.log(shoppingListPage);
     return (
         <ShoppingListPageWrapper>
           <CustomTab menus={menuProps} />

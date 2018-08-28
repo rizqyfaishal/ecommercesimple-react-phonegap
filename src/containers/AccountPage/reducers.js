@@ -33,7 +33,8 @@ const accountPageInitialState = fromJS({
     first_name: [],
     last_name: [],
     username: [],
-    email: []
+    email: [],
+    phone_number: []
   },
   addressErrors: {
     address: []

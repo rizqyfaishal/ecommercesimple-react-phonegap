@@ -11,6 +11,15 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="ContactsPhoneNumbers">
+        <param name="android-package" value="com.dbaq.cordova.contactsPhoneNumbers.ContactsManager" />
+    </feature>
+    <feature name="IntentPlugin">
+        <param name="android-package" value="com.napolitano.cordova.plugin.intent.IntentPlugin" />
+    </feature>
+    <feature name="LaunchMyApp">
+        <param name="android-package" value="nl.xservices.plugins.LaunchMyApp" />
+    </feature>
     <icon density="ldpi" src="res/icon/android/drawable-ldpi-icon.png" />
     <icon density="mdpi" src="res/icon/android/drawable-mdpi-icon.png" />
     <icon density="hdpi" src="res/icon/android/drawable-hdpi-icon.png" />
@@ -29,7 +38,7 @@
     <splash density="port-xhdpi" src="res/screen/android/drawable-port-xhdpi-screen.png" />
     <splash density="port-xxhdpi" src="res/screen/android/drawable-port-xxhdpi-screen.png" />
     <splash density="port-xxxhdpi" src="res/screen/android/drawable-port-xxxhdpi-screen.png" />
-    <content src="http://10.0.2.2:8080/index.html" />
+    <content src="index.html" />
     <allow-navigation href="*" />
     <allow-intent href="market:*" />
     <name>ecommercesimple</name>

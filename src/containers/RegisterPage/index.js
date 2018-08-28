@@ -114,10 +114,7 @@ class RegisterPage extends Component {
 	onRegisterTapped() {
 		const { dispatch } = this.props;
 		const data = {
-			username: this.username.value,
-			email: this.email.value,
-			first_name: this.first_name.value,
-			last_name: this.last_name.value,
+			phone_number: this.phoneNumber.value,
 			password: this.password.value
 		};
 		dispatch(onRegisterTappedAction(data));
@@ -154,7 +151,6 @@ class RegisterPage extends Component {
 		const { errors } = this.props.registerPage;
 		const { registerPage } = this.props;
 		const { registerData } = registerPage;
-		console.log(errors);
 		if(registerPage.isLoading) {
 			return <LoaderImage />
 		}
@@ -164,47 +160,15 @@ class RegisterPage extends Component {
 			</div>
 			<div>
 				<div>
-					<CustomLabel isError={!isUndefined(errors['username']) && errors['username'].length > 0}>Username</CustomLabel>
-					<CustomInputText placeholder="Username"
-						name='username'
+					<CustomLabel isError={!isUndefined(errors['phone_number']) && errors['phone_number'].length > 0}>
+						Phone number</CustomLabel>
+					<CustomInputText placeholder="Your phone number"
+						name='phone_number'
 						onChange={this.onInputChange}
-						defaultValue={registerData.username}
-						isError={!isUndefined(errors['username']) && errors['username'].length > 0}
-						innerRef={username => { this.username = username;}}/>
-					{ !isUndefined(errors['username']) && errors['username'].map(error => 
-							<FieldErrorMessage key={error}>{error}</FieldErrorMessage>)}
-				</div>
-				<div>
-					<CustomLabel isError={!isUndefined(errors['email']) && errors['email'].length > 0}>Email</CustomLabel>
-					<CustomInputText placeholder="Email"
-						name='email'
-						onChange={this.onInputChange}
-						defaultValue={registerData.email}
-						isError={!isUndefined(errors['email']) && errors['email'].length > 0}
-						innerRef={email => { this.email = email;}}/>
-					{ !isUndefined(errors['email']) && errors['email'].map(error => 
-							<FieldErrorMessage key={error}>{error}</FieldErrorMessage>)}
-				</div>
-				<div>
-					<CustomLabel isError={!isUndefined(errors['first_name']) && errors['first_name'].length > 0}>First Name</CustomLabel>
-					<CustomInputText placeholder="First Name"
-						name='first_name'
-						onChange={this.onInputChange}
-						defaultValue={registerData.first_name}
-						isError={!isUndefined(errors['first_name']) && errors['first_name'].length > 0}
-						innerRef={first_name => { this.first_name = first_name;}}/>
-					{ !isUndefined(errors['first_name']) && errors['first_name'].map(error => 
-							<FieldErrorMessage key={error}>{error}</FieldErrorMessage>)}
-				</div>
-				<div>
-					<CustomLabel isError={!isUndefined(errors['last_name']) && errors['last_name'].length > 0}>Last Name</CustomLabel>
-					<CustomInputText placeholder="Last Name"
-						name='last_name'
-						onChange={this.onInputChange}
-						defaultValue={registerData.last_name}
-						isError={!isUndefined(errors['last_name']) && errors['last_name'].length > 0}
-						innerRef={last_name => { this.last_name = last_name; }}/>
-					{ !isUndefined(errors['last_name']) && errors['last_name'].map(error => 
+						defaultValue={registerData.phone_number}
+						isError={!isUndefined(errors['phone_number']) && errors['phone_number'].length > 0}
+						innerRef={phoneNumber => { this.phoneNumber = phoneNumber;}}/>
+					{ !isUndefined(errors['phone_number']) && errors['phone_number'].map(error => 
 							<FieldErrorMessage key={error}>{error}</FieldErrorMessage>)}
 				</div>
 				<div>

@@ -13,12 +13,10 @@ const fillAdditionalInformationPageInitialState = fromJS({
   errors: {
     address: [],
     payment_method: [],
-    phone_number: []
   },
   isLoading: false,
   successSaved: false,
   formData: {
-    phone_number: null,
     address: null,
     payment_method: null
   }

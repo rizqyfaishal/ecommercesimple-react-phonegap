@@ -4,16 +4,12 @@ export function userRegisterAPI(data) {
   return genericRequest('/auth-register/', 'POST', data);
 }
 
-export function userPostAdditionalInformation(data) {
-  return authenticatedRequest('/additional-informations/', 'POST', data)
-}
-
 export function getUserProfiles() {
-  return authenticatedRequest('/auth/profiles/', 'GET', null);
+  return authenticatedRequest('/profiles/', 'GET', null);
 }
 
 export function getUserContacts() {
-  return authenticatedRequest('/auth/contacts/', 'GET', null);
+  return authenticatedRequest('/contacts/', 'GET', null);
 }
 
 export function getAllContacts() {
@@ -73,6 +69,10 @@ export function getUserAcceptedProducts() {
 }
 
 export function getUserInvoiceProducts() {
+  return authenticatedRequest('/auth/my-products/', 'GET', null);
+}
+
+export function getUserProductListData() {
   return authenticatedRequest('/auth/my-products/', 'GET', null);
 }
 

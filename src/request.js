@@ -4,7 +4,7 @@ import { keys } from 'lodash';
 
 const localStorage = window.localStorage;
 
-const BASE_URL = 'http://178.128.82.252:17519/api';
+const BASE_URL = 'http://178.128.82.252:17519/api/v2';
 
 const genericRequestInstance = axios.create({
   baseURL: BASE_URL,

@@ -17,18 +17,49 @@ import {
   DEAL_PAGE_ON_SWITCH_TO_FREEZE_TOGGLE,
   DEAL_PAGE_SET_TOGGLE_STATUS,
   DEAL_PAGE_ON_USER_CHOICE_IMAGE,
-  DEAL_PAGE_ON_USER_REMOVE_IMAGE
+  DEAL_PAGE_ON_USER_REMOVE_IMAGE,
+  DEAL_PAGE_FETCH_PRODUCT_LIST_DATA_REQUEST,
+  DEAL_PAGE_RECEIVE_PRODUCT_LIST_DATA
 } from './constants';
 
 import {
   getUserContacts,
   getUserProfiles,
-  saveProfileAPI
+  saveProfileAPI,
+  getUserProductListData
 } from '../../api';
 
 import {
   fetchUserContactsData
 } from '../MakeDealPage/actions';
+
+export function fetchProductListDataRequest() {
+  return {
+    type: DEAL_PAGE_FETCH_PRODUCT_LIST_DATA_REQUEST
+  }
+}
+
+export function receiveProductListData(data) {
+  return {
+    type: DEAL_PAGE_RECEIVE_PRODUCT_LIST_DATA,
+    data
+  }
+}
+
+export function fetchProductListData() {
+  return dispatch => {
+    dispatch(fetchProductListDataRequest());
+    return getUserProductListData()
+      .then(response => {
+        if(response.status == 200) {
+          dispatch(receiveProductListData(response.data));
+        }
+      })
+      .catch(error => {
+        throw error;
+      })
+  }
+}
 
 export function onUserChoiceImage(image, imageURL) {
   return {

@@ -100,9 +100,9 @@ function globalReducer(state = globalInitialState, action) {
   switch(action.type) {
     case ACCOUNT_PAGE_RECEIVE_PAYMENT_METHOD_DATA:
     case ACCOUNT_PAGE_RECEIVE_ADDRESS_DATA:
-      return state.set('userData', { ...state.get('userData'), additional_information: action.data });
+      return state.set('userData', { ...state.get('userData'), ...action.data });
     case ACCOUNT_PAGE_RECEIVE_ACCOUNT_INFO_DATA:
-      return state.set('userData', { ...state.get('userData'), data: action.data });
+      return state.set('userData', { ...state.get('userData'), ...action.data });
     case CONTACT_PAGE_RECEIVE_SAVED_USER_CONTACTS_DATA:
       return state.set('contactsData', [...state.get('contactsData'), 
         ...action.data.contact_users.map(contact => ({ label: contact.contact_user.username, 

@@ -13,6 +13,27 @@ module.exports = [
         "clobbers": [
             "device"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-contacts-phonenumbers/www/contactsPhoneNumbers.js",
+        "id": "cordova-plugin-contacts-phonenumbers.contactsPhoneNumbers",
+        "clobbers": [
+            "navigator.contactsPhoneNumbers"
+        ]
+    },
+    {
+        "file": "plugins/com.napolitano.cordova.plugin.intent/www/android/IntentPlugin.js",
+        "id": "com.napolitano.cordova.plugin.intent.IntentPlugin",
+        "clobbers": [
+            "IntentPlugin"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-customurlscheme/www/android/LaunchMyApp.js",
+        "id": "cordova-plugin-customurlscheme.LaunchMyApp",
+        "clobbers": [
+            "window.plugins.launchmyapp"
+        ]
     }
 ];
 module.exports.metadata = 

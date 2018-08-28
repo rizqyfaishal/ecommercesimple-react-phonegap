@@ -1,10 +1,8 @@
 import { genericRequest, authenticatedRequest } from './request';
 
-const API_PREFIX_URL = 'http://localhost:8000/api';
-
 const storage = window.localStorage;
 const auth = {
-	login: (username, password) => genericRequest(`/auth/`, 'POST', { username, password }),
+	login: (phone_number, password) => genericRequest(`/auth/`, 'POST', { phone_number, password }),
 	verify: (token) => genericRequest('/auth-verify/', 'POST', { token })
 }
 

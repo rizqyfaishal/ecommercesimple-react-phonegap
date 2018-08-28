@@ -10,19 +10,15 @@ export function convertToRupiah(angka)
 }
 
 export function convertErrorResponse(error) {
-	return isUndefined(error) ? [] : error
+	return isUndefined(convertErrorResponseor) ? [] : error
 }
 
 export const updateContactsByPhoneBook = (dispatcher, actionCreator) => {
    document.addEventListener('deviceready', () => {
       navigator.contactsPhoneNumbers.list(function(contacts) {
-         console.log(contacts.length + ' contacts found');
-         console.log(contacts);
          const emails = [];
          const phoneNumbers = [];
          for(var i = 0; i < contacts.length; i++) {
-            console.log(contacts[i].emails);
-            console.log(contacts[i].phoneNumbers);
             if(contacts[i].emails) {
             	contacts[i].emails.forEach(email => {
 	              if(emails.indexOf(email) == -1) {

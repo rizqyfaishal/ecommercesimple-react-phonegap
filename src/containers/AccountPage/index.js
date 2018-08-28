@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { isUndefined, isNull } from 'lodash';
+import { isUndefined, isNull, isEmpty } from 'lodash';
 
 
 import TitleBar from '../../components/TitleBar';
@@ -137,9 +137,8 @@ class AccountPage extends Component {
 
   componentWillMount() {
     const { dispatch, global } = this.props;
-    console.log(global);
     if(global.isLoggedIn) {
-      if(!isNull(global.userData) && isUndefined(global.userData.additional_information)) {
+      if(!isNull(global.userData) && isEmpty(global.userData.address) && isEmpty(global.userData.payment_method)) {
         dispatch(push('/content/fill-additional-information'));
       }
     } else {
@@ -171,7 +170,7 @@ class AccountPage extends Component {
     const requestData = {
       payment_method: this.paymentMethodField.value
     }
-    dispatch(onSavePaymentMethodAction(requestData, global.userData.data.id));
+    dispatch(onSavePaymentMethodAction(requestData, global.userData.id));
   }
 
   onSaveAddress() {
@@ -179,7 +178,7 @@ class AccountPage extends Component {
     const requestData = {
       address: this.addressField.value,
     }
-    dispatch(onSaveAddressAction(requestData, global.userData.data.id));
+    dispatch(onSaveAddressAction(requestData, global.userData.id));
   }
 
 
@@ -190,8 +189,9 @@ class AccountPage extends Component {
       last_name: this.lastNameField.value,
       email: this.emailField.value,
       username: this.usernameField.value,
+      phone_number: this.phoneNumberField.value,
     }
-    dispatch(onSaveAccountInfoAction(userData, global.userData.data.id));
+    dispatch(onSaveAccountInfoAction(userData, global.userData.id));
   }
 
   onSetEnableAddressEdit() {
@@ -233,10 +233,6 @@ class AccountPage extends Component {
   render() {
     const account = this.props.global.userData;
     const { accountPage } = this.props;
-
-    if(isNull(account) || isUndefined(account.additional_information)) {
-      return null;
-    }
     return (
         <AccountPageWrapper>
           <div>
@@ -250,9 +246,10 @@ class AccountPage extends Component {
               { !accountPage.accountInfoEditted && 
                 <div>
                   <div>
-                    <h4>{account.data.first_name} {account.data.last_name}</h4>
-                    <h5>username: {account.data.username}</h5>
-                    <h5>email : {account.data.email}</h5>
+                    <h4>{account.first_name} {account.last_name}</h4>
+                    <h4>{account.phone_number}</h4>
+                    <h5>username: {account.username}</h5>
+                    <h5>email : {account.email}</h5>
                   </div>
                   <div>
                     <CustomButton onClick={this.onSetEnableAccountInfoEdit} 
@@ -273,7 +270,7 @@ class AccountPage extends Component {
                           <CustomInputText
                             onChange={() => this.onInputFieldChange('accountInfoErrors', 'first_name')}
                             innerRef={ref => { this.firstNameField = ref; }}
-                            defaultValue={account.data.first_name}
+                            defaultValue={account.first_name}
                             isError={accountPage.accountInfoErrors.first_name.length > 0}
                             placeholder="First Name"/> 
                           { accountPage.accountInfoErrors.first_name.map((error, index) => 
@@ -287,12 +284,25 @@ class AccountPage extends Component {
                           onChange={() => this.onInputFieldChange('accountInfoErrors', 'last_name')}
                           innerRef={ref => { this.lastNameField = ref; }}
                           isError={accountPage.accountInfoErrors.last_name.length > 0}
-                          defaultValue={account.data.last_name}
+                          defaultValue={account.last_name}
                           placeholder="Last Name"/>
                           { accountPage.accountInfoErrors.last_name.map((error, index) => 
                               <FieldErrorMessage key={index}>{error}</FieldErrorMessage>
                             )}
                       </div>
+                    </div>
+                     <div>
+                      <CustomLabel 
+                        isError={accountPage.accountInfoErrors.phone_number.length > 0}>Phone number</CustomLabel>
+                      <CustomInputText
+                        onChange={() => this.onInputFieldChange('accountInfoErrors', 'phone_number')}
+                        innerRef={ref => { this.phoneNumberField = ref; }}
+                        isError={accountPage.accountInfoErrors.phone_number.length > 0}
+                        defaultValue={account.phone_number}
+                        placeholder="Phone number" />
+                        { accountPage.accountInfoErrors.phone_number.map((error, index) => 
+                              <FieldErrorMessage key={index}>{error}</FieldErrorMessage>
+                            )}
                     </div>
                     <div>
                       <CustomLabel 
@@ -301,7 +311,7 @@ class AccountPage extends Component {
                         onChange={() => this.onInputFieldChange('accountInfoErrors', 'username')}
                         innerRef={ref => { this.usernameField = ref; }}
                         isError={accountPage.accountInfoErrors.username.length > 0}
-                        defaultValue={account.data.username}
+                        defaultValue={account.username}
                         placeholder="Username" />
                         { accountPage.accountInfoErrors.username.map((error, index) => 
                               <FieldErrorMessage key={index}>{error}</FieldErrorMessage>
@@ -313,7 +323,7 @@ class AccountPage extends Component {
                       <CustomInputText 
                         onChange={() => this.onInputFieldChange('accountInfoErrors', 'email')}
                         innerRef={ref => { this.emailField = ref; }}
-                        defaultValue={account.data.email}
+                        defaultValue={account.email}
                         isError={accountPage.accountInfoErrors.email.length > 0}
                         placeholder="Email" />
                         { accountPage.accountInfoErrors.email.map((error, index) => 
@@ -342,7 +352,7 @@ class AccountPage extends Component {
               { !accountPage.addressEditted && 
                 <div>
                   <div>
-                    <h5>{account.additional_information.address}</h5>
+                    <h5>{account.address}</h5>
                   </div>
                   <div>
                      <CustomButton onClick={this.onAddItem}
@@ -362,7 +372,7 @@ class AccountPage extends Component {
                       onChange={() => { this.onInputFieldChange('addressErrors', 'address')}}
                       isError={accountPage.addressErrors.address.length > 0}
                       innerRef={ref => { this.addressField = ref; }}
-                      defaultValue={account.additional_information.address}/>
+                      defaultValue={account.address}/>
                     {accountPage.addressErrors.address.map((error, index) => 
                         <FieldErrorMessage key={index}>{error}</FieldErrorMessage>
                       )}
@@ -388,7 +398,7 @@ class AccountPage extends Component {
               { !accountPage.paymentMethodEditted && 
                 <div>
                   <div>
-                    <h5>{account.additional_information.payment_method}</h5>
+                    <h5>{account.payment_method}</h5>
                   </div>
                   <div>
                      <CustomButton onClick={this.onAddItem} 
@@ -407,7 +417,7 @@ class AccountPage extends Component {
                       onChange={() => { this.onInputFieldChange('paymentMethodErrors', 'payment_method')}}
                       isError={accountPage.paymentMethodErrors.payment_method.length > 0}
                       innerRef={ref => { this.paymentMethodField = ref; }}
-                      defaultValue={account.additional_information.payment_method}/>
+                      defaultValue={account.payment_method}/>
                        {accountPage.paymentMethodErrors.payment_method.map((error, index) => 
                         <FieldErrorMessage key={index}>{error}</FieldErrorMessage>
                       )}

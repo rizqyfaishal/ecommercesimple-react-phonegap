@@ -151,7 +151,7 @@ export function onSaveAccountInfoAction(data, userId) {
 export function onSavePaymentMethodAction(data, userId) {
   return dispatch => {
     dispatch(onSavePaymentMethodRequest());
-    return saveEdittedAdditionalInformation(data, userId)
+    return saveEdittedUser(data, userId)
       .then(response => {
         if(response.status == 200) {
           dispatch(receivePaymentMethodData(response.data));
@@ -163,12 +163,12 @@ export function onSavePaymentMethodAction(data, userId) {
         }
       })
   }
-}
+} 
 
 export function onSaveAddressAction(data, userId) {
   return dispatch => {
     dispatch(onSaveAddressRequest());
-    return saveEdittedAdditionalInformation(data, userId)
+    return saveEdittedUser(data, userId)
       .then(response => {
         if(response.status == 200) {
           dispatch(receiveAddressData(response.data));

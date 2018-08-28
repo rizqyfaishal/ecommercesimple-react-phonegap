@@ -33,6 +33,16 @@
     },
     "cordova-plugin-android-permissions": {
       "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    },
+    "cordova-plugin-contacts-phonenumbers": {
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    },
+    "com.napolitano.cordova.plugin.intent": {
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    },
+    "cordova-plugin-customurlscheme": {
+      "URL_SCHEME": "ecommercesimpleapp",
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
     }
   },
   "dependent_plugins": {}

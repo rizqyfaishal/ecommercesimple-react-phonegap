@@ -49,7 +49,7 @@ const contentPageIntialState = fromJS({
     },
     {
       type: BOTTOM_NAVBAR_COMING_SOON,
-      menuText:'Coming Soon',
+      menuText:'Product List',
       icon: Coupon,
       activeIcon: CouponActive,
       url: '/content/coming-soon',

@@ -29,10 +29,14 @@ const contactPageInitialState = fromJS({
 function contactPageReducer(state=contactPageInitialState, action) {
   switch(action.type) {
     case CONTACT_PAGE_IMPORT_CONTACTS_FROM_PHONEBOOK_REQUEST:
-      return state.set('isLoading', true);
-    case CONTACT_PAGE_RECEIVE_IMPORTED_CONTACT_FROM_PHONEBOOK:
-      return state.set('isLoading', false)
-                  .update('contactsData', contactsData => contactsData.push(action.data));
+      return state;
+    case CONTACT_PAGE_RECEIVE_IMPORTED_CONTACT_FROM_PHONEBOOK: {
+      console.log(action);
+      return state.update('contactsData', contactsData => {
+                    console.log(contactsData)
+                    return contactsData.push(action.data);
+                  });
+    }
     case LOCATION_CHANGE:
       return contactPageInitialState;
     case CONTACT_PAGE_ON_USER_SEARCH_CONTACT:
@@ -46,19 +50,19 @@ function contactPageReducer(state=contactPageInitialState, action) {
       return state.set('isLoading', true);
     case CONTACT_PAGE_RECEIVE_ALL_CONTACTS_DATA:
       return state.set('isLoading', false)
-                  .set('contactsData', action.data);
+                  .set('contactsData', fromJS(action.data));
     case CONTACT_PAGE_RECEIVE_ALL_CONTACTS_ERRORS:
       return state.set('isLoading', false);
     case CONTACT_PAGE_FETCH_USER_CONTACTS_REQUEST:
       return state.set('isLoading', true);
     case CONTACT_PAGE_RECEIVE_USER_CONTACTS_DATA:
       return state.set('isLoading', false)
-                  .set('contactsData', action.data);
+                  .set('contactsData', fromJS(action.data));
     case CONTACT_PAGE_ON_USER_SAVE_CONTACTS_REQUEST:
       return state.set('isLoading', true);
     case CONTACT_PAGE_RECEIVE_SAVED_USER_CONTACTS_DATA:
       return state.set('isLoading', false)
-                  .set('contactsData', [...state.get('contactsData'), ...action.data.contact_users]);
+                  .set('contactsData', fromJS([...state.get('contactsData'), ...action.data.contact_users]));
     case CONTACT_PAGE_ON_USER_SELECT_CONTACTS:
       return state.set('selectedContacts', action.selectedContacts);
     case CONTACT_PAGE_ON_USER_REMOVE_CONTACTS:{

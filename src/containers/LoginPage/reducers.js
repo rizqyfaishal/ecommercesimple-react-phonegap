@@ -13,7 +13,7 @@ import {
 const loginPageInitialState = fromJS({
   errors: [],
   formData: {
-    username: null,
+    phone_number: null,
     password: null
   },
   buttonEnabled: false

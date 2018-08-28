@@ -22,7 +22,8 @@ import {
   MAKE_DEAL_RESET_ERRORS_FIELD,
   MAKE_DEAL_RESET_ERRORS_ITEM_FIELD,
   MAKE_DEAL_ON_USER_CHOICE_IMAGE,
-  MAKE_DEAL_ON_USER_REMOVE_IMAGE
+  MAKE_DEAL_ON_USER_REMOVE_IMAGE,
+  MAKE_DEAL_ON_USER_CHOICE_CREATION_PRODUCT_MODE
 } from './constants';
 
 
@@ -74,12 +75,15 @@ const makeDealInitialState = fromJS({
   },
   tempImage: null,
   tempImageUrl: null,
-  isOnChoiceImage: null
+  isOnChoiceImage: null,
+  creationProductMode: { value: 1, label: "Buat product baru"},
 });
 
 
 function makeDealReducer(state=makeDealInitialState, action) {
   switch(action.type) {
+    case MAKE_DEAL_ON_USER_CHOICE_CREATION_PRODUCT_MODE:
+      return state.set('creationProductMode', action.newMode || { value: 1, label: "Buat product baru"});
     case MAKE_DEAL_ON_USER_REMOVE_IMAGE:
       return state;
     case MAKE_DEAL_ON_USER_CHOICE_IMAGE:
