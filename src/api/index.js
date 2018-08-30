@@ -17,7 +17,7 @@ export function getAllContacts() {
 }
 
 export function saveContacts(data) {
-  return authenticatedRequest('/auth/contacts/saves/', 'POST', data);
+  return authenticatedRequest('/multiple-contacts/', 'POST', { from_phone_book: false, ...data });
 }
 
 export function saveProfileAPI(data) {
@@ -93,5 +93,5 @@ export function userGetDealProductData(productId) {
 }
 
 export function saveContactsFromPhoneBooks(data) {
-  return authenticatedRequest('/multiple-contacts/', 'POST', data)
+  return authenticatedRequest('/multiple-contacts/', 'POST', { from_phone_book: true, ...data })
 }

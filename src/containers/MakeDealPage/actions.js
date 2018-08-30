@@ -199,7 +199,6 @@ export function saveProductAction(data) {
     dispatch(onSaveProductRequest(data));
     return saveProduct(data)
       .then(response => {
-        console.log(response);
         if(response.status == 201) {
           dispatch(receiveProductData(response.data));
         }

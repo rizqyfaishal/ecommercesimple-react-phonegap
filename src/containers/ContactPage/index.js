@@ -133,10 +133,7 @@ class ContactPage extends Component {
 
   onOkDialogClick() {
     const { dispatch, contactPage, global } = this.props;
-    dispatch(onSavingContacts({ 
-      contact_users: contactPage.selectedContacts.map(contact => 
-        ({ contact_user: contact.value, owner: global.userData.data.id }))
-    }));
+    dispatch(onSavingContacts({ profiles: contactPage.selectedContacts.map(contact => contact.value)}));
   }
 
   onCancelDialogClick() {
@@ -152,7 +149,9 @@ class ContactPage extends Component {
       .then(response => response.status == 200 ? response.data : [])
       .then(data => {
         console.log(data);
-        return { options: data.map(option => ({ label: option.username, value: option.id })) }
+        return { options: data.map(option => 
+          ({ label: `${option.profile_name} (${option.user.first_name} ${option.user.last_name} - ${option.user.phone_number})`
+          , value: option.id })) }
       })
   }
 

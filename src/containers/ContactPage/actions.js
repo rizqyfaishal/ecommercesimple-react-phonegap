@@ -40,12 +40,9 @@ export function importContactsFromPhoneBooks(emails, phone_numbers) {
     dispatch(importContactsFromPhoneBooksRequest());
     return saveContactsFromPhoneBooks({ emails, phone_numbers })
       .then(response => {
-        if(response.status == 201) {
-          console.log(response);
-          if(response.data.contact_users.length > 0) {
-            dispatch(receiveImportedContactFromPhoneBooks(response.data.contact_users));
-            dispatch(setFlashMessage('saveContactsSuccess', response.data.contact_users.length + ' contacts added.'));
-          }
+        if(response.status == 200) {
+          dispatch(receiveImportedContactFromPhoneBooks(response.data.contact_users));
+          dispatch(setFlashMessage('saveContactsSuccess', response.data.contact_users.length + ' contacts added.'));
         }
       })
       .catch(err => {
@@ -152,11 +149,11 @@ export function onSavingContacts(data) {
   return dispatch => {
     dispatch(onUserSaveContactRequest());
     dispatch(hideAlert());
-    saveContacts(data)
+    return saveContacts(data)
       .then(response => {
-        if(response.status == 201) {
+        if(response.status == 200) {
           dispatch(onReceiveSavedUserContactsData(response.data));
-          dispatch(setFlashMessage('saveContactsSuccess', 'Contact Added.'));
+          dispatch(setFlashMessage('saveContactsSuccess', `${response.data.length} contacts added.`));
           return response;
         }
       })

@@ -104,15 +104,18 @@ function globalReducer(state = globalInitialState, action) {
     case ACCOUNT_PAGE_RECEIVE_ACCOUNT_INFO_DATA:
       return state.set('userData', { ...state.get('userData'), ...action.data });
     case CONTACT_PAGE_RECEIVE_SAVED_USER_CONTACTS_DATA:
-      return state.set('contactsData', [...state.get('contactsData'), 
-        ...action.data.contact_users.map(contact => ({ label: contact.contact_user.username, 
-                                                        value: contact.contact_user.id}))]);
+      return state.set('contactsData', fromJS([...state.get('contactsData'), 
+        ...action.data.map(contact => 
+          ({ label: `${contact.profile.profile_name} (${contact.profile.user.first_name} ${contact.profile.user.last_name} - ${contact.profile.user.phone_number})`, 
+                                                        value: contact.profile.id}))]));
     case MAKE_DEAL_PAGE_FETCH_USER_CONTACTS_DATA_REQUEST:
       return state.set('isLoading', true);
     case MAKE_DEAL_PAGE_RECEIVE_USER_CONTACTS_DATA:
       return state.set('isLoading', false)
-                  .set('contactsData', action.data.map(contact => ({ value: contact.contact_user.id, 
-                      label: contact.contact_user.username })));;
+                  .set('contactsData', fromJS([...state.get('contactsData'), 
+        ...action.data.map(contact => 
+          ({ label: `${contact.profile.profile_name} (${contact.profile.user.first_name} ${contact.profile.user.last_name} - ${contact.profile.user.phone_number})`, 
+                                                        value: contact.profile.id}))]));
     case DEAL_PAGE_RECEIVE_USER_PROFILES_DATA:
       return state.set('isLoading', false);
     case DEAL_PAGE_FETCH_USER_PROFILES_DATA_REQUEST:
@@ -153,9 +156,7 @@ function globalReducer(state = globalInitialState, action) {
     case GLOBAL_ON_VERIFY_TOKEN:
       return state.set('isLoading', true);
     case FILL_ADDITIONAL_INFORMATION_PAGE_ON_RECEIVE_RESPONSE_DATA: {
-      console.log(action);
-      const userData = state.get('userData');
-      return state.set('userData', { ...userData, additional_information: action.data})
+      return state.set('userData', action.data)
     }      
     default:
       return state;

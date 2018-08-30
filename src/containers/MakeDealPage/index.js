@@ -267,7 +267,6 @@ class MakeDealPage extends Component {
     if(makeDealPage.isLoading) {      
       return <LoaderImage />
     }
-    console.log(makeDealPage.creationProductMode)
     return (
       <MakeDealPageWrapper>
         <div className="creation-product-mode">

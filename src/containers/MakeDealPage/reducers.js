@@ -154,8 +154,10 @@ function makeDealReducer(state=makeDealInitialState, action) {
     case MAKE_DEAL_PAGE_RECEIVE_USER_CONTACTS_DATA:
       return state
               .set('isLoading', false)
-              .set('contactData', action.data.map(contact => ({ value: contact.contact_user.id, 
-                label: contact.contact_user.username })));
+              .set('contactData', fromJS([...state.get('contactData'), 
+        ...action.data.map(contact => 
+          ({ label: `${contact.profile.profile_name} (${contact.profile.user.first_name} ${contact.profile.user.last_name} - ${contact.profile.user.phone_number})`, 
+                                                        value: contact.profile.id}))]));
     case MAKE_DEAL_PAGE_SHOW_SELECT_CONTACT_DIALOG:
       return state
               .set('tempSelectedContact', state.get('product').get('userTarget'))

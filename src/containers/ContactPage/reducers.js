@@ -62,7 +62,7 @@ function contactPageReducer(state=contactPageInitialState, action) {
       return state.set('isLoading', true);
     case CONTACT_PAGE_RECEIVE_SAVED_USER_CONTACTS_DATA:
       return state.set('isLoading', false)
-                  .set('contactsData', fromJS([...state.get('contactsData'), ...action.data.contact_users]));
+                  .set('contactsData', fromJS([...state.get('contactsData').toJS(), ...action.data]));
     case CONTACT_PAGE_ON_USER_SELECT_CONTACTS:
       return state.set('selectedContacts', action.selectedContacts);
     case CONTACT_PAGE_ON_USER_REMOVE_CONTACTS:{
