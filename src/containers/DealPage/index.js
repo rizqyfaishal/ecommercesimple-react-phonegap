@@ -272,6 +272,8 @@ class DealPage extends Component {
       <div>
         <TopNavBar title="Logo" status={dealPage.currentToggleStatus}
           freezeToggle={dealPage.freezeToggle}
+          currentProfileImage={!isNull(dealPage.profiles) && dealPage.profiles.length > 0 ?
+            dealPage.profiles[dealPage.currentProfileIndex].pict : null}
           currentProfileText={!isNull(dealPage.profiles) && dealPage.profiles.length > 0 ? 
             dealPage.profiles[dealPage.currentProfileIndex].label : ''}
           onLeftTapped={dealPage.currentToggleStatus == TOGGLE_STATUS_SELL ? 

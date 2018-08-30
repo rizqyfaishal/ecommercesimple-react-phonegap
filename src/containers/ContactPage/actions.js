@@ -41,8 +41,8 @@ export function importContactsFromPhoneBooks(emails, phone_numbers) {
     return saveContactsFromPhoneBooks({ emails, phone_numbers })
       .then(response => {
         if(response.status == 200) {
-          dispatch(receiveImportedContactFromPhoneBooks(response.data.contact_users));
-          dispatch(setFlashMessage('saveContactsSuccess', response.data.contact_users.length + ' contacts added.'));
+          dispatch(receiveImportedContactFromPhoneBooks(response.data));
+          dispatch(setFlashMessage('saveContactsSuccess', response.data.length + ' contacts added.'));
         }
       })
       .catch(err => {

@@ -20,7 +20,7 @@ const TopNavBarWrapper = styled.div`
   z-index: 900;
   width: 100%;
   max-width: 600px;
-  height: 70px;
+  height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,10 +62,20 @@ const TopNavBarWrapper = styled.div`
         }
       }
 
-      & > img {
+      & > div.profile-image {
+        border-radius: 50%;
+        height: 60px;
+        width: 60px;
         display: block;
         margin: 0.2rem auto;
+        background: url(${props => props.profileImage}) center center;
+        background-size: 50px 50px;
       }
+
+      & > p {
+        font-size: 0.8rem;
+      }
+
     }
   }
 
@@ -96,19 +106,13 @@ const TopNavBarWrapper = styled.div`
 
 const TopNavBar = (props) => {
   return (
-      <TopNavBarWrapper>
+      <TopNavBarWrapper profileImage={props.currentProfileImage}>
         <div>
          {
            !props.leftButtonHide &&
             <Tappable onTap={props.onLeftTapped}>
-              <img src={props.status == TOGGLE_STATUS_SELL ? Users : LeftArrow} alt="next-button" width="30" />
-              { props.status == TOGGLE_STATUS_SELL ?
-                <div>
-                  <p>Current profile</p>
-                  <p>({props.currentProfileText})</p>
-                </div> :
-                <p>Previous offer</p>
-              }
+              <div className="profile-image"></div>
+              <p>{ props.currentProfileText }</p>
             </Tappable>
          }
         </div>
@@ -123,7 +127,7 @@ const TopNavBar = (props) => {
         <div>
           { !props.rightButtonHide && 
             <Tappable onTap={props.onRightTapped}>
-              <img src={props.status == TOGGLE_STATUS_SELL ? Next : RightArrow } alt="next-button" width="30" />
+              <img src={props.status == TOGGLE_STATUS_SELL ? Next : RightArrow } alt="next-button" width="50"/>
               <p>{ props.statusActionText }</p>
             </Tappable>
           }
