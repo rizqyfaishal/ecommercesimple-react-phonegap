@@ -19,18 +19,19 @@ const store = configureStore(initialState, history);
 
 window.addEventListener('deviceready', () => {
 	window.handleOpenURL = (url) => {
-	  console.log("received url: " + url);
-	  document.getElementById('app').innerHTML = url;
-	}
-	function handleOpenURL(url) {
-	  console.log("received url: " + url);
-	  document.getElementById('app').innerHTML = url;
+		console.log("received url: " + url);
+		document.getElementById('app').innerHTML = url;
 	}
 })
 
+window.handleOpenURL = (url) => {
+	console.log("received url: " + url);
+	document.getElementById('app').innerHTML = url;
+}
+
 
 ReactDOM.render((<Provider store={store}>
-      <ConnectedRouter history={history}>
-          <App />
-        </ConnectedRouter>
-    </Provider>), document.getElementById('app'));
+			<ConnectedRouter history={history}>
+					<App />
+				</ConnectedRouter>
+		</Provider>), document.getElementById('app'));
