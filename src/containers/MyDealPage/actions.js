@@ -3,7 +3,8 @@ import {
   getProductDetailByUserTarget,
   userAcceptProduct,
   userNegotiateProduct,
-  userCancelProduct
+  userCancelProduct,
+  getUserProductOffers
 } from '../../api';
 
 import {
@@ -146,11 +147,12 @@ export function receiveCurrentDealProductData(data) {
   }
 }
 
-export function fetchMyDealProductsAction() {
+export function fetchMyDealProductsAction(profileId) {
   return dispatch => {
     dispatch(fetchMyDealProductsRequest());
-    return getMyDealProducts()
+    return getUserProductOffers(profileId)
       .then(response => {
+        console.log(response);
         if(response.status == 200) {
           if(response.data.length > 0) {
             dispatch(receiveMyDealProductsData(response.data, true));

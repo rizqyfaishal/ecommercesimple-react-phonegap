@@ -80,7 +80,6 @@ function myDealPageReducer(state=myDealPageInitialState, action) {
     case MY_DEAL_PAGE_FETCH_CURRENT_DEAL_PRODUCT_REQUEST:
       return state.set('isLoading', true);
     case MY_DEAL_PAGE_RECEIVE_CURRENT_DEAL_PRODUCT_DATA: {
-      console.log(action);
       return state.set('isLoading', false)
                   .set('currentProductData', fromJS(action.data));
     }

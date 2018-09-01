@@ -215,9 +215,9 @@ class MyDealPage extends Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, dealPage } = this.props;
     dispatch(setToggleStatus(TOGGLE_STATUS_BUY));
-    dispatch(fetchMyDealProductsAction());
+    dispatch(fetchMyDealProductsAction(dealPage.profiles[dealPage.currentProfileIndex].value));
   }
 
   onAcceptActionClick() {
@@ -387,7 +387,8 @@ class MyDealPage extends Component {
 
 
 const mapStateToProps = (state) => ({
-  myDealPage: state.get('myDealPage').toJS()
+  myDealPage: state.get('myDealPage').toJS(),
+  dealPage: state.get('dealPage').toJS()
 })
 
 const mapDispatchToProps = (dispatch) => ({

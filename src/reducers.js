@@ -107,7 +107,7 @@ function globalReducer(state = globalInitialState, action) {
       return state.set('contactsData', fromJS([...state.get('contactsData'), 
         ...action.data.map(contact => 
           ({ label: `${contact.profile.profile_name} (${contact.profile.user.first_name} ${contact.profile.user.last_name} - ${contact.profile.user.phone_number})`, 
-                                                        value: contact.profile.id}))]));
+                                                        value: contact.profile.id, data: contact }))]));
     case MAKE_DEAL_PAGE_FETCH_USER_CONTACTS_DATA_REQUEST:
       return state.set('isLoading', true);
     case MAKE_DEAL_PAGE_RECEIVE_USER_CONTACTS_DATA:
@@ -115,7 +115,7 @@ function globalReducer(state = globalInitialState, action) {
                   .set('contactsData', fromJS([...state.get('contactsData'), 
         ...action.data.map(contact => 
           ({ label: `${contact.profile.profile_name} (${contact.profile.user.first_name} ${contact.profile.user.last_name} - ${contact.profile.user.phone_number})`, 
-                                                        value: contact.profile.id}))]));
+                                                        value: contact.profile.id, data: contact }))]));
     case DEAL_PAGE_RECEIVE_USER_PROFILES_DATA:
       return state.set('isLoading', false);
     case DEAL_PAGE_FETCH_USER_PROFILES_DATA_REQUEST:

@@ -7,8 +7,8 @@ const CircleNumber = styled.span`
 	text-align: center;
 	color: white; 
 	background-color: #F48024;
-	display: grid;
-	justify-items: center;
+	display: flex;
+	justify-content: center;
 	align-items: center;
 	border-radius: 50%;
 `;

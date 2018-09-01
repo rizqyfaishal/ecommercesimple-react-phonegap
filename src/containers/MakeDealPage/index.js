@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
-import { isNull, isUndefined } from 'lodash';
+import { isNull, isUndefined, isEmpty } from 'lodash';
 import Select from 'react-select';
 
 import CustomInputText from '../../components/CustomInputText';
@@ -18,6 +18,9 @@ import CustomAlert from '../../components/CustomAlert';
 import LoaderImage from '../../components/LoaderImage';
 import FieldErrorMessage from '../../components/FieldErrorMessage';
 import ImageUploader from '../../components/ImageUploader';
+import ContactList from '../../components/ContactList';
+
+import Search from '../../images/search.svg';
 
 const creationProductModeOptions = [
   {
@@ -46,7 +49,10 @@ import {
   saveProductAction,
   resetErrorsField,
   resetErrorsItemField,
-  onUserChoiceCreationProductMode
+  onUserChoiceCreationProductMode,
+  onSelectContactSearchKeyChange,
+  resetContactsData,
+  onContactClick
 } from './actions';
 
 import {
@@ -147,6 +153,45 @@ const MakeDealPageWrapper = styled.div`
         justify-content: stretch;
       }
 
+      & div.contact-selector {
+        display: flex;
+        flex-direction: column;
+        justify-content: stretch;
+        width: 100%;
+        align-items: stretch;
+        & > div:nth-child(1) {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: stretch;
+          margin-bottom: 1rem;
+          & > input {
+            width: 100%;
+            padding-left: 3rem;
+          }
+          & > img {
+            position: absolute;
+            left: 1rem;
+          }
+        }
+
+        & > div:nth-child(2) {
+          display: flex;
+          width: 100%;
+          flex-direction: column;
+          & > div {
+            max-height: 300px;
+            overflow-y: scroll;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            & > div {
+              text-align: left;
+            }
+          }
+        }
+      }
+
       & > div:nth-child(2) {
         width: 40%;
         display: flex;
@@ -178,6 +223,19 @@ class MakeDealPage extends Component {
     this.handleCreationProductModeChange = this.handleCreationProductModeChange.bind(this);
 
     this.addToProductListCheckBox = React.createRef();
+    this.onSelectContactsSearchKeyChange = this.onSelectContactsSearchKeyChange.bind(this);
+    this.onContactClick = this.onContactClick.bind(this);
+  }
+
+  onContactClick(index) {
+    const { dispatch } = this.props;
+    console.log(index);
+    dispatch(onContactClick(index));
+  }
+
+  onSelectContactsSearchKeyChange(event) {
+    const { dispatch } = this.props;
+    dispatch(onSelectContactSearchKeyChange(event.target.value));
   }
 
   handleCreationProductModeChange(newOption) {
@@ -217,7 +275,7 @@ class MakeDealPage extends Component {
     const requestData = {
       product_name: makeDealPage.product.productNameRef.current.value,
       expired_in_day: makeDealPage.product.expireInDay,
-      user_target: !isNull(makeDealPage.product.userTarget) ? makeDealPage.product.userTarget.value : null,
+      user_targets: makeDealPage.product.userTargets,
       status: 1,
       profile: dealPage.currentProfile,
       total: total,
@@ -235,6 +293,7 @@ class MakeDealPage extends Component {
   componentDidMount() {
     const { dispatch, global } = this.props;
     dispatch(setToggleStatus(TOGGLE_STATUS_SELL));
+    dispatch(resetContactsData(global.contactsData));
   }
 
   onAddItem() {
@@ -264,6 +323,11 @@ class MakeDealPage extends Component {
   render() {
     const items = [];
     const { makeDealPage, dispatch, global } = this.props;
+    console.log('make deal page');
+    console.log(makeDealPage.contactsData);
+    const filteredContacts = makeDealPage.contactsData.filter(contact => {
+      return contact.label.indexOf(makeDealPage.selectContactSearchKey) != -1;
+    })
     if(makeDealPage.isLoading) {      
       return <LoaderImage />
     }
@@ -339,12 +403,11 @@ class MakeDealPage extends Component {
               <h4>Kirim penawaran ke</h4>
             </div>
             <div>
-              {!isNull(makeDealPage.product.userTarget) && <p>{makeDealPage.product.userTarget.label}</p>}
               <CustomButton 
                 color="white" 
                 bg="#F48024" 
                 onClick={this.onSelectContactTapped}>
-                {isNull(makeDealPage.product.userTarget) ? 'Pilih' : 'Ganti' }
+                {isEmpty(makeDealPage.product.userTargets) ? 'Pilih' : 'Ganti' }
               </CustomButton>
               {makeDealPage.productErrors.user_target.map((error, index) => 
                   <FieldErrorMessage key={index}>{error}</FieldErrorMessage>
@@ -355,12 +418,20 @@ class MakeDealPage extends Component {
                 okButtonText="Select"
                 cancelButtonText="Cancel"
                 onCancelClick={this.onCancelSelectDialog}
-                onOkClick={() => { dispatch(onContactFinalSelected())}}
+                onOkClick={() => { dispatch(onContactFinalSelected()); }}
                 show={makeDealPage.showSelectContactDialog}>
-                <ContactSelector
-                  contacts={global.contactsData} 
-                  handleChange={this.onHandleChangeSelectContact}
-                  currentContactSelected={makeDealPage.product.userTarget} />
+                <div className="contact-selector">
+                  <div className="search-contact-key">
+                    <CustomInputText placeholder="Search contact" onChange={this.onSelectContactsSearchKeyChange}/>
+                    <img src={Search} alt="Search" width="15"/>
+                  </div>
+                  <div className="contact-list">
+                    <ContactList contacts={filteredContacts} 
+                      onContactClick={this.onContactClick}
+                      currentSelectedContacts={makeDealPage.product.userTargets} 
+                      isClickable={true}/>
+                  </div>
+                </div>
               </CustomAlert>
               { makeDealPage.successSaved && 
                 <CustomAlert 

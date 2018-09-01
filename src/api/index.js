@@ -16,6 +16,10 @@ export function getAllContacts() {
   return authenticatedRequest('/auth/get-all-contacts-data/', 'GET', null);
 }
 
+export function getUserProductOffers(profileId) {
+  return authenticatedRequest(`/product-offers-by-profile/${profileId}/` , 'GET', null);
+}
+
 export function saveContacts(data) {
   return authenticatedRequest('/multiple-contacts/', 'POST', { from_phone_book: false, ...data });
 }

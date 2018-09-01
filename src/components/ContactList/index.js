@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import Checked from '../../images/checked.svg';
+
 const ContactListWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -21,20 +23,69 @@ const ContactListWrapper = styled.div`
     &:not(:last-child) {
       border-bottom: 1px solid #ddd;
     }
+
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+
+    & > div:nth-child(1) {
+      width: 60px;
+    }
+
+    & > div:nth-child(2) {
+      width: calc(100% - 60px);
+    }
+
+    & > div:nth-child(3) {
+      width: 30px;
+    }
   }
 `;
 
+const CirclePict = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: url(${ props => props.backgroundPict }) center;
+  background-size: 40px 40px;
+  margin-right: 1rem;
+`;
+
+
 const ContactList = (props) => {
-  console.log(props.contacts)
+  console.log(props.contacts);
   if(props.contacts.length <= 0) {
     return <ContactListWrapper>
       <div className="no-found">No contacts found.</div>
     </ContactListWrapper>
+  } else if(props.isClickable) {
+    return <ContactListWrapper>
+      { props.contacts.map((contact, index) => (
+          <div key={index} onClick={() => { props.onContactClick(index) }}>
+            <div>
+              <CirclePict backgroundPict={contact.data.profile.profile_picture}/>
+            </div>
+            <div>
+              {contact.label}
+            </div>
+            <div>
+              { contact.isSelected && <img src={Checked} width="20" />}
+            </div>
+          </div>
+        ))}  
+    </ContactListWrapper>
   }
   return (
       <ContactListWrapper>
-        { props.contacts.map(contact => (
-            <div key={contact.label}>{contact.label}</div>
+        { props.contacts.map((contact, index) => (
+            <div key={index}>
+              <div>
+                <CirclePict backgroundPict={contact.data.profile.profile_picture}/>
+              </div>
+              <div>
+                {contact.label}
+              </div>
+            </div>
           ))}
       </ContactListWrapper>
     )

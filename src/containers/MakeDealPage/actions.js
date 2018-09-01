@@ -22,7 +22,10 @@ import {
   MAKE_DEAL_RESET_ERRORS_ITEM_FIELD,
   MAKE_DEAL_ON_USER_CHOICE_IMAGE,
   MAKE_DEAL_ON_USER_REMOVE_IMAGE,
-  MAKE_DEAL_ON_USER_CHOICE_CREATION_PRODUCT_MODE
+  MAKE_DEAL_ON_USER_CHOICE_CREATION_PRODUCT_MODE,
+  MAKE_DEAL_ON_SELECT_CONTACT_SEARCH_KEY_CHANGE,
+  MAKE_DEAL_RESET_CONTACTS_DATA,
+  MAKE_DEAL_ON_CONTACT_CLICK
 } from './constants';
 
 import {
@@ -32,6 +35,28 @@ import {
 import {
   onRender 
 } from '../../actions';
+
+
+export function onContactClick(index) {
+  return {
+    type: MAKE_DEAL_ON_CONTACT_CLICK,
+    index
+  }
+}
+
+export function resetContactsData(data) {
+  return {
+    type: MAKE_DEAL_RESET_CONTACTS_DATA,
+    data
+  }
+}
+
+export function onSelectContactSearchKeyChange(key) {
+  return {
+    key,
+    type: MAKE_DEAL_ON_SELECT_CONTACT_SEARCH_KEY_CHANGE
+  }
+}
 
 export function onUserChoiceCreationProductMode(newMode) {
   return {
@@ -184,7 +209,6 @@ export function fetchUserContactsData() {
         if(response.status == 200) {
           dispatch(receiveUserContactsData(response.data));
           dispatch(onRender());
-          dispatch(push('/content/deal/make'));
         }
       })
       .catch(error => {

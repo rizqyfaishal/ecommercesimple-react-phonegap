@@ -23,12 +23,15 @@ import {
   MAKE_DEAL_RESET_ERRORS_ITEM_FIELD,
   MAKE_DEAL_ON_USER_CHOICE_IMAGE,
   MAKE_DEAL_ON_USER_REMOVE_IMAGE,
-  MAKE_DEAL_ON_USER_CHOICE_CREATION_PRODUCT_MODE
+  MAKE_DEAL_ON_USER_CHOICE_CREATION_PRODUCT_MODE,
+  MAKE_DEAL_ON_SELECT_CONTACT_SEARCH_KEY_CHANGE,
+  MAKE_DEAL_RESET_CONTACTS_DATA,
+  MAKE_DEAL_ON_CONTACT_CLICK
 } from './constants';
 
 
 const makeDealInitialState = fromJS({
-  contactData: [],
+  contactsData: [],
   product: {
     itemData: [
       {
@@ -42,11 +45,11 @@ const makeDealInitialState = fromJS({
     productNameRef: React.createRef(),
     productName: '',
     expireInDay: 1,
-    userTarget: null
+    userTargets: []
   },
   isLoading: false,
   showSelectContactDialog: false,
-  tempSelectedContact: null,
+  tempSelectedContact: fromJS([]),
   successSaved: false,
   successSavedData: null,
   productErrors: {
@@ -71,17 +74,27 @@ const makeDealInitialState = fromJS({
     ],
     product_name: '',
     expire_in_day: 1,
-    user_target: null
+    user_target: []
   },
   tempImage: null,
   tempImageUrl: null,
   isOnChoiceImage: null,
   creationProductMode: { value: 1, label: "Buat product baru"},
+  selectContactSearchKey: '',
 });
 
 
 function makeDealReducer(state=makeDealInitialState, action) {
+  console.log(action);
   switch(action.type) {
+    case MAKE_DEAL_ON_CONTACT_CLICK:
+      return state.updateIn(['contactsData', action.index], contact => {
+        return contact.set('isSelected', !contact.get('isSelected'));
+      });
+    case MAKE_DEAL_RESET_CONTACTS_DATA:
+      return state.set('contactsData', fromJS(action.data.map(contact => ({ ...contact, isSelected: false }))));
+    case MAKE_DEAL_ON_SELECT_CONTACT_SEARCH_KEY_CHANGE:
+      return state.set('selectContactSearchKey', action.key);
     case MAKE_DEAL_ON_USER_CHOICE_CREATION_PRODUCT_MODE:
       return state.set('creationProductMode', action.newMode || { value: 1, label: "Buat product baru"});
     case MAKE_DEAL_ON_USER_REMOVE_IMAGE:
@@ -148,16 +161,17 @@ function makeDealReducer(state=makeDealInitialState, action) {
               price: '',
             })));
     case MAKE_DEAL_PAGE_ON_CONTACT_FINAL_SELECTED:
-      return state.set('showSelectContactDialog', false);
+      return state.set('showSelectContactDialog', false)
+                  .setIn(['product', 'userTargets'], state.get('contactsData').filter(contact => contact.get('isSelected')));
     case MAKE_DEAL_PAGE_FETCH_USER_CONTACTS_DATA_REQUEST:
       return state.set('isLoading', true);
     case MAKE_DEAL_PAGE_RECEIVE_USER_CONTACTS_DATA:
       return state
               .set('isLoading', false)
-              .set('contactData', fromJS([...state.get('contactData'), 
+              .set('contactsData', fromJS([...state.get('contactsData'), 
         ...action.data.map(contact => 
           ({ label: `${contact.profile.profile_name} (${contact.profile.user.first_name} ${contact.profile.user.last_name} - ${contact.profile.user.phone_number})`, 
-                                                        value: contact.profile.id}))]));
+                                                        value: contact.profile.id, data: contact }))]));
     case MAKE_DEAL_PAGE_SHOW_SELECT_CONTACT_DIALOG:
       return state
               .set('tempSelectedContact', state.get('product').get('userTarget'))
