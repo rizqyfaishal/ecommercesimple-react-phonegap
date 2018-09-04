@@ -128,7 +128,9 @@ class HomePage extends Component {
 
 	onCancelSelectDialog() {
 		this.setState({
-			showShareQuotaDialog: false
+			showShareQuotaDialog: false,
+			searchKey: '',
+			currentPhoneBook: -1
 		})
 	}
 

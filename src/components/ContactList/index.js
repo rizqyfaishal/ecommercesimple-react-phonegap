@@ -25,6 +25,11 @@ const ContactListWrapper = styled.div`
       border-bottom: 1px solid #ddd;
     }
 
+    & > div {
+      margin: 0.5rem 0.25rem; 
+      font-size: 90%;
+    }
+
     display: flex;
     justify-content: stretch;
     align-items: center;
