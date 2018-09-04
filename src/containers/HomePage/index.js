@@ -134,18 +134,16 @@ class HomePage extends Component {
 	}
 
 	componentDidMount() {
-		document.addEventListener('deviceready', function() {
-			navigator.contactsPhoneNumbers.list(function(contacts) {
-	      for(var i = 0; i < contacts.length; i++) {
-	         console.log(contacts[i]);
-	      }
-	      this.setState({
-	      	contacts: contacts
-	      })
-	   }, function(error) {
-	      console.error(error);
-	   });
-		})
+		document.addEventListener('deviceready', () => {
+      navigator.contactsPhoneNumbers.list(function(contacts) {
+         console.log(contacts);
+         this.setState({
+         	contacts: contacts
+         })
+      }, function(error) {
+         console.error(error);
+      });
+   }, false)
 	}
 
 	componentWillMount() {
