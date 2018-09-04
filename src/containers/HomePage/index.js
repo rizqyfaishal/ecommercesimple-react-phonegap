@@ -17,35 +17,17 @@ import CustomInputText from '../../components/CustomInputText';
 
 import Search from '../../images/search.svg';
 
-const contacts = [
-	{
-		displayName: "Rizqy",
-		firstName: "Rizqy",
-		id:"2",
-		lastName:"Faishal",
-		isActive: false,
-		phoneNumbers:[
-			{
-				normalizedNumber: "+6281575510186",
-				number: "+62 815-7551-0186",
-				type: "MOBILE"
-			}
-		]
-	},
-	{
-		displayName: "Rohmat",
-		firstName: "Rohmat",
-		id:"2",
-		isActive: false,
-		phoneNumbers:[
-			{
-				normalizedNumber: "+6281575510186",
-				number: "+62 815-7551-0186",
-				type: "MOBILE"
-			}
-		]
-	}
-]
+
+let contactData = [];
+
+
+document.addEventListener('deviceready', () => {
+  navigator.contactsPhoneNumbers.list(function(contacts) {
+     contactData = contacts;
+  }, function(error) {
+     console.error(error);
+  });
+}, false)
 
 
 const HomePageContainer = styled.div`
@@ -119,7 +101,7 @@ class HomePage extends Component {
 	}
 
 	onContactClick(index) {
-		const renderedContacts = this.state.contacts.filter(contact => {
+		const renderedContacts = contactData.filter(contact => {
 			return `${contact.firstName + (!isUndefined(contact.middleName) ? ' ' + contact.middleName : '') 
 			+ (!isUndefined(contact.lastName) ? ' ' + contact.lastName : '')}`.indexOf(this.state.searchKey) != -1 ||
 				contact.phoneNumbers[0].number.indexOf(this.state.searchKey) != -1;
@@ -131,19 +113,6 @@ class HomePage extends Component {
 			showPhoneBookDialog: false,
 			currentPhoneBook: -1
 		})
-	}
-
-	componentDidMount() {
-		document.addEventListener('deviceready', () => {
-      navigator.contactsPhoneNumbers.list(function(contacts) {
-         console.log(contacts);
-         this.setState({
-         	contacts: contacts
-         })
-      }, function(error) {
-         console.error(error);
-      });
-   }, false)
 	}
 
 	componentWillMount() {
@@ -181,7 +150,7 @@ class HomePage extends Component {
 	}
 
 	render() {
-		const renderedContacts = this.state.contacts.filter(contact => {
+		const renderedContacts = contactData.filter(contact => {
 			return `${contact.firstName + (!isUndefined(contact.middleName) ? ' ' + contact.middleName : '') 
 			+ (!isUndefined(contact.lastName) ? ' ' + contact.lastName : '')}`.indexOf(this.state.searchKey) != -1 ||
 				contact.phoneNumbers[0].number.indexOf(this.state.searchKey) != -1;
