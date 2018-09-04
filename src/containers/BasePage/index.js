@@ -23,32 +23,19 @@ class BasePage extends Component {
 
   componentWillMount() {
     const { dispatch } = this.props;
-    const token = window.localStorage.getItem('auth-token');
-    if(token) {
-      dispatch(onVerifyTokenAction());
-    } else {
-      dispatch(onRender());
-    }
+   
   }
 
 
   render() {
     const { global, dispatch, state } = this.props;
-    if(global.isLoading) {
-      return <LoaderImage />;
-    } else if(global.render) {
-      return <div>
+    return (
+      <div>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/register" component={RegisterPage} />
-          <Route path="/content" component={ContentPage}/>
-          <Route exact={true} path="*" component={ErrorPage} />
         </Switch>
       </div>
-    } else {
-      return null;
-    }
+    )
   }
 } 
 

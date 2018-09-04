@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Checked from '../../images/checked.svg';
+import { isUndefined } from 'lodash';
 
 const ContactListWrapper = styled.div`
   display: flex;
@@ -28,17 +29,6 @@ const ContactListWrapper = styled.div`
     justify-content: stretch;
     align-items: center;
 
-    & > div:nth-child(1) {
-      width: 60px;
-    }
-
-    & > div:nth-child(2) {
-      width: calc(100% - 60px);
-    }
-
-    & > div:nth-child(3) {
-      width: 30px;
-    }
   }
 `;
 
@@ -53,7 +43,6 @@ const CirclePict = styled.div`
 
 
 const ContactList = (props) => {
-  console.log(props.contacts);
   if(props.contacts.length <= 0) {
     return <ContactListWrapper>
       <div className="no-found">No contacts found.</div>
@@ -63,13 +52,11 @@ const ContactList = (props) => {
       { props.contacts.map((contact, index) => (
           <div key={index} onClick={() => { props.onContactClick(index) }}>
             <div>
-              <CirclePict backgroundPict={contact.data.profile.profile_picture}/>
-            </div>
-            <div>
-              {contact.label}
-            </div>
-            <div>
-              { contact.isSelected && <img src={Checked} width="20" />}
+              {contact.firstName + 
+                (!isUndefined(contact.middleName) ? ' ' + contact.middleName : '') + 
+                (!isUndefined(contact.lastName) ? ' ' + contact.lastName : '') 
+                + ' - ' + contact.phoneNumbers[0].number
+              } 
             </div>
           </div>
         ))}  
