@@ -9,7 +9,7 @@ const ContactListWrapper = styled.div`
   flex-direction: column;
   border-radius: 5px;
   border: 1px solid #ddd;
-  max-height: 312px;
+  max-height: 400px;
   overflow-y: scroll;
   padding: 0.5rem;
 

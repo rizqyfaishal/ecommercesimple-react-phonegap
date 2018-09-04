@@ -4,7 +4,7 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import Tappable from 'react-tappable';
 
-import { isUndefined } from 'lodash';
+import { isUndefined, isNull } from 'lodash';
 
 import CustomButton from '../../components/CustomButton';
 import GradientButton from '../../components/GradientButton';
@@ -134,7 +134,7 @@ class HomePage extends Component {
 	}
 
 	componentDidMount() {
-		window.addEventListener('deviceready', function() {
+		document.addEventListener('deviceready', function() {
 			navigator.contactsPhoneNumbers.list(function(contacts) {
 	      for(var i = 0; i < contacts.length; i++) {
 	         console.log(contacts[i]);
