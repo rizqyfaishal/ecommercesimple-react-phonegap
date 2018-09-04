@@ -22,6 +22,7 @@ import invoiceSellerPageReducer from './containers/InvoiceSellerPage/reducers';
 import invoiceBuyerPageReducer from './containers/InvoiceBuyerPage/reducers';
 import invoiceBuyerDetailPageReducer from './containers/InvoiceBuyerDetailPage/reducers';
 import invoiceSellerDetailPageReducer from './containers/InvoiceSellerDetailPage/reducers';
+import productListPageReducer from './containers/ProductListPage/reducers';
 
 
 import {
@@ -43,13 +44,14 @@ import {
   GLOBAL_ON_VERIFY_TOKEN_ERROR,
   GLOBAL_ON_LOGOUT,
   GLOBAL_ON_RENDER,
+  GLOBAL_RECEIVE_PROFILE_DATA
 } from './constants';
 
 
 import {
-    LOGIN_PAGE_ON_RECEIVE_LOGIN_DATA,
-    LOGIN_PAGE_ON_LOGIN_REQUEST,
-    LOGIN_PAGE_ON_RECEIVE_LOGIN_ERRORS
+  LOGIN_PAGE_ON_RECEIVE_LOGIN_DATA,
+  LOGIN_PAGE_ON_LOGIN_REQUEST,
+  LOGIN_PAGE_ON_RECEIVE_LOGIN_ERRORS
 } from './containers/LoginPage/constants';
 
 import {
@@ -98,6 +100,8 @@ function routeReducer(state = routeInitialState, action) {
 
 function globalReducer(state = globalInitialState, action) {
   switch(action.type) {
+    case GLOBAL_RECEIVE_PROFILE_DATA:
+      return state.set('profiles', fromJS(action.data));
     case ACCOUNT_PAGE_RECEIVE_PAYMENT_METHOD_DATA:
     case ACCOUNT_PAGE_RECEIVE_ADDRESS_DATA:
       return state.set('userData', { ...state.get('userData'), ...action.data });
@@ -186,6 +190,7 @@ export default function createReducer(injectedReducers) {
     invoiceBuyerDetailPage: invoiceBuyerDetailPageReducer,
     invoiceSellerDetailPage: invoiceSellerDetailPageReducer,
     editDealPage: editDealPageReducer,
+    productListPage: productListPageReducer,
     ...injectedReducers,
   });
 }

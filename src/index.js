@@ -12,26 +12,26 @@ import './global-styles';
 import "babel-polyfill";
 import 'es6-promise/auto';
 
-	
+  
 const initialState = {};
 const history = createHistory();
 const store = configureStore(initialState, history);
 
 window.addEventListener('deviceready', () => {
-	window.handleOpenURL = (url) => {
-		console.log("received url: " + url);
-		document.getElementById('app').innerHTML = url;
-	}
+  window.handleOpenURL = (url) => {
+    console.log("received url: " + url);
+    document.getElementById('app').innerHTML = url;
+  }
 })
 
 window.handleOpenURL = (url) => {
-	console.log("received url: " + url);
-	document.getElementById('app').innerHTML = url;
+  console.log("received url: " + url);
+  document.getElementById('app').innerHTML = url;
 }
 
 
 ReactDOM.render((<Provider store={store}>
-			<ConnectedRouter history={history}>
-					<App />
-				</ConnectedRouter>
-		</Provider>), document.getElementById('app'));
+      <ConnectedRouter history={history}>
+          <App />
+        </ConnectedRouter>
+    </Provider>), document.getElementById('app'));

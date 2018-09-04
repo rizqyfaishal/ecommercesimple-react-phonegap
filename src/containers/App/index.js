@@ -28,14 +28,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Offline>
-          <OfflinePage />
-        </Offline>
-        <Online>
-          <Switch>
-            <Route path="/" component={BasePage} />
-          </Switch>
-        </Online>
+        <Switch>
+          <Route path="/" component={BasePage} />
+        </Switch>
       </div>
     );
   }

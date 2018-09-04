@@ -11,7 +11,7 @@ import BottomNavBar from '../../components/BottomNavBar';
 import DealPage from '../DealPage';
 import AccountPage from '../AccountPage';
 import ShoppingListPage from '../ShoppingListPage';
-import ComingSoonPage from '../ComingSoonPage';
+import ProductListPage from '../ProductListPage';
 import ContactPage from '../ContactPage';
 import FillAdditionalInformationPage from '../FillAdditionalInformationPage';
 import InvoiceBuyerDetailPage from '../InvoiceBuyerDetailPage';
@@ -90,7 +90,7 @@ class ContentPage extends Component {
           <Route path={`${match.url}/deal`} component={DealPage}/>
           <Route path={`${match.url}/shopping-list`} component={ShoppingListPage}/>
           <Route path={`${match.url}/accounts`} component={AccountPage}/>
-          <Route path={`${match.url}/coming-soon`} component={ComingSoonPage}/>
+          <Route path={`${match.url}/product-list`} component={ProductListPage}/>
           <Route path={`${match.url}/contacts`} component={ContactPage}/>
           <Route path={`${match.url}/fill-additional-information`} component={FillAdditionalInformationPage} />
           <Route path={`${match.url}/invoices/buyer/:productId`} component={InvoiceBuyerDetailPage} />

@@ -52,7 +52,7 @@ const contentPageIntialState = fromJS({
       menuText:'Product List',
       icon: Coupon,
       activeIcon: CouponActive,
-      url: '/content/coming-soon',
+      url: '/content/product-list',
       isActive: false
     },
     {

@@ -85,7 +85,6 @@ const makeDealInitialState = fromJS({
 
 
 function makeDealReducer(state=makeDealInitialState, action) {
-  console.log(action);
   switch(action.type) {
     case MAKE_DEAL_ON_CONTACT_CLICK:
       return state.updateIn(['contactsData', action.index], contact => {

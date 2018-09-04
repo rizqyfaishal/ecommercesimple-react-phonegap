@@ -8,6 +8,10 @@ import {
   TOGGLE_STATUS_SELL
 } from '../../containers/DealPage/constants';
 
+import {
+  TOGGLE_STATUS_PRODUCT_LIST
+} from '../../containers/ProductListPage/constants';
+
 import Next from '../../images/next.svg';
 import Users from '../../images/users.svg';
 
@@ -127,7 +131,8 @@ const TopNavBar = (props) => {
         <div>
           { !props.rightButtonHide && 
             <Tappable onTap={props.onRightTapped}>
-              <img src={props.status == TOGGLE_STATUS_SELL ? Next : RightArrow } alt="next-button" width="50"/>
+              <img src={props.status == TOGGLE_STATUS_SELL || props.status == TOGGLE_STATUS_PRODUCT_LIST 
+                ? Next : RightArrow } alt="next-button" width="50"/>
               <p>{ props.statusActionText }</p>
             </Tappable>
           }

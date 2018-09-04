@@ -43,6 +43,9 @@
     "cordova-plugin-customurlscheme": {
       "URL_SCHEME": "ecommercesimpleapp",
       "PACKAGE_NAME": "com.phonegap.ecommercesimple"
+    },
+    "phonegap-plugin-barcodescanner": {
+      "PACKAGE_NAME": "com.phonegap.ecommercesimple"
     }
   },
   "dependent_plugins": {}

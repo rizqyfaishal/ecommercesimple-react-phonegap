@@ -57,16 +57,18 @@ const ProfileSelectorWrapper = styled.div`
 `;
 
 const ProfileSelector = (props) => {
+  console.log(props);
   return (
     <ProfileSelectorWrapper>
       <div>
-          {props.profiles.map(profile => <ProfileContent 
+          {props.profiles.map((profile, index) => <ProfileContent 
             key={profile.value}
             onProfileTapped={props.onProfileTapped}
             picture={profile.pict}
             isActive={profile.isActive}
             value={profile.value}
             label={profile.label}
+            index={index}
             name={props.name} />)}
       </div>
       <div>

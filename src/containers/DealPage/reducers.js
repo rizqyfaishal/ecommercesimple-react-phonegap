@@ -53,7 +53,6 @@ function dealPageReducer(state = dealPageInitialState, action) {
     case DEAL_PAGE_FETCH_PRODUCT_LIST_DATA_REQUEST:
       return state.set('isLoading', true);
     case DEAL_PAGE_RECEIVE_PRODUCT_LIST_DATA: {
-      console.log(action);
       return state.set('productListData', action.data)
                   .set('isLoading', false);
     }

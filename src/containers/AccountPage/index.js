@@ -13,6 +13,7 @@ import CustomInputText from '../../components/CustomInputText';
 import CustomLabel from '../../components/CustomLabel';
 import CustomTextArea from '../../components/CustomTextArea';
 import FieldErrorMessage from '../../components/FieldErrorMessage';
+import ProfileList from '../../components/ProfileList';
 
 import { onLogoutTapped } from '../../actions';
 import { 
@@ -232,7 +233,7 @@ class AccountPage extends Component {
 
   render() {
     const account = this.props.global.userData;
-    const { accountPage } = this.props;
+    const { accountPage, global } = this.props;
     return (
         <AccountPageWrapper>
           <div>
@@ -344,6 +345,14 @@ class AccountPage extends Component {
                   </div>
                 </div>
               }
+            </div>
+            <div>
+              <div>
+                <h3>YOUR PROFILES</h3>
+              </div>
+              <div>
+                <ProfileList profiles={global.profiles} />
+              </div>
             </div>
             <div>
               <div>

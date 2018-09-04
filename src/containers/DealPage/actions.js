@@ -23,6 +23,10 @@ import {
 } from './constants';
 
 import {
+  receiveProfileData
+} from '../../actions';
+
+import {
   getUserContacts,
   getUserProfiles,
   saveProfileAPI,
@@ -32,6 +36,10 @@ import {
 import {
   fetchUserContactsData
 } from '../MakeDealPage/actions';
+
+import {
+  receiveProfileData as productListPageReceiveProfileData
+} from '../ProductListPage/actions';
 
 export function fetchProductListDataRequest() {
   return {
@@ -184,7 +192,10 @@ export function fetchUserProfilesData() {
       .then(response => {
         if(response.status == 200) {
           dispatch(receiveUserProfilesData(response.data));
-          dispatch(fetchUserContactsData());        }
+          dispatch(receiveProfileData(response.data));
+          dispatch(productListPageReceiveProfileData(response.data));
+          dispatch(fetchUserContactsData());        
+        }
       })
       .catch(err => {
         throw err;

@@ -20,6 +20,9 @@
     <feature name="LaunchMyApp">
         <param name="android-package" value="nl.xservices.plugins.LaunchMyApp" />
     </feature>
+    <feature name="BarcodeScanner">
+        <param name="android-package" value="com.phonegap.plugins.barcodescanner.BarcodeScanner" />
+    </feature>
     <icon density="ldpi" src="res/icon/android/drawable-ldpi-icon.png" />
     <icon density="mdpi" src="res/icon/android/drawable-mdpi-icon.png" />
     <icon density="hdpi" src="res/icon/android/drawable-hdpi-icon.png" />
@@ -38,9 +41,10 @@
     <splash density="port-xhdpi" src="res/screen/android/drawable-port-xhdpi-screen.png" />
     <splash density="port-xxhdpi" src="res/screen/android/drawable-port-xxhdpi-screen.png" />
     <splash density="port-xxxhdpi" src="res/screen/android/drawable-port-xxxhdpi-screen.png" />
-    <content src="index.html" />
+    <content src="http://10.0.2.2:8080/index.html" />
     <allow-navigation href="*" />
     <allow-intent href="market:*" />
+    <allow-intent href="ecommercesimpleapp:" />
     <name>ecommercesimple</name>
     <description>
     Ecommercesimple sample application using React, Webpack and Hot Reloading.

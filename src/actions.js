@@ -9,7 +9,8 @@ import {
   GLOBAL_ON_VERIFY_TOKEN,
   GLOBAL_ON_VERIFY_TOKEN_SUCCESS,
   GLOBAL_ON_VERIFY_TOKEN_ERROR,
-  GLOBAL_ON_RENDER
+  GLOBAL_ON_RENDER,
+  GLOBAL_RECEIVE_PROFILE_DATA
 } from './constants';
 
 import {
@@ -19,6 +20,13 @@ import {
 import {
   fetchUserContactsData
 } from './containers/MakeDealPage/actions';
+
+export function receiveProfileData(data) {
+  return {
+    type: GLOBAL_RECEIVE_PROFILE_DATA,
+    data
+  }
+}
 
 export function setFlashMessage(key, message) {
   return {

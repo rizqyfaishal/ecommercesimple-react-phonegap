@@ -69,6 +69,10 @@ const DealResult = (props) => {
           <GradientButton color1="#f6d365" color2="#fda085" onClick={props.onShareProductClick}>
             {props.buttonTitle}
           </GradientButton>
+          { props.cancelButton && 
+            <GradientButton color1="#f6d365" color2="#fda085" onClick={props.onCancelButtonClick}>
+            {props.cancelButtonTitle}
+          </GradientButton>}
         </div>
       </DealResultWrapper>
     )
