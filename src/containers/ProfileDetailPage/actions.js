@@ -24,6 +24,7 @@ export function receiveProfileData(data) {
 
 export function fetchProfileData(id) {
 	return dispatch => {
+		dispatch(fetchProfileDataRequest());
 		return getUserProfileDetail(id)
 			.then(response => {
 				if(response.status == 200) {

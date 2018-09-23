@@ -34,6 +34,7 @@
         "prop-types": "^15.6.2",
         "react": "^16.4.1",
         "react-addons-css-transition-group": "^15.3.0",
+        "react-copy-to-clipboard": "^5.0.1",
         "react-detect-offline": "^2.1.2",
         "react-dom": "^16.4.1",
         "react-image-magnify": "^2.7.0",
