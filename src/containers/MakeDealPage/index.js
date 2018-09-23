@@ -329,7 +329,7 @@ class MakeDealPage extends Component {
       return contact.label.indexOf(makeDealPage.selectContactSearchKey) != -1;
     })
     if(makeDealPage.isLoading) {      
-      return <LoaderImage />
+      return <LoaderImage />;
     }
     return (
       <MakeDealPageWrapper>

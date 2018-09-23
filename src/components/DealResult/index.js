@@ -43,36 +43,45 @@ const DealResultWrapper = styled.div`
     align-items: stretch;
 
     & > h3 {
-      margin: 0.5rem 0;
+      margin: 0.5rem 1rem;
     }
 
-    & > button {
-      margin: 0;
-      display: block;
+    & > div {
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
+      & > button {
+        width: 100%;
+        margin: 0.5rem;
+        display: block;
+      }
     }
   }
 `;
 
 const DealResult = (props) => {
+  console.log(props);
   let total = 0;
   props.items.forEach(item => {
     total += (item.price * item.quantity)
   })
   return (
-      <DealResultWrapper>
+      <DealResultWrapper cancelButton={props.cancelButton}>
         <div>
           <span>{props.items.length}</span>
           <img src={Cart} alt="cart" width="35" />
         </div>
         <div>
           <h3>Total Rp. { convertToRupiah(total) }</h3>
-          <GradientButton color1="#f6d365" color2="#fda085" onClick={props.onShareProductClick}>
+          <div>
+            <GradientButton color1="#f6d365" color2="#fda085" onClick={props.onShareProductClick}>
             {props.buttonTitle}
-          </GradientButton>
-          { props.cancelButton && 
-            <GradientButton color1="#f6d365" color2="#fda085" onClick={props.onCancelButtonClick}>
-            {props.cancelButtonTitle}
-          </GradientButton>}
+            </GradientButton>
+            { props.cancelButton && 
+              <GradientButton color1="#f6d365" color2="#fda085" onClick={props.onCancelButtonClick}>
+                {props.cancelButtonTitle}
+              </GradientButton>}
+          </div>
         </div>
       </DealResultWrapper>
     )

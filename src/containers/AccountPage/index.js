@@ -5,6 +5,7 @@ import { push } from 'react-router-redux';
 import { isUndefined, isNull, isEmpty } from 'lodash';
 
 
+
 import TitleBar from '../../components/TitleBar';
 
 import GradientButton from '../../components/GradientButton';
@@ -14,6 +15,9 @@ import CustomLabel from '../../components/CustomLabel';
 import CustomTextArea from '../../components/CustomTextArea';
 import FieldErrorMessage from '../../components/FieldErrorMessage';
 import ProfileList from '../../components/ProfileList';
+import ImageUploader from '../../components/ImageUploader';
+
+import Search from '../../images/search.svg';
 
 import { onLogoutTapped } from '../../actions';
 import { 
@@ -26,12 +30,19 @@ import {
   onSaveAccountInfoAction,
   onSaveAddressAction,
   onSavePaymentMethodAction,
-  onResetFieldErrors
+  onResetFieldErrors,
+  onSearchProfilesKeyChange,
+  onDisableCreateNewProfile,
+  onCreateNewProfileActive,
+  onUserChoiceImage,
+  onUserRemoveImage,
+  onSaveNewProfile
 } from './actions';
 
 const AccountPageWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  padding-bottom: 5rem;
 
   & > div:nth-child(1) {
     height: 50px;
@@ -43,7 +54,28 @@ const AccountPageWrapper = styled.div`
     padding: 0 1rem;
     justify-content: stretch;
 
-    & > div:not(:last-child) {
+    & > div:nth-child(2) {
+      & > div:nth-child(2) {
+        & > div:nth-child(1) {
+          position: relative;
+          margin-bottom: 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: stretch;
+          & > img {
+            position: absolute;
+            left: 0.5rem;
+
+          }
+          & > input { 
+            width: 100%;
+            padding-left: 2rem;
+          }
+        }
+      }
+    }
+
+    & > div:not(:last-child):not(:nth-child(2)) {
       padding: 0.5rem 0;
       display: flex;
       flex-direction: column;
@@ -58,7 +90,8 @@ const AccountPageWrapper = styled.div`
         display: flex;
         flex-direction: row;
         justify-content: start;
-        align-items: center;
+        align-items: center; 
+        justify-content: stretch;
 
         & > div:first-child {
           width: 55%;
@@ -133,10 +166,27 @@ class AccountPage extends Component {
     this.onSetEnablePaymentMethodEdit = this.onSetEnablePaymentMethodEdit.bind(this);
 
     this.onInputFieldChange = this.onInputFieldChange.bind(this);
+    this.onSearchProfilesKeyChange = this.onSearchProfilesKeyChange.bind(this);
+
+    this.handleImageChange = this.handleImageChange.bind(this);
+    this.onSaveNewProfileClick = this.onSaveNewProfileClick.bind(this);
+    this.onRemoveImage = this.onRemoveImage.bind(this);
+
+    this.profileNameFieldRef = React.createRef();
+    this.descriptionFieldRef = React.createRef();
 
   }
 
-  componentWillMount() {
+  onSaveNewProfileClick() {
+    const { dispatch, accountPage, global } = this.props;
+    const profile_name = this.profileNameFieldRef.current.value;
+    const description = this.descriptionFieldRef.current.value;
+    const user = global.userData.id;
+    const profile_picture = accountPage.tempImage;
+    dispatch(onSaveNewProfile({ profile_name, profile_picture, user, description }));
+  }
+
+  componentDidMount() {
     const { dispatch, global } = this.props;
     if(global.isLoggedIn) {
       if(!isNull(global.userData) && isEmpty(global.userData.address) && isEmpty(global.userData.payment_method)) {
@@ -146,6 +196,43 @@ class AccountPage extends Component {
       dispatch(push('/login'));
     }
     
+  }
+
+  handleImageChange(event) {
+    const { dispatch } = this.props;
+    const file = event.target.files[0];
+    this.readFile(file)
+      .then(fileData => {
+        dispatch(onUserChoiceImage(fileData.file, fileData.dataURL));
+      })
+  }
+
+  readFile(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      // Read the image via FileReader API and save image result in state.
+      reader.onload = function (e) {
+        // Add the file name to the data URL
+        let dataURL = e.target.result;
+        dataURL = dataURL.replace(";base64", `;name=${file.name};base64`);
+        resolve({file, dataURL});
+      };
+
+      reader.readAsDataURL(file);
+    });
+  }
+
+
+  onRemoveImage() {
+    const { dispatch, match } = this.props;
+    dispatch(onUserRemoveImage()); 
+  }
+
+
+  onSearchProfilesKeyChange(event) {
+    const { dispatch } = this.props;
+    dispatch(onSearchProfilesKeyChange(event.target.value));
   }
 
   onInputFieldChange(mainKey, key) {
@@ -233,7 +320,9 @@ class AccountPage extends Component {
 
   render() {
     const account = this.props.global.userData;
-    const { accountPage, global } = this.props;
+    const { accountPage, global, dispatch } = this.props;
+    const searchProfilesKey = accountPage.searchProfilesKey;
+    const renderedProfiles = global.profiles.filter(profile => profile.profile_name.indexOf(searchProfilesKey) != -1);
     return (
         <AccountPageWrapper>
           <div>
@@ -351,9 +440,54 @@ class AccountPage extends Component {
                 <h3>YOUR PROFILES</h3>
               </div>
               <div>
-                <ProfileList profiles={global.profiles} />
+                <div>
+                  <CustomInputText placeholder="Search profile" onChange={this.onSearchProfilesKeyChange}/>
+                  <img src={Search} alt="Search" width="15"/>
+                </div>
+                <ProfileList 
+                  profiles={renderedProfiles}
+                  isCreateNewProfile={accountPage.isCreateNewProfile}
+                  onShareProfileClick={ (id) => { dispatch(push(`/content/profile/${id}`))}}
+                  onCreateNewProfile={() => { dispatch(onCreateNewProfileActive()) }}>
+                  <div>
+                    <div>
+                      <CustomInputText 
+                        isError={accountPage.newProfileErrors.profile_name.length > 0}
+                        placeholder="Create new profile" innerRef={this.profileNameFieldRef} />
+                        {accountPage.newProfileErrors.profile_name.map(error => 
+                            <FieldErrorMessage className="error-message" key={error}>{error}</FieldErrorMessage>)}
+                      <CustomTextArea 
+                        isError={accountPage.newProfileErrors.description.length > 0}
+                        placeholder="Describe about your new profile" innerRef={this.descriptionFieldRef} />
+                        {accountPage.newProfileErrors.description.map(error => 
+                            <FieldErrorMessage className="error-message" key={error}>{error}</FieldErrorMessage>)}
+                      <ImageUploader 
+                        currentImage={accountPage.tempImage}
+                        currentImageURL={accountPage.tempImageUrl}
+                        onUploadClick={this.onSaveNewProfileClick}
+                        onRemoveImage={this.onRemoveImage}
+                        errors={accountPage.imageErrors}
+                        hideOnShowImage={true}
+                        isOptional={true}
+                        buttonText={"Pilih Profile Pict"}
+                        onChange={this.handleImageChange} />
+                    </div>
+                    <div>
+                      <CustomButton color="white" bg="#F48024" 
+                        disabled={accountPage.isSavingNewProfile}
+                        onClick={this.onSaveNewProfileClick}>
+                        { accountPage.isSavingNewProfile ? 'Saving' : 'Save'}
+                      </CustomButton>
+                       <CustomButton color="white" bg="#3e549a" 
+                        disabled={accountPage.isSavingNewProfile}
+                        onClick={() => { dispatch(onDisableCreateNewProfile()); } }>
+                        Cancel
+                      </CustomButton>
+                    </div>
+                  </div>
+                </ProfileList>
               </div>
-            </div>
+            </div>  
             <div>
               <div>
                 <h3>ADDRESS</h3>

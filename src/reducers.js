@@ -23,6 +23,8 @@ import invoiceBuyerPageReducer from './containers/InvoiceBuyerPage/reducers';
 import invoiceBuyerDetailPageReducer from './containers/InvoiceBuyerDetailPage/reducers';
 import invoiceSellerDetailPageReducer from './containers/InvoiceSellerDetailPage/reducers';
 import productListPageReducer from './containers/ProductListPage/reducers';
+import profileDetailPageReducer from './containers/ProfileDetailPage/reducers';
+import addProfilePageReducer from './containers/AddProfilePage/reducers';
 
 
 import {
@@ -44,7 +46,8 @@ import {
   GLOBAL_ON_VERIFY_TOKEN_ERROR,
   GLOBAL_ON_LOGOUT,
   GLOBAL_ON_RENDER,
-  GLOBAL_RECEIVE_PROFILE_DATA
+  GLOBAL_RECEIVE_PROFILE_DATA,
+  GLOBAL_RECEIVE_NEW_PROFILE_DATA
 } from './constants';
 
 
@@ -57,7 +60,8 @@ import {
 import {
   ACCOUNT_PAGE_RECEIVE_ACCOUNT_INFO_DATA,
   ACCOUNT_PAGE_RECEIVE_ADDRESS_DATA,
-  ACCOUNT_PAGE_RECEIVE_PAYMENT_METHOD_DATA
+  ACCOUNT_PAGE_RECEIVE_PAYMENT_METHOD_DATA,
+  ACCOUNT_PAGE_ON_RECEIVE_NEW_PROFILE_DATA
 } from './containers/AccountPage/constants';
 
 import {
@@ -100,6 +104,10 @@ function routeReducer(state = routeInitialState, action) {
 
 function globalReducer(state = globalInitialState, action) {
   switch(action.type) {
+    case ACCOUNT_PAGE_ON_RECEIVE_NEW_PROFILE_DATA:
+      return state.update('profiles', profiles => profiles.push(fromJS(action.data)));
+    case GLOBAL_RECEIVE_NEW_PROFILE_DATA:
+      return state.update('profiles', profiles => profiles.push(fromJS(action.data)));
     case GLOBAL_RECEIVE_PROFILE_DATA:
       return state.set('profiles', fromJS(action.data));
     case ACCOUNT_PAGE_RECEIVE_PAYMENT_METHOD_DATA:
@@ -110,7 +118,7 @@ function globalReducer(state = globalInitialState, action) {
     case CONTACT_PAGE_RECEIVE_SAVED_USER_CONTACTS_DATA:
       return state.set('contactsData', fromJS([...state.get('contactsData'), 
         ...action.data.map(contact => 
-          ({ label: `${contact.profile.profile_name} (${contact.profile.user.first_name} ${contact.profile.user.last_name} - ${contact.profile.user.phone_number})`, 
+          ({ label: `${contact.profile.profile_name}`, 
                                                         value: contact.profile.id, data: contact }))]));
     case MAKE_DEAL_PAGE_FETCH_USER_CONTACTS_DATA_REQUEST:
       return state.set('isLoading', true);
@@ -118,7 +126,7 @@ function globalReducer(state = globalInitialState, action) {
       return state.set('isLoading', false)
                   .set('contactsData', fromJS([...state.get('contactsData'), 
         ...action.data.map(contact => 
-          ({ label: `${contact.profile.profile_name} (${contact.profile.user.first_name} ${contact.profile.user.last_name} - ${contact.profile.user.phone_number})`, 
+          ({ label: `${contact.profile.profile_name}`, 
                                                         value: contact.profile.id, data: contact }))]));
     case DEAL_PAGE_RECEIVE_USER_PROFILES_DATA:
       return state.set('isLoading', false);
@@ -191,6 +199,8 @@ export default function createReducer(injectedReducers) {
     invoiceSellerDetailPage: invoiceSellerDetailPageReducer,
     editDealPage: editDealPageReducer,
     productListPage: productListPageReducer,
+    profileDetailPage: profileDetailPageReducer,
+    addProfilePage: addProfilePageReducer,
     ...injectedReducers,
   });
 }

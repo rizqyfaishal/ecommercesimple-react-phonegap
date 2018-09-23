@@ -33,7 +33,6 @@ function contactPageReducer(state=contactPageInitialState, action) {
     case CONTACT_PAGE_RECEIVE_IMPORTED_CONTACT_FROM_PHONEBOOK: {
       console.log(action);
       return state.update('contactsData', contactsData => {
-                    console.log(contactsData)
                     return contactsData.push(action.data);
                   });
     }

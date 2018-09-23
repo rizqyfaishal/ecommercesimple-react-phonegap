@@ -23,7 +23,8 @@ import {
 } from './constants';
 
 import {
-  receiveProfileData
+  receiveProfileData,
+  receiveNewProfileData,
 } from '../../actions';
 
 import {
@@ -203,6 +204,8 @@ export function fetchUserProfilesData() {
   }
 }
 
+console.log()
+
 export function onSaveNewProfile(data, dialog, ref) {
   console.log(data);
   return dispatch => {
@@ -215,12 +218,14 @@ export function onSaveNewProfile(data, dialog, ref) {
       .then(response => {
         if(response.status == 201) {
           dispatch(receiveSavedNewProfileData(response.data));
+          dispatch(receiveNewProfileData(response.data));
           if(dialog) {
             ref.current.value = '';
           }
         }
       })
       .catch(error => {
+        console.log(error);
         if(error.response.status == 400) {
           if(isUndefined(error.response.data.non_field_errors)) {
             dispatch(receiveSavedNewProfileErrors(error.response.data));

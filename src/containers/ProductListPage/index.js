@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { isUndefined } from 'lodash';
 
 import CustomAlert from '../../components/CustomAlert';
 import TopNavBar from '../../components/TopNavBar';
@@ -11,6 +12,11 @@ import CustomInputText from '../../components/CustomInputText';
 import ProductItem from '../../components/ProductItem';
 import CustomButton from '../../components/CustomButton';
 import DealResult from '../../components/DealResult';
+import LoaderImage from '../../components/LoaderImage';
+import WarningMessage from '../../components/WarningMessage';
+import FieldErrorMessage from '../../components/FieldErrorMessage';
+
+
 
 import {
   TOGGLE_STATUS_PRODUCT_LIST,
@@ -27,14 +33,27 @@ import {
   onAddItem,
   onRemoveItem,
   onPlusTapItem,
-  onMinusTapItem
+  onMinusTapItem,
+  onCancelDealResult,
+  onResetErrorFields,
+  onItemPriceChange,
+  onResetItemErrorFields,
+  onSaveProduct,
+  fetchProductList,
+  onUserSelectedProfileFinal,
+  onExpandItem as onExpandItemAction
 } from './actions';
 
 const ProductListPageWrapper = styled.div`
+  position: relative;
   & > div {
-    margin-bottom: 4rem;
+    margin-bottom: 70px;
   }
-  & > div > div.product-creation {
+  & > div.product-list {
+    margin-top: 120px;
+    padding: 0 1rem;
+  }
+  & > div > div.product-creation{
     padding: 0 1rem;
     margin-top: 95px;
     margin-bottom: 2rem;
@@ -62,7 +81,7 @@ const ProductListPageWrapper = styled.div`
       align-items: stretch;
       flex-direction: column;
       & > h3 {
-        margin: 1rem 0 0.5rem 0;
+        margin: 1.2 rem 0 0.5rem 0;
       }
 
       & > div.check {
@@ -90,32 +109,63 @@ class ProductListPage extends Component {
     this.changeMode = this.changeMode.bind(this);
     this.onAddItem = this.onAddItem.bind(this);
     this.onRemoveItem = this.onRemoveItem.bind(this);
-    this.onPlusTapItem = this.onPlusTapItem.bind(this);
-    this.onMinusTapItem = this.onMinusTapItem.bind(this);
     this.onShareProductClick = this.onShareProductClick.bind(this);
     this.onPriceItemChange = this.onPriceItemChange.bind(this);
     this.onInputFieldChange = this.onInputFieldChange.bind(this);
-
+    this.onCancelButtonClickDealResult = this.onCancelButtonClickDealResult.bind(this);
+    this.onInputItemFieldChange = this.onInputItemFieldChange.bind(this);
+    this.onExpandItem = this.onExpandItem.bind(this);
 
     this.createNewProfileRef = React.createRef();
     this.profileDescriptionRef = React.createRef();
     this.addToProductListCheckBox = React.createRef();
   }
 
-  onPriceItemChange() {
+  onExpandItem(index) {
+    const { dispatch } = this.props;
+    dispatch(onExpandItemAction(index));
+  }
 
+  onCancelButtonClickDealResult(e) {
+    console.log(e);
+    const { dispatch } = this.props;
+    dispatch(onCancelDealResult());
+  }
+
+  onInputItemFieldChange(event, index, key) {
+    const { dispatch } = this.props;
+    dispatch(onResetItemErrorFields(index, key));
+  }
+
+  onInputFieldChange(event, key) {
+    const { dispatch } = this.props;
+    dispatch(onResetErrorFields(key));
+  }
+
+  onPriceItemChange(e, index) {
+    const { dispatch } = this.props;
+    dispatch(onItemPriceChange(index, e.target.value));
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(fetchProductList()); 
   }
 
   onShareProductClick() {
-
-  }
-
-  onMinusTapItem(index) {
-
-  }
-
-  onPlusTapItem(index) {
-
+    const { dispatch, productListPage } = this.props;
+    const product_name = productListPage.product.productNameRef.current.value;
+    const included_on_list = true;
+    const profile = productListPage.currentProfile.value;
+    const total = productListPage.product.itemData
+      .map(data => data.quantity * parseFloat(data.price))
+      .reduce((acc, curr) => acc + curr);
+    const items = productListPage.product.itemData.map(data => ({
+      item_name: data.itemNameRef.current.value,
+      price: data.price,
+      quantity: data.quantity
+    }))
+    dispatch(onSaveProduct({ product_name, included_on_list, total, items, profile }));
   }
 
   onAddItem() {
@@ -124,6 +174,7 @@ class ProductListPage extends Component {
   } 
 
   onRemoveItem(index) {
+    console.log(index);
     const { dispatch } = this.props;
     dispatch(onRemoveItem(index));
   }
@@ -161,6 +212,69 @@ class ProductListPage extends Component {
 
   render() {
     const { global, productListPage, dispatch } = this.props;
+    let content;
+    console.log(productListPage.currentProfile);
+    if(productListPage.isLoading) {
+      content = <LoaderImage />
+    } else if(productListPage.mode == PRODUCT_LIST_PAGE_LIST_MODE) {
+      content = <div className="product-list">
+        { !isUndefined(global.flashMessages.saveProductSuccess) && 
+          <WarningMessage>
+            {global.flashMessages.saveProductSuccess}
+          </WarningMessage>
+        }
+        <ProductList products={productListPage.products
+            .filter(product => product.profile == productListPage.currentProfile.value)}
+            onExpandItem={this.onExpandItem}
+            currentExpandItemIndex={productListPage.currentExpandItemIndex} />
+      </div>;
+    } else {
+      content = <div>
+              <div className="product-creation">
+                <div className="product-name">
+                  <h3>Produk Saya</h3>
+                  <CustomInputText placeholder="Penjelasan produk" 
+                    isError={productListPage.productErrors.product_name.length > 0}
+                    onChange={(e) => { this.onInputFieldChange(e, 'product_name')}}
+                    defaultValue={productListPage.tempRequestData.product_name}
+                    innerRef={productListPage.product.productNameRef}/>
+                  {productListPage.productErrors.product_name.map((error, index) => 
+                    <FieldErrorMessage key={index}>{error}</FieldErrorMessage>
+                  )}
+                </div>
+                <div className="product-items">
+                  <h3>Daftar Item</h3>
+                  <div className="items">
+                    {productListPage.product.itemData.map((item, index) => <ProductItem 
+                      errors={productListPage.productErrors.items[index]}
+                      defaultDataValues={productListPage.tempRequestData.items[index]}
+                      resetErrorsFunction={this.onInputItemFieldChange}
+                      orderNo={index+1}
+                      item={item} key={index}
+                      onPriceChange={(e) => this.onPriceItemChange(e, index)}
+                      onMinusTapItem={() => { dispatch(onMinusTapItem(index))}}
+                      onPlusTapItem={() => { dispatch(onPlusTapItem(index))}}
+                      onDelete={() => { dispatch(onRemoveItem(index)) }}
+                      isDeleteShow={productListPage.product.itemData.length > 1}/>)}
+                  </div>
+                  <div>
+                    <CustomButton onClick={this.onAddItem} 
+                    color="white" bg="#F48024">
+                      + Tambah Item
+                    </CustomButton>
+                  </div>
+                </div>
+              </div>
+              <div className="result">
+                <DealResult items={productListPage.product.itemData} 
+                  buttonTitle="Simpan Produk"
+                  cancelButton={true}
+                  cancelButtonTitle="Cancel"
+                  onCancelButtonClick={this.onCancelButtonClickDealResult}
+                  onShareProductClick={this.onShareProductClick}/>
+              </div>
+            </div>;
+    }
     return <ProductListPageWrapper>
        <TopNavBar title="Logo" status={TOGGLE_STATUS_PRODUCT_LIST}
           freezeToggle={true}
@@ -193,57 +307,11 @@ class ProductListPage extends Component {
             descriptionFieldRef={this.profileDescriptionRef}
             onSaveNewProfileClick={this.saveNewProfileFromDialog} />
         </CustomAlert>
-        { productListPage.mode == PRODUCT_LIST_PAGE_LIST_MODE ?
-          <ProductList products={productListPage.products} />
-          : 
-          <div>
-            <div className="product-creation">
-              <div className="product-name">
-                <h3>Produk Saya</h3>
-                <CustomInputText placeholder="Penjelasan produk" 
-                  isError={productListPage.productErrors.product_name.length > 0}
-                  onChange={(e) => { this.onInputFieldChange(e, 'product_name')}}
-                  defaultValue={productListPage.tempRequestData.product_name}
-                  innerRef={productListPage.product.productNameRef}/>
-                {productListPage.productErrors.product_name.map((error, index) => 
-                  <FieldErrorMessage key={index}>{error}</FieldErrorMessage>
-                )}
-              </div>
-              <div className="product-items">
-                <h3>Daftar Item</h3>
-                <div className="items">
-                  {productListPage.product.itemData.map((item, index) => <ProductItem 
-                    errors={productListPage.productErrors.items[index]}
-                    defaultDataValues={productListPage.tempRequestData.items[index]}
-                    resetErrorsFunction={this.onInputItemFieldChange}
-                    orderNo={index+1}
-                    item={item} key={index}
-                    onPriceChange={this.onPriceItemChange}
-                    onMinusTapItem={() => { dispatch(onMinusTapItem(index))}}
-                    onPlusTapItem={() => { dispatch(onPlusTapItem(index))}}
-                    onDelete={() => {dispatch(onRemoveItem(index))}}
-                    isDeleteShow={productListPage.product.itemData.length > 1}/>)}
-                </div>
-                <div>
-                  <CustomButton onClick={this.onAddItem} 
-                  color="white" bg="#F48024">
-                    + Tambah Item
-                  </CustomButton>
-                </div>
-              </div>
-            </div>
-            <div className="result">
-              <DealResult items={productListPage.product.itemData} 
-                buttonTitle="Simpan Produk"
-                cancelButton
-                cancelButtonText="Cancel"
-                onCancelButtonClick={(e) => { console.log(e)}}
-                onShareProductClick={this.onShareProductClick}/>
-            </div>
-          </div>
-        }
-       
-        { productListPage.mode == PRODUCT_LIST_PAGE_LIST_MODE && <CircleFloatingButton onClick={this.changeMode} /> }
+        { content } 
+        { !productListPage.isLoading && 
+          productListPage.mode == PRODUCT_LIST_PAGE_LIST_MODE && 
+          <CircleFloatingButton onClick={this.changeMode} /> }
+        
     </ProductListPageWrapper>
   }
 }

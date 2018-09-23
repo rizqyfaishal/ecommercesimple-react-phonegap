@@ -1,6 +1,7 @@
 import {
   saveEdittedUser,
-  saveEdittedAdditionalInformation
+  saveEdittedAdditionalInformation,
+  saveProfileAPI
 } from '../../api';
 
 import {
@@ -21,10 +22,95 @@ import {
   ACCOUNT_PAGE_ON_SAVE_PAYMENT_METHOD_REQUEST,
   ACCOUNT_PAGE_RECEIVE_PAYMENT_METHOD_ERRORS,
   ACCOUNT_PAGE_RECEIVE_PAYMENT_METHOD_DATA,
+  ACCOUNT_PAGE_ON_SEARCH_PROFILES_KEY_CHANGE,
 
-
-  ACCOUNT_PAGE_ON_RESET_FIELD_ERRORS
+  ACCOUNT_PAGE_ON_RESET_FIELD_ERRORS,
+  ACCOUNT_PAGE_ON_CREATE_PROFILE_ACTIVE,
+  ACCOUNT_PAGE_ON_DISABLE_CREATE_NEW_PROFILE,
+  ACCOUNT_PAGE_ON_CANCEL_CREATE_PROFILE,
+  ACCOUNT_PAGE_ON_USER_CHOICE_IMAGE,
+  ACCOUNT_PAGE_ON_USER_REMOVE_IMAGE,
+  ACCOUNT_PAGE_ON_SAVE_NEW_PROFILE_REQUEST,
+  ACCOUNT_PAGE_ON_RECEIVE_NEW_PROFILE_DATA,
+  ACCOUNT_PAGE_ON_RECEIVE_ERRORS_PROFILE_DATA
 } from './constants';
+
+export function onSaveNewProfileRequets() {
+  return {
+    type: ACCOUNT_PAGE_ON_SAVE_NEW_PROFILE_REQUEST
+  }
+}
+
+export function onReceiveNewProfileData(data) {
+  return {
+    type: ACCOUNT_PAGE_ON_RECEIVE_NEW_PROFILE_DATA,
+    data
+  }
+}
+
+export function onReceiveErrorsProfileData(errors) {
+  return {
+    type: ACCOUNT_PAGE_ON_RECEIVE_ERRORS_PROFILE_DATA, 
+    errors
+  }
+}
+
+export function onSaveNewProfile(requestData) {
+  return dispatch => {
+    dispatch(onSaveNewProfileRequets());
+    return saveProfileAPI(requestData)
+      .then(response => {
+        if(response.status == 201) {
+          dispatch(onReceiveNewProfileData(response.data));
+        }
+      })
+      .catch(error => {
+        if(error.response.status == 400) {
+          dispatch(onReceiveErrorsProfileData(error.response.data));
+        }
+      })
+  }
+}
+
+export function onUserChoiceImage(image, imageURL) {
+  return {
+    type: ACCOUNT_PAGE_ON_USER_CHOICE_IMAGE,
+    image,
+    imageURL
+  }
+}
+
+export function onUserRemoveImage() {
+  return {
+    type: ACCOUNT_PAGE_ON_USER_REMOVE_IMAGE
+  }
+}
+
+export function onCancelCreateProfile() {
+  return {
+    type: ACCOUNT_PAGE_ON_CANCEL_CREATE_PROFILE
+  }
+}
+
+export function onDisableCreateNewProfile() {
+  return {
+    type: ACCOUNT_PAGE_ON_DISABLE_CREATE_NEW_PROFILE
+  }
+}
+
+export function onCreateNewProfileActive() {
+  return {
+    type: ACCOUNT_PAGE_ON_CREATE_PROFILE_ACTIVE
+  }
+}
+
+
+export function onSearchProfilesKeyChange(key) {
+  return {
+    type: ACCOUNT_PAGE_ON_SEARCH_PROFILES_KEY_CHANGE,
+    key
+  }
+}
 
 
 export function onResetFieldErrors(mainKey, key) {

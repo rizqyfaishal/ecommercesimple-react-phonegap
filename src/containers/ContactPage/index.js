@@ -150,7 +150,7 @@ class ContactPage extends Component {
       .then(data => {
         console.log(data);
         return { options: data.map(option => 
-          ({ label: `${option.profile_name} (${option.user.first_name} ${option.user.last_name} - ${option.user.phone_number})`
+          ({ label: `${option.profile_name} - ${option.user.first_name} ${option.user.last_name}`
           , value: option.id })) }
       })
   }

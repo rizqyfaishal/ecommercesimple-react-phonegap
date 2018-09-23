@@ -8,6 +8,10 @@ export function getUserProfiles() {
   return authenticatedRequest('/profiles/', 'GET', null);
 }
 
+export function getUserProfileDetail(profileId) {
+  return authenticatedRequest(`/profiles/${profileId}`, 'GET', null);
+}
+
 export function getUserContacts() {
   return authenticatedRequest('/contacts/', 'GET', null);
 }
@@ -38,6 +42,10 @@ export function saveEditedProduct(productId, data) {
 
 export function saveProduct(data) {
   return authenticatedRequest('/products/', 'POST', data);
+}
+
+export function getProductsData() {
+  return authenticatedRequest('/products/', 'GET', null);
 }
 
 export function saveEdittedUser(data, userId) {

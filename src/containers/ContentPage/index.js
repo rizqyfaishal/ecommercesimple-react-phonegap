@@ -17,6 +17,8 @@ import FillAdditionalInformationPage from '../FillAdditionalInformationPage';
 import InvoiceBuyerDetailPage from '../InvoiceBuyerDetailPage';
 import InvoiceSellerDetailPage from '../InvoiceSellerDetailPage';
 import EditDealPage from '../EditDealPage';
+import ProfileDetailPage from '../ProfileDetailPage';
+
 
 import {
   BOTTOM_NAVBAR_MY_OFFER,
@@ -83,11 +85,13 @@ class ContentPage extends Component {
   render() {
     const { dispatch, contentPage } = this.props;
     const { match } = this.props;
-    const menus = contentPage.menus.map(menu => ({ ...menu, onTap: () => { dispatch(changePage(menu.url, menu.type))}}))
+    const menus = contentPage.menus.map(menu => ({ ...menu, onTap: () => 
+      { dispatch(changePage(menu.url, menu.type))}}))
     return (
       <ContentPageWrapper>
         <div>
           <Route path={`${match.url}/deal`} component={DealPage}/>
+          <Route path={`${match.url}/profile/:profileId`} component={ProfileDetailPage} />
           <Route path={`${match.url}/shopping-list`} component={ShoppingListPage}/>
           <Route path={`${match.url}/accounts`} component={AccountPage}/>
           <Route path={`${match.url}/product-list`} component={ProductListPage}/>

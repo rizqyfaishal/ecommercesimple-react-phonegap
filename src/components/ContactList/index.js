@@ -53,17 +53,18 @@ const CirclePict = styled.div`
 
 
 const ContactList = (props) => {
-  console.log(props.contacts);
   if(props.contacts.length <= 0) {
     return <ContactListWrapper>
       <div className="no-found">No contacts found.</div>
     </ContactListWrapper>
   } else if(props.isClickable) {
+
     return <ContactListWrapper>
       { props.contacts.map((contact, index) => (
           <div key={index} onClick={() => { props.onContactClick(index) }}>
             <div>
-              <CirclePict backgroundPict={contact.data.profile.profile_picture}/>
+              <CirclePict backgroundPict={contact.data.profile.profile_picture.indexOf('http') != -1 ?
+                contact.data.profile.profile_picture : 'http://178.128.82.252:17519' + contact.data.profile.profile_picture}/>
             </div>
             <div>
               {contact.label}
@@ -80,7 +81,8 @@ const ContactList = (props) => {
         { props.contacts.map((contact, index) => (
             <div key={index}>
               <div>
-                <CirclePict backgroundPict={contact.data.profile.profile_picture}/>
+                <CirclePict  backgroundPict={contact.data.profile.profile_picture.indexOf('http') != -1 ?
+                  contact.data.profile.profile_picture : 'http://178.128.82.252:17519' + contact.data.profile.profile_picture}/>
               </div>
               <div>
                 {contact.label}

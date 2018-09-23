@@ -19,10 +19,27 @@ import {
   ACCOUNT_PAGE_ON_SAVE_PAYMENT_METHOD_REQUEST,
   ACCOUNT_PAGE_RECEIVE_PAYMENT_METHOD_ERRORS,
   ACCOUNT_PAGE_RECEIVE_PAYMENT_METHOD_DATA,
-
+  ACCOUNT_PAGE_ON_SEARCH_PROFILES_KEY_CHANGE,
+  ACCOUNT_PAGE_ON_CREATE_PROFILE_ACTIVE,
+  ACCOUNT_PAGE_ON_DISABLE_CREATE_NEW_PROFILE,
+  ACCOUNT_PAGE_ON_USER_CHOICE_IMAGE,
+  ACCOUNT_PAGE_ON_USER_REMOVE_IMAGE,
+  ACCOUNT_PAGE_ON_SAVE_NEW_PROFILE_REQUEST,
+  ACCOUNT_PAGE_ON_RECEIVE_NEW_PROFILE_DATA,
+  ACCOUNT_PAGE_ON_RECEIVE_ERRORS_PROFILE_DATA
 } from './constants';
 
 const accountPageInitialState = fromJS({
+  tempImage: null,
+  tempImageUrl: null,
+  imageData: null,
+  isLoadingDialog: false,
+  isSavingNewProfile: false,
+  imageErrors: [],
+  newProfileErrors: {
+    profile_name: [],
+    description: []
+  },
   accountInfoEditted: false,
   addressEditted: false,
   paymentMethodEditted: false,
@@ -42,11 +59,41 @@ const accountPageInitialState = fromJS({
   ,
   paymentMethodErrors: {
     payment_method: []
-  }
+  },
+  searchProfilesKey: '',
+  isCreateNewProfile: false,
 });
 
 function accountPageReducer(state=accountPageInitialState, action) {
   switch(action.type) {
+    case ACCOUNT_PAGE_ON_RECEIVE_ERRORS_PROFILE_DATA:
+      return state.set('isSavingNewProfile', false)
+                  .set('newProfileErrors', fromJS(action.errors));
+    case ACCOUNT_PAGE_ON_SAVE_NEW_PROFILE_REQUEST:
+      return state.set('isSavingNewProfile', true);
+    case ACCOUNT_PAGE_ON_RECEIVE_NEW_PROFILE_DATA:
+      return state.set('isSavingNewProfile', false)
+                  .set('isCreateNewProfile', false)
+                  .set('imageErrors', fromJS([]))
+                  .set('tempImage', null)
+                  .set('tempImageUrl', null);;
+    case ACCOUNT_PAGE_ON_USER_REMOVE_IMAGE:
+      return state.set('tempImage', null)
+                  .set('imageErrors', fromJS([]))
+                  .set('tempImageUrl', null);
+    case ACCOUNT_PAGE_ON_USER_CHOICE_IMAGE:
+      return state.set('tempImage', fromJS(action.image))
+                  .set('imageErrors', fromJS([]))
+                  .set('tempImageUrl', action.imageURL);
+    case ACCOUNT_PAGE_ON_DISABLE_CREATE_NEW_PROFILE:
+      return state.set('isCreateNewProfile', false)
+                  .set('imageErrors', fromJS([]))
+                  .set('tempImage', null)
+                  .set('tempImageUrl', null);
+    case ACCOUNT_PAGE_ON_CREATE_PROFILE_ACTIVE:
+      return state.set('isCreateNewProfile', true);
+    case ACCOUNT_PAGE_ON_SEARCH_PROFILES_KEY_CHANGE:
+      return state.set('searchProfilesKey', action.key);
     case ACCOUNT_PAGE_RECEIVE_ADDRESS_DATA:
       return state.set('isSavingAddress', false)
                   .set('addressEditted', false);
