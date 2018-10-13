@@ -28,14 +28,6 @@ import {
 } from './constants';
 
 const productListPageInitialState = fromJS({
-  tempImage: null,
-  tempImageUrl: null,
-  imageData: null,
-  isLoadingDialog: false,
-  newProfileErrors: {
-    profile_name: [],
-    description: []
-  },
   currentProfileIndex: -1,
   currentProfile: null,
   tempImage: null,
