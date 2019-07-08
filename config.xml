@@ -13,7 +13,6 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="detect-data-types" value="true" />
     <preference name="android-minSdkVersion" value="16" />
-    <preference name="android-targetSdkVersion" value="27" />
     <preference name="android-installLocation" value="auto" />
     <platform name="android">
         <icon density="ldpi" src="res/icon/android/drawable-ldpi-icon.png" />
@@ -112,9 +111,9 @@
         <variable name="XWALK_MODE" value="embedded" />
         <variable name="XWALK_MULTIPLEAPK" value="true" />
     </plugin>
-    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
-    <plugin name="cordova-plugin-media-capture" spec="^3.0.2" />
-    <plugin name="cordova-plugin-device" spec="^2.0.2" />
-    <plugin name="cordova-plugin-file" spec="^6.0.1" />
-    <plugin name="cordova-plugin-media" spec="^5.0.2" />
+    <plugin name="cordova-plugin-camera" spec="@latest" />
+    <plugin name="cordova-plugin-media-capture" spec="@latest" />
+    <plugin name="cordova-plugin-device" spec="@latest" />
+    <plugin name="cordova-plugin-file" spec="@latest" />
+    <plugin name="cordova-plugin-media" spec="@latest" />
 </widget>
