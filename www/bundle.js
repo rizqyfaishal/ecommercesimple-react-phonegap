@@ -40856,7 +40856,7 @@
 
 	var authenticatedRequest = exports.authenticatedRequest = function authenticatedRequest(url, method, data) {
 	  var authenticatedRequestInstance = _axios2.default.create({
-	    baseURL: 'http://35.240.171.112/api',
+	    baseURL: 'http://35.240.158.95:9001/api',
 	    crossdomain: true,
 	    headers: {
 	      'Authorization': 'JWT ' + localStorage.getItem('auth-token')
