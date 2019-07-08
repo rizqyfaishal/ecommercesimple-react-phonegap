@@ -12,7 +12,8 @@
     <preference name="target-device" value="universal" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="detect-data-types" value="true" />
-    <preference name="android-minSdkVersion" value="27" />
+    <preference name="android-minSdkVersion" value="16" />
+    <preference name="android-targetSdkVersion" value="27" />
     <preference name="android-installLocation" value="auto" />
     <platform name="android">
         <icon density="ldpi" src="res/icon/android/drawable-ldpi-icon.png" />
