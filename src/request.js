@@ -4,7 +4,7 @@ import FormData from 'form-data';
 const localStorage = window.localStorage;
 
 const genericRequestInstance = axios.create({
-  baseURL: 'http://35.240.171.112/api',
+  baseURL: 'http://35.240.158.95/api',
   crossdomain: true
 });
 
