@@ -15,7 +15,7 @@ export const genericRequest = (url, method, data) =>
 
 export const authenticatedRequest = (url, method, data) => {
   const authenticatedRequestInstance = axios.create({
-    baseURL: 'http://35.240.171.112/api',
+    baseURL: 'http://35.240.158.95:9001/api',
     crossdomain: true,
     headers: {
       'Authorization': `JWT ${localStorage.getItem('auth-token')}`,
