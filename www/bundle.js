@@ -40846,7 +40846,7 @@
 	var localStorage = window.localStorage;
 
 	var genericRequestInstance = _axios2.default.create({
-	  baseURL: 'http://35.240.158.95/api',
+	  baseURL: 'http://35.240.158.95:9001/api',
 	  crossdomain: true
 	});
 
